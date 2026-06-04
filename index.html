@@ -1,0 +1,1825 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nenhum de Nós Saiu — Material do Mestre</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Share+Tech+Mono&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --am:#C8A84B;--am2:#8a7030;--am3:#2a2008;--am4:#1a1505;
+  --bg:#0a0905;--bg2:#111009;--bg3:#181610;--bg4:#201e14;--bg5:#282518;
+  --bd:#28250f;--bd2:#38340f;--bd3:#484520;
+  --tx:#b0a070;--tx2:#6a6030;--tx3:#d8c890;
+  --wh:#f0e0b8;
+  --g:#101e10;--gb:#286028;--gt:#48a848;
+  --y:#201808;--yb:#a07010;--yt:#c89820;
+  --r:#1e0808;--rb:#802020;--rt:#c02828;
+  --b:#080e18;--bb:#104060;--bt:#2878b8;
+  --pu:#100818;--pub:#402060;--put:#8050b8;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+
+/* ═══ WALLPAPER BACKGROUND + NOISE ═══════════════ */
+body{
+  font-family:'Crimson Pro',Georgia,serif;
+  background-color:var(--bg);
+  color:var(--tx);
+  line-height:1.7;
+  overflow-x:hidden;
+  min-height:100vh;
+  position:relative;
+}
+body::before{
+  content:'';
+  position:fixed;inset:0;
+  background-image:
+    repeating-linear-gradient(0deg,transparent,transparent 59px,rgba(200,168,75,0.04) 60px),
+    repeating-linear-gradient(90deg,transparent,transparent 59px,rgba(200,168,75,0.04) 60px);
+  background-size:60px 60px;
+  pointer-events:none;z-index:0;
+}
+body::after{
+  content:'';position:fixed;inset:0;
+  background:radial-gradient(ellipse 100% 100% at 50% 50%,transparent 40%,rgba(0,0,0,0.7) 100%);
+  pointer-events:none;z-index:0;
+}
+.scanlines{
+  position:fixed;inset:0;pointer-events:none;z-index:9990;
+  background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.015) 3px);
+}
+.noise{
+  position:fixed; top:0; left:0; width:100%; height:100%;
+  background:url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJmIj48ZmVUdXJidWxlbmNlIHR5cGU9ImZyYWN0YWxOb2lzZSIgYmFzZUZyZXF1ZW5jeT0iLjciIG51bU9jdGF2ZXM9IjMiLz48L2ZpbHRlcj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWx0ZXI9InVybCgjZikiIG9wYWNpdHk9IjAuMDYiLz48L3N2Zz4=');
+  opacity:0.08; pointer-events:none; z-index:9991;
+}
+
+/* ═══ EDIT MODE ══════════════════════════════════ */
+body.edit-mode [data-edit]{
+  outline:1px dashed rgba(200,168,75,0.5);
+  border-radius:2px;cursor:text;
+  background:rgba(200,168,75,0.03);
+  min-height:1em;display:inline-block;width:100%;
+}
+body.edit-mode [data-edit]:focus{
+  outline:1px solid var(--am);
+  background:rgba(200,168,75,0.06);
+}
+.edit-bar{
+  position:fixed;top:0;left:0;right:0;z-index:9980;
+  background:rgba(26,20,5,0.97);
+  border-bottom:1px solid var(--am2);
+  padding:5px 20px;
+  display:none;align-items:center;gap:12px;
+  font-family:'Share Tech Mono',monospace;font-size:10px;
+  color:var(--am);letter-spacing:0.12em;
+}
+.edit-bar.show{display:flex;}
+.edit-bar-btn{
+  background:transparent;border:1px solid var(--am2);
+  color:var(--am);font-family:'Share Tech Mono',monospace;
+  font-size:9px;letter-spacing:0.1em;padding:3px 10px;
+  cursor:pointer;border-radius:2px;margin-left:auto;
+  transition:all 0.15s;
+}
+.edit-bar-btn:hover{background:var(--am3);}
+body.edit-mode nav{top:29px!important;}
+body.edit-mode .timer-bar.show{top:77px!important;}
+
+/* ═══ TIMER ══════════════════════════════════════ */
+.timer-bar{
+  position:fixed;top:48px;left:0;right:0;z-index:960;
+  background:rgba(10,9,5,0.97);
+  border-bottom:1px solid var(--bd2);
+  padding:4px 20px;
+  display:none;align-items:center;gap:10px;justify-content:center;
+}
+.timer-bar.show{display:flex;}
+.timer-disp{
+  font-family:'Share Tech Mono',monospace;font-size:14px;
+  color:var(--am);letter-spacing:0.2em;
+  text-shadow:0 0 10px rgba(200,168,75,0.4);
+}
+.timer-btn{
+  font-family:'Share Tech Mono',monospace;font-size:9px;
+  letter-spacing:0.1em;text-transform:uppercase;
+  background:transparent;border:1px solid var(--bd2);
+  color:var(--tx2);padding:3px 9px;cursor:pointer;
+  border-radius:2px;transition:all 0.15s;
+}
+.timer-btn:hover{border-color:var(--am2);color:var(--am);}
+.timer-lbl{font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--tx2);letter-spacing:0.1em;}
+
+/* ═══ NAV ════════════════════════════════════════ */
+nav{
+  position:sticky;top:0;z-index:970;
+  background:rgba(10,9,5,0.97);
+  border-bottom:1px solid var(--bd2);
+  height:48px;
+  display:flex;align-items:center;
+  padding:0 20px;gap:0;
+  backdrop-filter:blur(20px);
+}
+.nav-logo{
+  font-family:'Special Elite',serif;
+  font-size:13px;color:var(--am);
+  letter-spacing:0.08em;text-decoration:none;
+  margin-right:20px;flex-shrink:0;
+  text-shadow:0 0 20px rgba(200,168,75,0.3);
+  display:flex;align-items:center;gap:6px;
+}
+.nav-logo-dot{
+  width:6px;height:6px;border-radius:50%;
+  background:var(--am);
+  box-shadow:0 0 6px var(--am);
+  animation:blink 3s ease-in-out infinite;
+}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:0.3;}}
+.nav-links{display:flex;gap:0;overflow-x:auto;flex:1;scrollbar-width:none;}
+.nav-links::-webkit-scrollbar{display:none;}
+.nav-links a{
+  font-family:'Share Tech Mono',monospace;font-size:9px;
+  color:var(--tx2);text-decoration:none;
+  letter-spacing:0.1em;text-transform:uppercase;
+  padding:0 10px;height:48px;
+  display:flex;align-items:center;
+  border-right:1px solid var(--bd);
+  white-space:nowrap;transition:all 0.2s;
+  position:relative;
+}
+.nav-links a:first-child{border-left:1px solid var(--bd);}
+.nav-links a:hover,.nav-links a.active{color:var(--am);}
+.nav-links a.active::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;
+  height:1px;background:var(--am);
+  box-shadow:0 0 4px var(--am);
+}
+.nav-actions{display:flex;align-items:center;gap:6px;margin-left:12px;flex-shrink:0;}
+.nav-btn{
+  font-family:'Share Tech Mono',monospace;font-size:9px;
+  letter-spacing:0.08em;text-transform:uppercase;
+  background:transparent;border:1px solid var(--bd2);
+  color:var(--tx2);padding:5px 10px;cursor:pointer;
+  border-radius:2px;transition:all 0.15s;white-space:nowrap;
+}
+.nav-btn:hover{border-color:var(--am2);color:var(--am);}
+.nav-btn.on{border-color:var(--am);color:var(--am);background:var(--am4);}
+#sess-ind{
+  font-family:'Share Tech Mono',monospace;font-size:9px;
+  color:var(--tx2);letter-spacing:0.1em;
+  padding:5px 9px;border:1px solid var(--bd);border-radius:2px;
+  cursor:pointer;transition:all 0.15s;
+}
+#sess-ind:hover{border-color:var(--am2);color:var(--am);}
+
+/* ═══ HERO ═══════════════════════════════════════ */
+.hero{
+  min-height:100vh;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  text-align:center;padding:80px 28px;
+  position:relative;z-index:1;
+  overflow:hidden;
+}
+.hero-flicker{
+  position:absolute;inset:0;pointer-events:none;
+  background:rgba(200,168,75,0.015);
+  animation:flicker 8s ease-in-out infinite;
+}
+@keyframes flicker{
+  0%,100%{opacity:1;}
+  92%{opacity:1;}93%{opacity:0.6;}94%{opacity:1;}
+  96%{opacity:0.8;}97%{opacity:1;}
+}
+.hero-eyebrow{
+  font-family:'Share Tech Mono',monospace;font-size:9px;
+  letter-spacing:0.3em;text-transform:uppercase;
+  color:var(--am2);margin-bottom:24px;
+}
+.hero-title{
+  font-family:'Special Elite',serif;
+  font-size:clamp(50px,10vw,112px);
+  color:var(--am);letter-spacing:0.03em;line-height:0.9;
+  margin-bottom:24px;
+  text-shadow:0 0 40px rgba(200,168,75,0.2),0 0 80px rgba(200,168,75,0.08);
+}
+.hero-title-sub{color:var(--am3);}
+.hero-italic{
+  font-style:italic;font-size:clamp(14px,2vw,19px);
+  color:var(--tx2);max-width:460px;margin:0 auto 44px;
+}
+.hero-stats{
+  display:flex;gap:0;flex-wrap:wrap;
+  justify-content:center;margin-bottom:40px;
+  border:1px solid var(--bd2);border-radius:2px;overflow:hidden;
+}
+.hero-stat{padding:14px 24px;text-align:center;border-right:1px solid var(--bd2);}
+.hero-stat:last-child{border-right:none;}
+.hero-stat-n{font-family:'Special Elite',serif;font-size:28px;color:var(--am);display:block;line-height:1;}
+.hero-stat-l{font-family:'Share Tech Mono',monospace;font-size:8px;color:var(--tx2);letter-spacing:0.15em;text-transform:uppercase;display:block;margin-top:3px;}
+.hero-q{
+  font-style:italic;font-size:15px;color:var(--tx2);
+  max-width:420px;border-left:2px solid var(--am2);
+  padding:10px 16px;text-align:left;
+}
+.scroll-hint{
+  position:absolute;bottom:24px;left:50%;transform:translateX(-50%);
+  font-family:'Share Tech Mono',monospace;font-size:8px;
+  color:var(--bd3);letter-spacing:0.2em;text-transform:uppercase;
+  animation:pulse-hint 3s ease-in-out infinite;
+}
+@keyframes pulse-hint{0%,100%{opacity:0.2;}50%{opacity:0.8;}}
+
+/* ═══ LAYOUT ════════════════════════════════════ */
+.wrap{max-width:1060px;margin:0 auto;padding:60px 24px;position:relative;z-index:1;}
+.sec{margin-bottom:90px;scroll-margin-top:60px;}
+
+/* ═══ TYPOGRAPHY ════════════════════════════════ */
+h1{
+  font-family:'Special Elite',serif;font-size:24px;color:var(--am);
+  letter-spacing:0.04em;padding-bottom:10px;
+  border-bottom:1px solid var(--bd2);margin-bottom:4px;
+}
+.sec-meta{
+  font-family:'Share Tech Mono',monospace;font-size:9px;
+  color:var(--tx2);letter-spacing:0.15em;text-transform:uppercase;
+  margin-bottom:24px;
+}
+h2{
+  font-family:'Special Elite',serif;font-size:18px;color:var(--wh);
+  margin:40px 0 10px;letter-spacing:0.02em;
+}
+h3{
+  font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--am);
+  letter-spacing:0.15em;text-transform:uppercase;margin:22px 0 7px;
+}
+p{margin-bottom:9px;font-size:16px;}
+strong.w{color:var(--wh);}
+
+/* ═══ TABLES ════════════════════════════════════ */
+.tw{overflow-x:auto;margin:8px 0 20px;border:1px solid var(--bd);border-radius:2px;}
+table{width:100%;border-collapse:collapse;font-size:13px;}
+thead th{
+  font-family:'Share Tech Mono',monospace;font-size:8px;
+  letter-spacing:0.12em;text-transform:uppercase;
+  padding:9px 11px;text-align:left;
+  background:var(--bg3);color:var(--am);
+  border-bottom:1px solid var(--bd2);
+}
+tbody td{padding:7px 11px;vertical-align:top;border-bottom:1px solid var(--bd);color:var(--tx);line-height:1.5;}
+tbody tr:last-child td{border-bottom:none;}
+tbody tr:hover td{background:rgba(200,168,75,0.02);}
+.tn{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--am2);width:32px;white-space:nowrap;}
+.tb{color:var(--wh);font-weight:600;}
+.tg thead th,.tg .tn{color:var(--gt);}
+.ty thead th,.ty .tn{color:var(--yt);}
+.tr thead th,.tr .tn{color:var(--rt);}
+
+/* ═══ BADGES ════════════════════════════════════ */
+.badge{
+  display:inline-flex;align-items:center;gap:4px;
+  font-family:'Share Tech Mono',monospace;font-size:8px;
+  letter-spacing:0.1em;text-transform:uppercase;
+  padding:2px 8px;border-radius:2px;margin-bottom:12px;margin-right:4px;
+}
+.bg{background:var(--g);color:var(--gt);border:1px solid var(--gb);}
+.by{background:var(--y);color:var(--yt);border:1px solid var(--yb);}
+.br{background:var(--r);color:var(--rt);border:1px solid var(--rb);}
+.bb{background:var(--b);color:var(--bt);border:1px solid var(--bb);}
+.bpu{background:var(--pu);color:var(--put);border:1px solid var(--pub);}
+
+/* ═══ BOXES ═════════════════════════════════════ */
+.box{border:1px solid var(--bd2);border-radius:2px;padding:14px 18px;margin:10px 0;background:var(--bg2);}
+.bxt{font-family:'Share Tech Mono',monospace;font-size:8px;letter-spacing:0.14em;text-transform:uppercase;color:var(--am);margin-bottom:7px;}
+.box ul{list-style:none;padding:0;}
+.box li{padding:2px 0 2px 12px;position:relative;font-size:14px;border-bottom:1px solid rgba(40,37,15,0.5);}
+.box li:last-child{border-bottom:none;}
+.box li::before{content:'›';position:absolute;left:0;color:var(--am2);}
+.box-y{border-color:var(--yb);background:var(--y);}
+.box-y .bxt{color:var(--yt);}
+.box-r{border-color:var(--rb);background:var(--r);}
+.box-r .bxt{color:var(--rt);}
+.box-g{border-color:var(--gb);background:var(--g);}
+.box-g .bxt{color:var(--gt);}
+.box-b{border-color:var(--bb);background:var(--b);}
+.box-b .bxt{color:var(--bt);}
+.box-pu{border-color:var(--pub);background:var(--pu);}
+.box-pu .bxt{color:var(--put);}
+
+/* ═══ LEVEL CARD ════════════════════════════════ */
+.lcard{
+  border:1px solid var(--bd2);border-radius:3px;
+  margin-bottom:36px;overflow:hidden;
+  transition:border-color 0.2s;
+}
+.lcard:hover{border-color:var(--bd3);}
+.lcard-hd{
+  padding:16px 20px;
+  border-bottom:1px solid var(--bd2);
+  display:flex;align-items:flex-start;
+  justify-content:space-between;flex-wrap:wrap;gap:8px;
+  position:relative;overflow:hidden;
+}
+.lcard-hd::before{
+  content:'';position:absolute;inset:0;
+  opacity:0.06;pointer-events:none;
+}
+.lc0 .lcard-hd{background:linear-gradient(135deg,#1a1708 0%,#0d0c07 100%);}
+.lc0 .lcard-hd::before{background:radial-gradient(ellipse at 20% 50%,#c8a84b 0%,transparent 70%);}
+.lc1 .lcard-hd{background:linear-gradient(135deg,#101818 0%,#080d0d 100%);}
+.lc1 .lcard-hd::before{background:radial-gradient(ellipse at 20% 50%,#487088 0%,transparent 70%);}
+.lc2 .lcard-hd{background:linear-gradient(135deg,#0e0810 0%,#080608 100%);}
+.lc2 .lcard-hd::before{background:radial-gradient(ellipse at 20% 50%,#803050 0%,transparent 70%);}
+.lc3 .lcard-hd{background:linear-gradient(135deg,#100808 0%,#080505 100%);}
+.lc3 .lcard-hd::before{background:radial-gradient(ellipse at 20% 50%,#c03030 0%,transparent 70%);}
+.lc4 .lcard-hd{background:linear-gradient(135deg,#080f18 0%,#05090f 100%);}
+.lc4 .lcard-hd::before{background:radial-gradient(ellipse at 20% 50%,#2060a0 0%,transparent 70%);}
+.lc5 .lcard-hd{background:linear-gradient(135deg,#181008 0%,#100908 100%);}
+.lc5 .lcard-hd::before{background:radial-gradient(ellipse at 20% 50%,#805030 0%,transparent 70%);}
+.lc6 .lcard-hd{background:linear-gradient(135deg,#080808 0%,#050505 100%);}
+.lc6 .lcard-hd::before{background:radial-gradient(ellipse at 20% 50%,#303030 0%,transparent 70%);}
+.lc37 .lcard-hd{background:linear-gradient(135deg,#081018 0%,#050a10 100%);}
+.lc37 .lcard-hd::before{background:radial-gradient(ellipse at 20% 50%,#308090 0%,transparent 70%);}
+.lc94 .lcard-hd{background:linear-gradient(135deg,#101808 0%,#0a1005 100%);}
+.lc94 .lcard-hd::before{background:radial-gradient(ellipse at 20% 50%,#508030 0%,transparent 70%);}
+.lc11 .lcard-hd{background:linear-gradient(135deg,#080808 0%,#101010 100%);}
+.lc11 .lcard-hd::before{background:radial-gradient(ellipse at 20% 50%,#606060 0%,transparent 70%);}
+.lcpt .lcard-hd{background:linear-gradient(135deg,#080818 0%,#060610 100%);}
+.lcpt .lcard-hd::before{background:radial-gradient(ellipse at 20% 50%,#4040a0 0%,transparent 70%);}
+
+.lcard-num{font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--tx2);letter-spacing:0.12em;margin-bottom:3px;}
+.lcard-nome{font-family:'Special Elite',serif;font-size:19px;letter-spacing:0.02em;}
+.lcard-body{padding:18px 20px;}
+
+/* ═══ SENSORY GRID ══════════════════════════════ */
+.sg{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px;margin:12px 0 18px;}
+.sc{background:var(--bg3);border:1px solid var(--bd);border-radius:2px;padding:10px;}
+.sc-icon{font-size:16px;margin-bottom:4px;display:block;}
+.sc-lbl{font-family:'Share Tech Mono',monospace;font-size:7px;color:var(--tx2);letter-spacing:0.14em;text-transform:uppercase;margin-bottom:2px;}
+.sc-tx{font-size:13px;color:var(--tx);font-style:italic;line-height:1.4;}
+
+/* ═══ SCENE / NARRATION ═════════════════════════ */
+.cena{
+  border-left:3px solid var(--am2);padding:12px 16px;
+  margin:12px 0;background:var(--bg2);border-radius:0 2px 2px 0;
+  position:relative;
+}
+.cena::before{
+  content:'';position:absolute;left:-3px;top:0;bottom:0;width:3px;
+  background:linear-gradient(180deg,var(--am) 0%,var(--am2) 100%);
+}
+.cena-lbl{font-family:'Share Tech Mono',monospace;font-size:7px;color:var(--am2);letter-spacing:0.18em;text-transform:uppercase;margin-bottom:6px;}
+.cena p{font-style:italic;color:var(--tx3);font-size:14px;margin-bottom:4px;line-height:1.6;}
+.cena .nota{font-style:normal;color:var(--tx2);font-size:11px;border-top:1px solid var(--bd);padding-top:6px;margin-top:6px;}
+
+/* ═══ QA GRID ═══════════════════════════════════ */
+.qa{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0;}
+@media(max-width:620px){.qa{grid-template-columns:1fr;}}
+.qi{background:var(--bg3);border:1px solid var(--bd);border-radius:2px;padding:10px;}
+.qq{font-family:'Share Tech Mono',monospace;font-size:8px;color:var(--am);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:4px;}
+.qa_{font-style:italic;font-size:13px;color:var(--tx);line-height:1.5;}
+
+/* ═══ NPC CARD ══════════════════════════════════ */
+.npc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;margin:12px 0;}
+.npc-card{
+  border:1px solid var(--bd2);border-radius:3px;overflow:hidden;
+  transition:border-color 0.2s;
+}
+.npc-card:hover{border-color:var(--bd3);}
+.npc-card-hd{
+  padding:12px 14px;background:var(--bg3);
+  border-bottom:1px solid var(--bd2);
+  display:flex;align-items:center;gap:10px;
+}
+.npc-avatar{
+  width:36px;height:36px;border-radius:50%;
+  background:var(--bg4);border:1px solid var(--bd2);
+  display:flex;align-items:center;justify-content:center;
+  font-size:18px;flex-shrink:0;
+}
+.npc-name{font-family:'Special Elite',serif;font-size:15px;color:var(--wh);}
+.npc-role{font-family:'Share Tech Mono',monospace;font-size:8px;color:var(--tx2);letter-spacing:0.1em;text-transform:uppercase;}
+.npc-body{padding:12px 14px;}
+.npc-section{margin-bottom:8px;}
+.npc-section-t{font-family:'Share Tech Mono',monospace;font-size:7px;color:var(--am);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:3px;}
+.npc-section-c{font-size:13px;color:var(--tx);line-height:1.5;}
+.npc-fala{
+  border-left:2px solid var(--am2);
+  padding:6px 10px;margin:6px 0;
+  font-style:italic;font-size:13px;color:var(--tx3);
+  background:var(--bg2);
+}
+.npc-tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px;}
+.npc-tag{
+  font-family:'Share Tech Mono',monospace;font-size:7px;
+  padding:2px 6px;border-radius:2px;
+  border:1px solid var(--bd2);color:var(--tx2);
+}
+
+/* ═══ GRID 3/2 ══════════════════════════════════ */
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:10px 0;}
+.g2{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:10px 0;}
+@media(max-width:660px){.g3,.g2{grid-template-columns:1fr;}}
+.card{background:var(--bg3);border:1px solid var(--bd);border-radius:2px;padding:12px;}
+.card-t{font-family:'Share Tech Mono',monospace;font-size:8px;color:var(--am);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:6px;}
+
+/* ═══ TIMELINE ══════════════════════════════════ */
+.tl{display:flex;gap:0;margin:16px 0;}
+.tli{flex:1;padding:10px 12px;border:1px solid var(--bd);border-right:none;background:var(--bg2);}
+.tli:last-child{border-right:1px solid var(--bd);}
+.tln{font-family:'Share Tech Mono',monospace;font-size:7px;color:var(--tx2);letter-spacing:0.1em;margin-bottom:2px;}
+.tlt{font-family:'Special Elite',serif;font-size:12px;color:var(--am);margin-bottom:3px;}
+.tld{font-size:11px;color:var(--tx2);line-height:1.4;}
+@media(max-width:560px){.tl{flex-direction:column;}.tli{border-right:1px solid var(--bd);border-bottom:none;}.tli:last-child{border-bottom:1px solid var(--bd);}}
+
+/* ═══ SEP ═══════════════════════════════════════ */
+.sep{border:none;border-top:1px solid var(--bd2);margin:40px 0;}
+
+/* ═══ ENV ═══════════════════════════════════════ */
+.env{border:1px dashed var(--bd2);border-radius:2px;padding:12px 16px;margin:8px 0;background:var(--bg);position:relative;}
+.env::after{content:'✉';position:absolute;top:8px;right:10px;color:var(--bd3);font-size:12px;}
+.env-l{font-family:'Share Tech Mono',monospace;font-size:7px;letter-spacing:0.14em;text-transform:uppercase;color:var(--tx2);margin-bottom:4px;}
+.env p{font-style:italic;color:var(--tx);margin-bottom:3px;font-size:13px;}
+.env .n{font-size:11px;color:var(--tx2);font-style:normal;border-top:1px solid var(--bd);padding-top:5px;margin-top:5px;}
+
+/* ═══ CAMP PANEL ════════════════════════════════ */
+.camp-panel{background:var(--bg2);border:1px solid var(--bd2);border-radius:3px;overflow:hidden;margin-bottom:14px;}
+.camp-hd{background:var(--bg3);padding:10px 14px;border-bottom:1px solid var(--bd2);display:flex;align-items:center;justify-content:space-between;}
+.camp-hd-t{font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--am);letter-spacing:0.12em;text-transform:uppercase;}
+.camp-body{padding:12px 14px;}
+.camp-tags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:7px;}
+.ctag{
+  font-family:'Share Tech Mono',monospace;font-size:8px;
+  padding:2px 7px;border-radius:2px;cursor:pointer;
+  border:1px solid var(--bd2);color:var(--tx2);background:var(--bg3);
+  transition:all 0.15s;display:flex;align-items:center;gap:3px;
+}
+.ctag:hover{border-color:var(--am2);color:var(--am);}
+.ctag.active.room{background:var(--b);border-color:var(--bt);color:var(--bt);}
+.ctag.active.creature{background:var(--r);border-color:var(--rt);color:var(--rt);}
+.ctag.active.npc{background:var(--g);border-color:var(--gt);color:var(--gt);}
+.ctag.active.item{background:var(--y);border-color:var(--yt);color:var(--yt);}
+.camp-note{
+  width:100%;background:var(--bg);border:1px solid var(--bd);
+  color:var(--tx);font-family:'Crimson Pro',serif;font-size:13px;
+  padding:7px 9px;border-radius:2px;resize:none;outline:none;
+  transition:border-color 0.2s;
+}
+.camp-note:focus{border-color:var(--am2);}
+.camp-note::placeholder{color:var(--tx2);}
+
+/* ═══ DICE ══════════════════════════════════════ */
+.dice-panel{
+  position:fixed;bottom:76px;right:18px;z-index:9000;
+  background:var(--bg3);border:1px solid var(--bd2);
+  border-radius:3px;width:220px;padding:14px;
+  box-shadow:0 8px 32px rgba(0,0,0,0.8);
+  display:none;
+}
+.dice-panel.show{display:block;}
+.dp-t{font-family:'Share Tech Mono',monospace;font-size:8px;color:var(--am);letter-spacing:0.14em;text-transform:uppercase;margin-bottom:10px;}
+.dice-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin-bottom:10px;}
+.die-btn{
+  background:var(--bg4);border:1px solid var(--bd2);
+  color:var(--tx);font-family:'Share Tech Mono',monospace;font-size:10px;
+  padding:6px 3px;cursor:pointer;border-radius:2px;text-align:center;
+  transition:all 0.15s;
+}
+.die-btn:hover{border-color:var(--am);color:var(--am);background:var(--am4);}
+.die-btn:active{transform:scale(0.95);}
+
+/* 3D Die */
+.die3d-wrap{
+  width:60px;height:60px;margin:0 auto 8px;
+  perspective:200px;cursor:pointer;
+}
+.die3d{
+  width:60px;height:60px;
+  position:relative;transform-style:preserve-3d;
+  transition:transform 0.0s;
+}
+.die3d.rolling{
+  animation:roll3d 0.6s ease-in-out;
+}
+@keyframes roll3d{
+  0%{transform:rotateX(0) rotateY(0);}
+  25%{transform:rotateX(180deg) rotateY(90deg);}
+  50%{transform:rotateX(360deg) rotateY(180deg);}
+  75%{transform:rotateX(270deg) rotateY(270deg);}
+  100%{transform:rotateX(360deg) rotateY(360deg);}
+}
+.die3d-face{
+  position:absolute;width:60px;height:60px;
+  background:var(--bg4);border:1px solid var(--am2);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Special Elite',serif;font-size:22px;color:var(--am);
+  border-radius:4px;
+}
+.die3d-face.front{transform:translateZ(30px);}
+.die3d-face.back{transform:rotateY(180deg) translateZ(30px);}
+.die3d-face.right{transform:rotateY(90deg) translateZ(30px);}
+.die3d-face.left{transform:rotateY(-90deg) translateZ(30px);}
+.die3d-face.top{transform:rotateX(90deg) translateZ(30px);}
+.die3d-face.bottom{transform:rotateX(-90deg) translateZ(30px);}
+
+.die-result{
+  font-family:'Special Elite',serif;font-size:36px;color:var(--am);
+  text-align:center;min-height:44px;line-height:1;margin-bottom:4px;
+  text-shadow:0 0 20px rgba(200,168,75,0.4);
+  transition:all 0.2s;
+}
+.die-sub{font-family:'Share Tech Mono',monospace;font-size:8px;color:var(--tx2);text-align:center;letter-spacing:0.1em;margin-bottom:6px;}
+.die-history{font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--tx2);max-height:36px;overflow:hidden;line-height:1.8;}
+
+/* ═══ QUICK NOTE ════════════════════════════════ */
+.qnote{
+  position:fixed;bottom:76px;right:18px;z-index:9000;
+  background:var(--bg3);border:1px solid var(--bd2);
+  border-radius:3px;width:240px;
+  box-shadow:0 8px 32px rgba(0,0,0,0.8);
+  display:none;
+}
+.qnote.show{display:block;}
+.qnote-hd{padding:7px 11px;border-bottom:1px solid var(--bd);display:flex;justify-content:space-between;align-items:center;}
+.qnote-t{font-family:'Share Tech Mono',monospace;font-size:8px;color:var(--am);letter-spacing:0.1em;text-transform:uppercase;}
+.qnote-x{background:none;border:none;color:var(--tx2);cursor:pointer;font-size:12px;padding:0;transition:color 0.15s;}
+.qnote-x:hover{color:var(--am);}
+
+/* ═══ NAME GENERATOR ════════════════════════════ */
+.namegen{
+  background:var(--bg2);border:1px solid var(--bd2);
+  border-radius:3px;overflow:hidden;margin-bottom:20px;
+}
+.namegen-hd{background:var(--bg3);padding:12px 16px;border-bottom:1px solid var(--bd2);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+.namegen-t{font-family:'Special Elite',serif;font-size:16px;color:var(--am);}
+.namegen-body{padding:16px;}
+.ng-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-bottom:14px;}
+.ng-box{background:var(--bg3);border:1px solid var(--bd);border-radius:2px;padding:12px;}
+.ng-box-t{font-family:'Share Tech Mono',monospace;font-size:8px;color:var(--am);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:8px;}
+.ng-result{
+  font-family:'Special Elite',serif;font-size:18px;color:var(--wh);
+  min-height:28px;margin-bottom:6px;
+  transition:all 0.2s;
+}
+.ng-sub{font-size:12px;color:var(--tx2);font-style:italic;min-height:16px;}
+.ng-btn{
+  font-family:'Share Tech Mono',monospace;font-size:8px;
+  letter-spacing:0.1em;text-transform:uppercase;
+  background:transparent;border:1px solid var(--bd2);
+  color:var(--tx2);padding:4px 10px;cursor:pointer;
+  border-radius:2px;transition:all 0.15s;width:100%;
+}
+.ng-btn:hover{border-color:var(--am2);color:var(--am);}
+.ng-all-btn{
+  font-family:'Share Tech Mono',monospace;font-size:9px;
+  letter-spacing:0.1em;text-transform:uppercase;
+  background:var(--am4);border:1px solid var(--am2);
+  color:var(--am);padding:7px 16px;cursor:pointer;
+  border-radius:2px;transition:all 0.15s;
+}
+.ng-all-btn:hover{background:var(--am3);}
+
+/* ═══ QUESTION PANEL ════════════════════════════ */
+.qpanel{
+  background:var(--bg2);border:1px solid var(--bd2);
+  border-radius:3px;overflow:hidden;
+}
+.qpanel-hd{background:var(--bg3);padding:12px 16px;border-bottom:1px solid var(--bd2);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+.qpanel-t{font-family:'Special Elite',serif;font-size:16px;color:var(--am);}
+.qpanel-body{padding:16px;}
+.qcat-tabs{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:12px;}
+.qcat-tab{
+  font-family:'Share Tech Mono',monospace;font-size:8px;
+  letter-spacing:0.08em;text-transform:uppercase;
+  background:transparent;border:1px solid var(--bd2);
+  color:var(--tx2);padding:4px 9px;cursor:pointer;
+  border-radius:2px;transition:all 0.15s;
+}
+.qcat-tab:hover{border-color:var(--am2);color:var(--am);}
+.qcat-tab.active{background:var(--am4);border-color:var(--am);color:var(--am);}
+.q-list{display:none;}
+.q-list.active{display:block;}
+.q-item{
+  border:1px solid var(--bd);border-radius:2px;
+  margin-bottom:7px;overflow:hidden;
+  transition:border-color 0.15s;
+}
+.q-item:hover{border-color:var(--bd2);}
+.q-q{
+  padding:8px 12px;background:var(--bg3);
+  font-family:'Share Tech Mono',monospace;font-size:9px;
+  color:var(--am);letter-spacing:0.08em;cursor:pointer;
+  display:flex;justify-content:space-between;align-items:center;
+  transition:background 0.15s;
+}
+.q-q:hover{background:var(--bg4);}
+.q-arrow{transition:transform 0.2s;color:var(--am2);}
+.q-item.open .q-arrow{transform:rotate(90deg);}
+.q-a{
+  padding:0 12px;max-height:0;overflow:hidden;
+  transition:max-height 0.3s ease,padding 0.3s;
+  font-style:italic;font-size:13px;color:var(--tx);line-height:1.6;
+  background:var(--bg2);
+}
+.q-item.open .q-a{max-height:200px;padding:10px 12px;}
+
+/* ═══ TRACKER ═══════════════════════════════════ */
+.tracker{background:var(--bg2);border:1px solid var(--bd2);border-radius:3px;overflow:hidden;}
+.tracker-hd{background:var(--bg3);padding:12px 16px;border-bottom:1px solid var(--bd2);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px;}
+.tracker-t{font-family:'Special Elite',serif;font-size:16px;color:var(--am);}
+.tc{display:flex;gap:5px;flex-wrap:wrap;}
+.tbtn{font-family:'Share Tech Mono',monospace;font-size:8px;letter-spacing:0.08em;text-transform:uppercase;background:transparent;border:1px solid var(--bd2);color:var(--tx2);padding:4px 9px;cursor:pointer;border-radius:2px;transition:all 0.15s;}
+.tbtn:hover{border-color:var(--am2);color:var(--am);}
+.tbtn.am{border-color:var(--am2);color:var(--am);}
+.tbtn.am:hover{background:var(--am4);}
+.tbtn.red{border-color:var(--rb);color:var(--rt);}
+.tbtn.red:hover{background:var(--r);}
+.tracker-body{padding:14px 16px;}
+.pj-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-bottom:16px;}
+
+/* ═══ PJ CARD ═══════════════════════════════════ */
+.pjcard{
+  background:var(--bg3);border:1px solid var(--bd);
+  border-radius:3px;overflow:hidden;transition:border-color 0.2s;
+}
+.pjcard.critical{border-color:var(--rb)!important;animation:crit 2s ease-in-out infinite;}
+@keyframes crit{0%,100%{border-color:var(--rb);}50%{border-color:var(--rt);box-shadow:0 0 8px rgba(192,40,40,0.3);}}
+.pjcard-hd{padding:9px 11px;background:var(--bg4);border-bottom:1px solid var(--bd);display:flex;align-items:center;gap:6px;}
+.pjnum{font-family:'Share Tech Mono',monospace;font-size:8px;color:var(--tx2);width:16px;}
+.pjname{flex:1;background:transparent;border:none;font-family:'Special Elite',serif;font-size:14px;color:var(--wh);outline:none;min-width:0;}
+.pjname::placeholder{color:var(--tx2);}
+.pjdot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
+.pjdel{background:none;border:none;color:var(--bd3);cursor:pointer;font-size:11px;padding:0;transition:color 0.15s;}
+.pjdel:hover{color:var(--rt);}
+
+/* PJ Tabs */
+.pj-tabs{display:flex;border-bottom:1px solid var(--bd);overflow-x:auto;scrollbar-width:none;}
+.pj-tabs::-webkit-scrollbar{display:none;}
+.pj-tab{font-family:'Share Tech Mono',monospace;font-size:7px;letter-spacing:0.07em;text-transform:uppercase;color:var(--tx2);padding:5px 8px;cursor:pointer;border-right:1px solid var(--bd);white-space:nowrap;transition:all 0.15s;flex-shrink:0;background:transparent;}
+.pj-tab:hover{color:var(--am);}
+.pj-tab.active{color:var(--am);background:var(--am4);border-bottom:1px solid var(--am);margin-bottom:-1px;}
+.pj-pane{padding:9px 11px;display:none;}
+.pj-pane.active{display:block;}
+
+/* stats */
+.stat-row{margin-bottom:8px;}
+.stat-lbl{font-family:'Share Tech Mono',monospace;font-size:7px;color:var(--tx2);letter-spacing:0.1em;text-transform:uppercase;display:flex;justify-content:space-between;margin-bottom:3px;}
+.stat-val{color:var(--am);font-size:9px;}
+.stat-bar{height:3px;background:var(--bd2);border-radius:2px;overflow:hidden;}
+.stat-fill{height:100%;border-radius:2px;transition:width 0.3s;}
+.fill-san{background:linear-gradient(90deg,var(--rb),var(--am),var(--gt));}
+.fill-hp{background:linear-gradient(90deg,var(--rb),#e05020,var(--gt));}
+.fill-hun{background:linear-gradient(90deg,var(--rb),var(--yt));}
+.fill-thi{background:linear-gradient(90deg,var(--rb),var(--bt));}
+.stat-btns{display:flex;gap:2px;margin-top:3px;}
+.sbt{font-family:'Share Tech Mono',monospace;font-size:7px;background:transparent;border:1px solid var(--bd);color:var(--tx2);padding:2px 5px;cursor:pointer;border-radius:2px;transition:all 0.15s;flex:1;}
+.sbt:hover{border-color:var(--am2);color:var(--am);}
+
+/* status */
+.stags{display:flex;flex-wrap:wrap;gap:3px;margin-top:5px;}
+.stag{font-family:'Share Tech Mono',monospace;font-size:7px;padding:2px 6px;border-radius:2px;cursor:pointer;border:1px solid var(--bd2);color:var(--tx2);transition:all 0.15s;}
+.stag:hover{border-color:var(--am2);color:var(--am);}
+.stag.on.parasita{background:var(--r);border-color:var(--rb);color:var(--rt);}
+.stag.on.ferido{background:#1e1408;border-color:#6a4010;color:#c08030;}
+.stag.on.dopple{background:var(--b);border-color:var(--bb);color:var(--bt);}
+.stag.on.perdido{background:#100820;border-color:#3a2060;color:#8050c0;}
+.stag.on.estavel{background:var(--g);border-color:var(--gb);color:var(--gt);}
+.stag.on.morto{background:#0d0d0d;border-color:#333;color:#555;}
+
+/* linhas */
+.lnhs{display:flex;gap:3px;flex-wrap:wrap;margin-top:2px;}
+.lnh{width:22px;height:22px;border-radius:50%;border:1px solid var(--am2);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;font-family:'Share Tech Mono',monospace;font-size:8px;color:var(--am2);transition:all 0.15s;}
+.lnh.ativa{background:var(--am4);border-color:var(--am);color:var(--am);}
+.lnh.apagada{background:var(--r);border-color:var(--rb);color:var(--rt);}
+.lnh.falsa{background:var(--b);border-color:var(--bb);color:var(--bt);}
+
+/* inventory */
+.inv-item{display:flex;align-items:center;gap:5px;padding:3px 0;border-bottom:1px solid var(--bd);font-size:12px;}
+.inv-item:last-child{border-bottom:none;}
+.inv-del{background:none;border:none;color:var(--bd3);cursor:pointer;font-size:10px;margin-left:auto;transition:color 0.15s;}
+.inv-del:hover{color:var(--rt);}
+.inv-add{display:flex;gap:3px;margin-top:6px;}
+.inv-input{flex:1;background:var(--bg);border:1px solid var(--bd);color:var(--tx);font-family:'Crimson Pro',serif;font-size:12px;padding:3px 6px;border-radius:2px;outline:none;}
+.inv-input:focus{border-color:var(--am2);}
+.inv-input::placeholder{color:var(--tx2);}
+.inv-btn{background:transparent;border:1px solid var(--bd2);color:var(--tx2);font-family:'Share Tech Mono',monospace;font-size:7px;letter-spacing:0.08em;padding:3px 7px;cursor:pointer;border-radius:2px;transition:all 0.15s;}
+.inv-btn:hover{border-color:var(--am2);color:var(--am);}
+
+/* profissao */
+.prof-sel{width:100%;background:var(--bg);border:1px solid var(--bd);color:var(--tx);font-family:'Crimson Pro',serif;font-size:13px;padding:5px 7px;border-radius:2px;outline:none;margin-bottom:6px;}
+.prof-sel:focus{border-color:var(--am2);}
+.prof-hab{font-size:11px;color:var(--tx2);font-style:italic;line-height:1.4;}
+
+/* pj notas */
+.pj-nota{width:100%;background:var(--bg);border:1px solid var(--bd);color:var(--tx);font-family:'Crimson Pro',serif;font-size:12px;padding:6px 8px;border-radius:2px;resize:none;outline:none;}
+.pj-nota:focus{border-color:var(--am2);}
+.pj-nota::placeholder{color:var(--tx2);}
+
+/* sessao tracker */
+.st-row{display:grid;grid-template-columns:65px 1fr 1fr 70px;gap:6px;align-items:center;padding:5px 0;border-bottom:1px solid var(--bd);font-size:12px;}
+.st-row:last-child{border-bottom:none;}
+.st-num{font-family:'Share Tech Mono',monospace;font-size:8px;color:var(--am);letter-spacing:0.08em;}
+.st-in{background:transparent;border:none;border-bottom:1px solid var(--bd);color:var(--tx);font-family:'Crimson Pro',serif;font-size:12px;outline:none;width:100%;padding:1px 0;}
+.st-in:focus{border-bottom-color:var(--am2);}
+.st-in::placeholder{color:var(--tx2);}
+.st-roll{font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--tx2);text-align:center;cursor:pointer;padding:2px 4px;border:1px solid var(--bd);border-radius:2px;transition:all 0.15s;}
+.st-roll:hover{border-color:var(--am2);color:var(--am);}
+
+/* ═══ FAB ═══════════════════════════════════════ */
+.fab-group{position:fixed;bottom:20px;right:16px;z-index:9800;display:flex;flex-direction:column;gap:7px;align-items:flex-end;}
+.fab-wrap{display:flex;align-items:center;gap:5px;}
+.fab-lbl{font-family:'Share Tech Mono',monospace;font-size:7px;color:var(--tx2);letter-spacing:0.1em;opacity:0;transition:opacity 0.2s;}
+.fab-wrap:hover .fab-lbl{opacity:1;}
+.fab{width:40px;height:40px;border-radius:50%;background:var(--bg3);border:1px solid var(--bd2);color:var(--tx2);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s;}
+.fab:hover{border-color:var(--am);color:var(--am);background:var(--am4);box-shadow:0 0 12px rgba(200,168,75,0.2);}
+
+/* ═══ TOAST ═════════════════════════════════════ */
+#toast{position:fixed;bottom:72px;left:50%;transform:translateX(-50%) translateY(12px);background:var(--bg3);border:1px solid var(--am2);color:var(--am);font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:0.1em;padding:7px 16px;border-radius:2px;opacity:0;pointer-events:none;transition:all 0.25s;z-index:9999;white-space:nowrap;}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+/* ═══ IEL (Org) ═════════════════════════════════ */
+.iel-header{
+  background:linear-gradient(135deg,var(--bg3) 0%,#0a0818 100%);
+  border:1px solid var(--pub);border-radius:3px;
+  padding:20px;margin-bottom:20px;
+  position:relative;overflow:hidden;
+}
+.iel-header::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 30% 50%,rgba(128,80,180,0.08) 0%,transparent 70%);
+  pointer-events:none;
+}
+.iel-badge{
+  font-family:'Share Tech Mono',monospace;font-size:8px;
+  letter-spacing:0.2em;text-transform:uppercase;
+  color:var(--put);border:1px solid var(--pub);
+  padding:2px 8px;border-radius:2px;margin-bottom:10px;
+  display:inline-block;
+}
+.iel-nome{font-family:'Special Elite',serif;font-size:22px;color:var(--wh);margin-bottom:4px;}
+.iel-sub{font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--tx2);letter-spacing:0.1em;}
+.iel-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px;margin:12px 0;}
+.iel-stat{background:rgba(64,32,96,0.15);border:1px solid rgba(64,32,96,0.4);border-radius:2px;padding:10px;}
+.iel-stat-n{font-family:'Special Elite',serif;font-size:20px;color:var(--put);display:block;}
+.iel-stat-l{font-family:'Share Tech Mono',monospace;font-size:7px;color:var(--tx2);letter-spacing:0.1em;text-transform:uppercase;}
+
+/* ═══ RESPONSIVE ═══════════════════════════════ */
+@media(max-width:600px){
+  nav{padding:0 12px;}
+  .nav-actions{gap:4px;}
+  .nav-btn{padding:4px 7px;font-size:8px;}
+  .wrap{padding:40px 14px;}
+  .hero-title{font-size:clamp(44px,12vw,80px);}
+}
+</style>
+</head>
+<body>
+<div class="scanlines"></div>
+<div class="noise"></div>
+<div id="toast"></div>
+
+<!-- EDIT BAR -->
+<div class="edit-bar" id="edit-bar">
+  <span>✏ MODO EDIÇÃO — clique em qualquer texto para editar</span>
+  <button class="edit-bar-btn" onclick="toggleEdit()">SAIR DO MODO EDIÇÃO</button>
+</div>
+
+<!-- TIMER -->
+<div class="timer-bar" id="timer-bar">
+  <span class="timer-lbl">SESSÃO</span>
+  <span class="timer-disp" id="timer-disp">00:00:00</span>
+  <button class="timer-btn" onclick="timerToggle()" id="tbtn-start">▶ Iniciar</button>
+  <button class="timer-btn" onclick="timerReset()">↺ Zerar</button>
+  <button class="timer-btn" onclick="document.getElementById('timer-bar').classList.remove('show')">✕</button>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">
+    <div class="nav-logo-dot"></div>
+    NENHUM DE NÓS SAIU
+  </a>
+  <div class="nav-links">
+    <a href="#prologo">Prólogo</a>
+    <a href="#iel">I.E.L.</a>
+    <a href="#niveis">Níveis</a>
+    <a href="#salas">Tabelas</a>
+    <a href="#criaturas">Criaturas</a>
+    <a href="#npcs">NPCs</a>
+    <a href="#itens">Itens</a>
+    <a href="#memorias">Memórias</a>
+    <a href="#sessoes">Sessões</a>
+    <a href="#gerador">Gerador</a>
+    <a href="#perguntas">Perguntas</a>
+    <a href="#campanha">Campanha</a>
+    <a href="#tracker">Tracker</a>
+    <a href="#gerador-salas">⚙ Gerador Sala</a>
+  </div>
+  <div class="nav-actions">
+    <div id="sess-ind" onclick="cycleSession()">SESSÃO 1</div>
+    <button class="nav-btn" onclick="toggleEdit()" id="edit-btn">✏ Editar</button>
+    <button class="nav-btn" onclick="document.getElementById('timer-bar').classList.toggle('show')">⏱</button>
+    <button class="nav-btn am" onclick="salvarDados()">💾</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero" id="hero">
+  <div class="hero-flicker"></div>
+  <div class="hero-eyebrow">Call of Cthulhu 7ª Ed. · Backrooms · Material do Mestre</div>
+  <div class="hero-title">
+    NENHUM<br>
+    <span class="hero-title-sub">DE NÓS</span><br>
+    SAIU
+  </div>
+  <div class="hero-italic">"O lugar aprende com você.<br>O problema é que você também aprende com ele."</div>
+  <div class="hero-stats">
+    <div class="hero-stat"><span class="hero-stat-n">8+</span><span class="hero-stat-l">Níveis</span></div>
+    <div class="hero-stat"><span class="hero-stat-n">4</span><span class="hero-stat-l">Jogadores</span></div>
+    <div class="hero-stat"><span class="hero-stat-n">12</span><span class="hero-stat-l">Criaturas</span></div>
+    <div class="hero-stat"><span class="hero-stat-n">0</span><span class="hero-stat-l">Combates</span></div>
+  </div>
+  <div class="hero-q">Civis comuns. Um shopping. Uma tarde qualquer.<br>E então o barulho do mundo sumiu.</div>
+  <div class="scroll-hint">▼ &nbsp; rolar para explorar</div>
+</div>
+
+<div class="wrap">
+
+<!-- ══════════════════════════════════════════════ -->
+<!-- PRÓLOGO -->
+<!-- ══════════════════════════════════════════════ -->
+<div class="sec" id="prologo">
+  <h1>Prólogo — O Mundo Real</h1>
+  <div class="sec-meta">Sessão 0 · Antes da queda · Imersão e vínculos</div>
+
+  <p>O prólogo acontece <strong class="w">antes de qualquer mecânica</strong>. Seu único objetivo é fazer os jogadores sentirem que perderam algo real quando a queda acontecer.</p>
+
+  <h2>A Cena do Shopping</h2>
+  <div class="cena">
+    <div class="cena-lbl">Narração de abertura — leia para os jogadores</div>
+    <p data-edit>É uma quinta-feira à tarde. O shopping está com aquela movimentação de meio de semana — não vazio, não cheio. Muzak vaza das lojas abertas. Cheira a perfume de vitrine e comida de praça. As luzes do teto são brancas demais para parecerem naturais.</p>
+    <p data-edit>Cada um de vocês está aqui por algum motivo que, na escala do universo, não importa nada. Um voucher vencendo hoje. Um presente de aniversário que ficou para última hora. Uma consulta no andar de cima. Um lanche rápido antes de pegar o metrô.</p>
+    <p data-edit>Nenhum de vocês sabe o nome do outro. Por enquanto, está tudo bem.</p>
+    <div class="nota">⟶ Deixe 10–15 minutos de roleplay livre. Se dois personagens não se encontrarem, o shopping os colocará juntos em breve.</div>
+  </div>
+
+  <div class="qa">
+    <div class="qi"><div class="qq">Para o contador / a contadora</div><div class="qa_" data-edit>"Você está olhando o mapa do shopping tentando localizar uma loja. Qual loja você está procurando — e por quê você veio hoje, especificamente?"</div></div>
+    <div class="qi"><div class="qq">Para a professora / o professor</div><div class="qa_" data-edit>"Você está num banco da praça de alimentação com o celular na mão. Para quem você está quase mandando mensagem — e por que ainda não mandou?"</div></div>
+    <div class="qi"><div class="qq">Para a técnica / o técnico de enfermagem</div><div class="qa_" data-edit>"Você saiu do turno há duas horas. Ainda está com o uniforme? O que você veio buscar que não podia esperar até amanhã?"</div></div>
+    <div class="qi"><div class="qq">Para o entregador / a entregadora</div><div class="qa_" data-edit>"Você tem um voucher que vence hoje. Você normalmente não vem a shopping. O que te fez guardar esse voucher por semanas em vez de jogar fora?"</div></div>
+  </div>
+
+  <h2>A Queda</h2>
+  <div class="cena">
+    <div class="cena-lbl">Narração da queda — adapte para cada personagem</div>
+    <p data-edit>Você está andando. O próximo passo é igual a todos os outros.</p>
+    <p data-edit>E então — sem transição, sem clique, sem nada — o barulho acabou.</p>
+    <p data-edit>Não ficou silencioso. O barulho do shopping simplesmente não está mais lá. No lugar dele tem um zumbido. Baixo, constante, ligeiramente errado para ser fluorescente comum.</p>
+    <p data-edit>O carpete sob os seus pés é amarelo. Úmido de algo que não é água. A parede à sua frente tem papel de parede desbotado em tom de mostarda com um padrão que você já não consegue seguir com os olhos.</p>
+    <p data-edit>Você se virou para olhar para trás. Não há shopping. Há outro corredor.</p>
+    <div class="nota">⟶ Role para Sanidade: 0/1d6. Depois deixe o silêncio existir um momento antes de qualquer jogador falar.</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════ -->
+<!-- I.E.L. -->
+<!-- ══════════════════════════════════════════════ -->
+<div class="sec" id="iel">
+  <h1>Instituto de Estudo Liminar — I.E.L.</h1>
+  <div class="sec-meta">Organização secreta · Lore original · Vinculada a dois NPCs</div>
+
+  <div class="iel-header">
+    <div class="iel-badge">CLASSIFICADO — NÍVEL OMEGA</div>
+    <div class="iel-nome" data-edit>Instituto de Estudo Liminar</div>
+    <div class="iel-sub">I.E.L. · Fundado em 1983 · Vinculado ao Ministério da Ciência e Tecnologia · Existência negada</div>
+    <div class="iel-grid" style="margin-top:12px;">
+      <div class="iel-stat"><span class="iel-stat-n">1983</span><span class="iel-stat-l">Fundação</span></div>
+      <div class="iel-stat"><span class="iel-stat-n">247</span><span class="iel-stat-l">Agentes ativos</span></div>
+      <div class="iel-stat"><span class="iel-stat-n">12</span><span class="iel-stat-l">Entradas documentadas</span></div>
+      <div class="iel-stat"><span class="iel-stat-n">3</span><span class="iel-stat-l">Retornos confirmados</span></div>
+    </div>
+  </div>
+
+  <h2>Origem e História</h2>
+  <p data-edit>Em outubro de 1983, um operário de uma fábrica têxtil em Santo André, SP, desapareceu durante o turno da noite enquanto trabalhava num depósito em reforma. Quando encontrado 11 dias depois — desorientado, desidratado, 9kg mais leve — descreveu corredores infinitos com carpete amarelado e luz fluorescente constante. O caso chegou ao então recém-criado Departamento de Fenômenos Inexplicáveis do Ministério da Ciência.</p>
+  <p data-edit>O departamento foi fechado publicamente em 1985. Secretamente, foi expandido e rebatizado de <strong class="w">Instituto de Estudo Liminar</strong>. Nos quarenta anos seguintes, o I.E.L. documentou 12 entradas confirmadas nos Backrooms no território brasileiro — e desenvolveu protocolos para tentar, sem sucesso consistente, resgatar os que caem.</p>
+
+  <h2>Estrutura do I.E.L.</h2>
+  <div class="g3">
+    <div class="card">
+      <div class="card-t">Divisão Alfa — Campo</div>
+      <p style="font-size:13px">Agentes de campo em traje hazmat. Responsáveis por entradas controladas e resgate. Maioria não retorna. Os que voltam são designados para treinamento — nunca para nova entrada.</p>
+    </div>
+    <div class="card">
+      <div class="card-t">Divisão Beta — Pesquisa</div>
+      <p style="font-size:13px">Cientistas e teóricos. Nunca entram nos Backrooms pessoalmente. Analisam dados trazidos pela Divisão Alfa. Desenvolvem teorias sobre a natureza do espaço liminar.</p>
+    </div>
+    <div class="card">
+      <div class="card-t">Divisão Gama — Contenção</div>
+      <p style="font-size:13px">Responsáveis por controle de informação. Apagam registros, compram silêncio, gerenciam famílias de desaparecidos. Os personagens dos jogadores constam em suas listas.</p>
+    </div>
+  </div>
+
+  <h2>O que o I.E.L. sabe — e o que errou</h2>
+  <div class="g2">
+    <div class="box box-b">
+      <div class="bxt">O que sabem (correto)</div>
+      <ul>
+        <li>Os Backrooms existem e são acessados por "no-clip" acidental</li>
+        <li>A geometria é não-euclidiana e instável</li>
+        <li>Há múltiplos níveis com atmosferas distintas</li>
+        <li>Entidades são reais e classificadas em 4 categorias</li>
+        <li>Almond Water existe e tem propriedades estabilizadoras</li>
+      </ul>
+    </div>
+    <div class="box box-r">
+      <div class="bxt">O que erraram (perigoso)</div>
+      <ul>
+        <li>Acreditam que podem criar entrada controlada — ainda não conseguiram</li>
+        <li>Subestimam o doppelganger: pensam que age em horas, não semanas</li>
+        <li>Protocolo de resgate assume recursos que não existem no Level 0</li>
+        <li>Não sabem da existência do Level 6 — classificado como "mito"</li>
+        <li>Acreditam que o I.E.L. tem controle da situação</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2>Documentos que os personagens podem encontrar</h2>
+  <div class="cena">
+    <div class="cena-lbl">Relatório I.E.L. nº 0047-B — fragmento</div>
+    <p data-edit>"...o sujeito D retornou após 23 dias relatando encontro com entidade classificada Tipo-3 (Imitador). Comportamento do sujeito D nos 48h seguintes ao retorno apresentou 7 das 11 métricas de comprometimento cognitivo. Protocolo Delta foi ativado. O sujeito D não está mais disponível para entrevistas. Recomendamos revisão do Protocolo Delta para incluir janela de observação estendida antes da avaliação final..."</p>
+    <div class="nota">⟶ "Protocolo Delta" é o eufemismo do I.E.L. para eliminação de retornados comprometidos. Os personagens podem nunca descobrir isso — ou podem.</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════ -->
+<!-- NÍVEIS -->
+<!-- ══════════════════════════════════════════════ -->
+<div class="sec" id="niveis">
+  <h1>Os Níveis — Lore, Narrativa & Narrações</h1>
+  <div class="sec-meta">8 níveis documentados · Baseado no lore canônico · Adaptado para CoC 7ª</div>
+
+  <!-- LEVEL 0 -->
+  <div class="lcard lc0">
+    <div class="lcard-hd">
+      <div>
+        <div class="lcard-num">LEVEL 0</div>
+        <div class="lcard-nome" style="color:var(--yt)" data-edit>The Lobby — Os Corredores Amarelos</div>
+      </div>
+      <div><span class="badge bg">● Sem entidades</span><span class="badge by">▲ Perigo: recursos</span></div>
+    </div>
+    <div class="lcard-body">
+      <p data-edit>O primeiro lugar. Infinito, não-euclidiano, aparentemente vazio. A ameaça não é uma criatura — é a geometria. Andar em linha reta e chegar num lugar diferente. O zumbido que induz enxaquecas. A ausência total de recursos. Aproximadamente 85% dos que caem aqui nunca progridem para além do Level 0.</p>
+      <div class="sg">
+        <div class="sc"><span class="sc-icon">👃</span><div class="sc-lbl">Cheiro</div><div class="sc-tx" data-edit>Mofo adocicado e umidade que não é água. Papel velho que absorveu décadas de ar parado. Uma nota metálica persistente.</div></div>
+        <div class="sc"><span class="sc-icon">👂</span><div class="sc-lbl">Som</div><div class="sc-tx" data-edit>Zumbido fluorescente mais alto e regular do que qualquer lâmpada real. Vibra numa frequência ligeiramente errada — não dá pra ignorar.</div></div>
+        <div class="sc"><span class="sc-icon">✋</span><div class="sc-lbl">Tato</div><div class="sc-tx" data-edit>Carpete úmido que cede demais sob os pés. Paredes mornais — não frias como deveriam. Quase como pele.</div></div>
+        <div class="sc"><span class="sc-icon">💡</span><div class="sc-lbl">Luz</div><div class="sc-tx" data-edit>Fluorescente sem origem visível. Sem sombras fortes — a luz vem de todo lugar, tornando tudo levemente irreal.</div></div>
+        <div class="sc"><span class="sc-icon">🌡️</span><div class="sc-lbl">Temperatura</div><div class="sc-tx" data-edit>O equilíbrio térmico de uma sala que foi habitada e foi abandonada. Não pertence a nenhum clima natural.</div></div>
+        <div class="sc"><span class="sc-icon">⏱️</span><div class="sc-lbl">Tempo</div><div class="sc-tx" data-edit>Impossível medir. Sem ciclo dia-noite. A luz nunca muda. O cansaço acumula sem referência.</div></div>
+      </div>
+      <h3>Narrações para momentos específicos</h3>
+      <div class="cena">
+        <div class="cena-lbl">Quando alguém tenta mapear pela primeira vez</div>
+        <p data-edit>Você risca o corredor no papel. Norte — ou o que parece norte. Vinte passos. Curva à esquerda. Outra sala. Você a marca. Continua. Mais dez salas depois, você reconhece uma marca na parede — a sua própria. Mas o papel diz que você nunca esteve nesta sala.</p>
+        <div class="nota">⟶ Role Inteligência. Sucesso: percebe inconsistência geométrica — não é erro seu. Falha: acredita que se perdeu.</div>
+      </div>
+      <div class="cena">
+        <div class="cena-lbl">Quando o grupo fica em silêncio absoluto</div>
+        <p data-edit>No silêncio, o zumbido é mais alto do que você esperava. Não é constante — tem micro-variações, quase como respiração. Quase como se o espaço estivesse vivo e vocês estivessem dentro dele, muito pequenos.</p>
+        <div class="nota">⟶ Role Percepção. Sucesso: ouve, muito longe, o que poderia ser uma voz. Quando para de escutar — desaparece.</div>
+      </div>
+      <div class="cena">
+        <div class="cena-lbl">Quando encontram a Manila Room</div>
+        <p data-edit>A diferença é sutil a princípio — o padrão da parede é levemente diferente, bege-alaranjado em vez de amarelo-mostarda. A luz tem uma tonalidade mais quente. Você se sente, pela primeira vez desde que chegou, levemente menos ansioso. Isso por si só é perturbador.</p>
+        <div class="nota">⟶ Recuperar 1d3 Vida. Quem ficar aqui 10+ minutos adormece. Acorda no Level 1.</div>
+      </div>
+      <div class="cena">
+        <div class="cena-lbl">Quando alguém começa a desesperar</div>
+        <p data-edit>Há um momento — e você sabe quando chega — em que o corredor à frente parece igual ao corredor atrás e o papel do mapa parece inútil e o zumbido está dentro do crânio e não fora e você percebe que pode ficar aqui para sempre.</p>
+        <p data-edit>E então alguém faz uma piada. Ou te toca no ombro. E o momento passa. Por enquanto.</p>
+        <div class="nota">⟶ Momento de roleplay de vínculo. Deixe acontecer naturalmente.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LEVEL 1 -->
+  <div class="lcard lc1">
+    <div class="lcard-hd">
+      <div>
+        <div class="lcard-num">LEVEL 1</div>
+        <div class="lcard-nome" style="color:var(--bt)" data-edit>Habitable Zone — O Armazém</div>
+      </div>
+      <div><span class="badge by">▲ Entidades presentes</span><span class="badge bg">● Água disponível</span></div>
+    </div>
+    <div class="lcard-body">
+      <p data-edit>Armazém industrial com paredes de concreto, rebar exposto, névoa baixa e poças de água limpa. Tem recursos — mas também tem as entidades que o Level 0 não tem. As luzes piscam. Quando apagam por mais de 3 segundos, algo aparece no escuro. A névoa nunca levanta completamente.</p>
+      <div class="sg">
+        <div class="sc"><span class="sc-icon">👃</span><div class="sc-lbl">Cheiro</div><div class="sc-tx" data-edit>Concreto úmido, ferrugem, névoa de ar condicionado industrial. Em certas áreas: líquido negro de canos rompidos. Não toque — e especialmente não beba.</div></div>
+        <div class="sc"><span class="sc-icon">👂</span><div class="sc-lbl">Som</div><div class="sc-tx" data-edit>Gotejamento distante. Canos vibrando com pressão. O chiado das luzes. Quando silencia completamente: sinal de perigo iminente.</div></div>
+        <div class="sc"><span class="sc-icon">👁️</span><div class="sc-lbl">Visão</div><div class="sc-tx" data-edit>Cinza e ferrugem. A névoa corta a visibilidade a 15–20 metros. Sombras que não correspondem a objetos visíveis.</div></div>
+        <div class="sc"><span class="sc-icon">✋</span><div class="sc-lbl">Tato</div><div class="sc-tx" data-edit>Concreto frio e áspero. A névoa deposita umidade na pele ao longo do tempo. Ar mais pesado que o Level 0.</div></div>
+      </div>
+      <h3>Narrações para momentos específicos</h3>
+      <div class="cena">
+        <div class="cena-lbl">Quando as luzes apagam pela primeira vez</div>
+        <p data-edit>O mundo some. Não gradualmente — de uma vez. A escuridão aqui tem peso. Sua respiração soa alta demais. Os passos dos outros ecoam de forma estranha, como se a acústica da sala tivesse mudado.</p>
+        <p data-edit>Algo está no escuro. Você não vê. Você não ouve. Mas o instinto que existe antes do raciocínio está gritando.</p>
+        <div class="nota">⟶ Role Percepção. Sucesso: ouve algo a menos de 10m se movendo devagar. Falha: quando as luzes voltam, algo nos suprimentos sumiu.</div>
+      </div>
+      <div class="cena">
+        <div class="cena-lbl">Quando encontram a marcação "NÃO SIGA O SOM"</div>
+        <p data-edit>As marcações começam simples — setas, contagem de dias. Mas ao longo do corredor ficam mais densas, sobrepostas. Uma delas, isolada, em letras grandes e deliberadas: NÃO SIGA O SOM.</p>
+        <p data-edit>Abaixo, com caligrafia diferente, mais recente: <em>especialmente quando ele soa como você.</em></p>
+        <div class="nota">⟶ Perda de 1 Sanidade para todos. Aviso sobre o Skinwalker.</div>
+      </div>
+      <div class="cena">
+        <div class="cena-lbl">Quando alguém bebe a água das poças</div>
+        <p data-edit>A água é limpa — visualmente. Sem cheiro. Temperatura ambiente. Não tem sabor de cano ou de terra. Tem gosto de nada, o que é estranho o suficiente pra te fazer pensar no que "nada" sabe.</p>
+        <p data-edit>Você bebe. Está tudo bem. Por enquanto. Seu corpo está tão grato que não te deixa questionar mais.</p>
+        <div class="nota">⟶ Recupera 10 de Sede. Sem efeito negativo — água do Level 1 é segura, ao contrário do líquido negro.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LEVEL 2 -->
+  <div class="lcard lc2">
+    <div class="lcard-hd">
+      <div>
+        <div class="lcard-num">LEVEL 2</div>
+        <div class="lcard-nome" style="color:var(--put)" data-edit>Pipe Dreams — O Labirinto de Tubulações</div>
+      </div>
+      <div><span class="badge br">■ Alto perigo</span><span class="badge by">▲ Desorientação extrema</span></div>
+    </div>
+    <div class="lcard-body">
+      <p data-edit>Um labirinto de maquinário industrial antigo, tubulações que vão ao teto, grades de metal e passagens estreitas. A eletricidade é instável — choques são possíveis. Mais escuro e quente que o Level 1. A música do maquinário cria um ruído constante que torna a comunicação verbal difícil e os sinais sensoriais de entidades quase impossíveis de detectar.</p>
+      <div class="sg">
+        <div class="sc"><span class="sc-icon">👃</span><div class="sc-lbl">Cheiro</div><div class="sc-tx" data-edit>Óleo de máquina, metal aquecido, algo orgânico indefinível no ar. Em certas áreas: gás. Se sentir tonteira, saia imediatamente.</div></div>
+        <div class="sc"><span class="sc-icon">👂</span><div class="sc-lbl">Som</div><div class="sc-tx" data-edit>Rugido constante de maquinário. Impossible distinguir sons normais de sons de ameaça. Qualquer comunicação acima de sussurro é desnecessária — as entidades já sabem que você está aqui.</div></div>
+        <div class="sc"><span class="sc-icon">🌡️</span><div class="sc-lbl">Temperatura</div><div class="sc-tx" data-edit>40–50°C em certas áreas. Desidratação acelerada. Cada hora aqui consome o dobro da sede comparado ao Level 1.</div></div>
+        <div class="sc"><span class="sc-icon">⚡</span><div class="sc-lbl">Perigo elétrico</div><div class="sc-tx" data-edit>Fios expostos em algumas tubulações. Tocar metal molhado próximo a eles: role Sorte ou receba 1d6 de dano.</div></div>
+      </div>
+      <h3>Narrações para momentos específicos</h3>
+      <div class="cena">
+        <div class="cena-lbl">Ao entrar no Level 2 pelo Level 1</div>
+        <p data-edit>A passagem é um buraco na parede de concreto, baixo o suficiente pra você ter que se abaixar. Do outro lado: calor imediato, como abrir um forno. O ruído do maquinário é físico — você o sente no peito antes de processá-lo como som.</p>
+        <p data-edit>É mais escuro aqui. As fontes de luz são pontos vermelhos e laranja espalhados no teto — calor de máquinas, não iluminação. Suas sombras são múltiplas e apontam em direções diferentes.</p>
+        <div class="nota">⟶ Todos perdem 5 Sede imediatamente ao entrar. O calor é concreto.</div>
+      </div>
+      <div class="cena">
+        <div class="cena-lbl">Quando alguém se perde do grupo</div>
+        <p data-edit>O ruído engoliu a voz deles. Você chama — e não sabe se eles ouviram, ou se o que ouviu chamando de volta era eles ou era o Skinwalker aproveitando o ruído como cobertura.</p>
+        <p data-edit>Você pára. Escuta. O maquinário não para. Nunca para.</p>
+        <div class="nota">⟶ Separação no Level 2 é o gatilho ideal para o Skinwalker. O mestre tem 3 turnos para introduzir a ameaça antes do grupo se reunir.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LEVEL 5 -->
+  <div class="lcard lc5">
+    <div class="lcard-hd">
+      <div>
+        <div class="lcard-num">LEVEL 5</div>
+        <div class="lcard-nome" style="color:var(--yt)" data-edit>Terror Hotel</div>
+      </div>
+      <div><span class="badge br">■ Alto perigo</span><span class="badge by">▲ Entidades ativas</span></div>
+    </div>
+    <div class="lcard-body">
+      <p data-edit>Hotel de arquitetura dos anos 1930, abandonado mas conservado. Dois ambientes: o Lobby — luxuoso, enganosamente acolhedor, com jazz ao fundo sem fonte — e o Boiler, labirinto de caldeiras no subsolo, claustrofóbico e extremamente hostil. O tempo no Level 5 é particularmente distorcido: 20 minutos aqui podem ser 4 horas para quem aguarda fora.</p>
+      <div class="sg">
+        <div class="sc"><span class="sc-icon">👃</span><div class="sc-lbl">Lobby</div><div class="sc-tx" data-edit>Madeira envernizada, tecido empoeirado, notas fantasmas de cigarro dos anos 40. Agradável de forma perturbadora — como museu do que não deveria existir.</div></div>
+        <div class="sc"><span class="sc-icon">👃</span><div class="sc-lbl">Boiler</div><div class="sc-tx" data-edit>Óleo queimado, metal quente, algo orgânico. Cheiro de amêndoas em certos trechos — é o líquido dos canos. Não beba.</div></div>
+        <div class="sc"><span class="sc-icon">👂</span><div class="sc-lbl">Lobby — som</div><div class="sc-tx" data-edit>Jazz piano distante sem fonte. Passos acima, no andar que não existe. Regularidade perturbadora.</div></div>
+        <div class="sc"><span class="sc-icon">👂</span><div class="sc-lbl">Boiler — som</div><div class="sc-tx" data-edit>Pressão de vapor em canos. Batidas metálicas irregulares. E eventualmente: asas. Muito rápidas, muito perto, de cima.</div></div>
+      </div>
+      <h3>Narrações para momentos específicos</h3>
+      <div class="cena">
+        <div class="cena-lbl">Entrando no lobby pela primeira vez</div>
+        <p data-edit>A porta abre para um lobby que cheira a outra época. Poltronas de veludo bordô, recepção de madeira escura com o sino intacto. O lustre está aceso. O jazz está tocando.</p>
+        <p data-edit>É bonito. Essa é a parte assustadora.</p>
+        <p data-edit>Atrás do balcão da recepção, um livro de hóspedes. A última entrada é de hoje. Com o nome de um de vocês.</p>
+        <div class="nota">⟶ Mestre escolhe qual personagem tem o nome. Caligrafia idêntica à do próprio personagem. Roll Sanidade 0/1d6.</div>
+      </div>
+      <div class="cena">
+        <div class="cena-lbl">Quartos de hotel — explorando</div>
+        <p data-edit>Algumas portas abrem. Os quartos são perfeitos — camas feitas, toalhas dobradas, sabonete intacto. Como se estivessem esperando hóspedes. Mas os espelhos dos banheiros estão todos cobertos com panos escuros. Alguém fez isso intencionalmente. Com cuidado. Com pressa.</p>
+        <div class="nota">⟶ Os panos cobrem os espelhos para que o doppelganger não possa usar os reflexos. Um hóspede anterior sabia disso.</div>
+      </div>
+      <div class="cena">
+        <div class="cena-lbl">Quando ouvem as asas no Boiler</div>
+        <p data-edit>O som vem de cima. Rápido demais para ser pássaro, regular demais para ser tubulação. Algo na sua biologia reconhece o som antes de você conseguir processá-lo.</p>
+        <p data-edit>A resposta certa é parar, apagar qualquer luz, não respirar fundo. O instinto grita para correr.</p>
+        <div class="nota">⟶ Role Força de Vontade para agir contra o instinto. Falha: recua 1d6 metros fazendo barulho. A coisa ouviu.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LEVEL 6 -->
+  <div class="lcard lc6">
+    <div class="lcard-hd">
+      <div>
+        <div class="lcard-num">LEVEL 6</div>
+        <div class="lcard-nome" style="color:var(--tx2)" data-edit>Lights Out — O Escuro Absoluto</div>
+      </div>
+      <div><span class="badge br">■ Perigo extremo</span><span class="badge br">■ Privação sensorial</span></div>
+    </div>
+    <div class="lcard-body">
+      <p data-edit>Escuridão e silêncio absolutos. Sem luz, sem som, sem entidades confirmadas — o nível em si é a ameaça. A privação sensorial leva à loucura em horas. Uma lanterna não funciona: a luz simplesmente não alcança mais que alguns centímetros.</p>
+      <div class="sg">
+        <div class="sc"><span class="sc-icon">👃</span><div class="sc-lbl">Cheiro</div><div class="sc-tx" data-edit>Nada. Ausência total — o nariz tenta processar dados que não existem. Perturbador de uma forma que é difícil de articular.</div></div>
+        <div class="sc"><span class="sc-icon">👂</span><div class="sc-lbl">Som</div><div class="sc-tx" data-edit>Só o próprio corpo. Batimento cardíaco. Respiração. O fluido nos ouvidos. Sons que normalmente o cérebro filtra agora são o único input.</div></div>
+        <div class="sc"><span class="sc-icon">👁️</span><div class="sc-lbl">Visão</div><div class="sc-tx" data-edit>Zero. O cérebro começa a gerar imagens após minutos — alucinações de privação. Não são entidades. Mas parecem.</div></div>
+        <div class="sc"><span class="sc-icon">🧠</span><div class="sc-lbl">Psicológico</div><div class="sc-tx" data-edit>Perda de noção de tempo e espaço. Dificuldade de distinguir real do gerado pela mente. Cada 5 minutos: −1 Sanidade.</div></div>
+      </div>
+      <div class="cena">
+        <div class="cena-lbl">Entrando no Level 6 — a narração mais importante</div>
+        <p data-edit>Um passo você podia ver sua própria mão. O próximo, nada.</p>
+        <p data-edit>Não é o escuro de um quarto sem luz. É o escuro de um lugar onde a luz simplesmente não tem permissão de existir.</p>
+        <p data-edit>Você ouve a respiração dos outros. Conta elas. Uma. Duas. Três. Quatro. Você conta de novo. Uma. Duas. Três. Quatro. E uma quinta que você não esperava.</p>
+        <div class="nota">⟶ Há exatamente 4 personagens. Role Sanidade 1/1d6 para todos. A quinta respiração não volta a ser mencionada — nunca.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LEVEL 9 -->
+  <div class="lcard" style="border-color:var(--bd2);">
+    <div class="lcard-hd" style="background:linear-gradient(135deg,#0a1808 0%,#060f05 100%);">
+      <div>
+        <div class="lcard-num">LEVEL 9</div>
+        <div class="lcard-nome" style="color:var(--gt)" data-edit>The Garden — O Parque Eterno</div>
+      </div>
+      <div><span class="badge bg">● Relativamente seguro</span><span class="badge by">▲ Ameaça: desorientação</span></div>
+    </div>
+    <div class="lcard-body">
+      <p data-edit>Um parque infinito sob céu falso — sempre azul claro, sem sol visível, mas com luz difusa agradável. Grama verde, árvores, bancos, coretos. O mais enganosamente normal de todos os níveis. Esse é exatamente o problema: tão próximo do real que o cérebro começa a aceitar que está bem — e baixa a guarda.</p>
+      <div class="sg">
+        <div class="sc"><span class="sc-icon">👃</span><div class="sc-lbl">Cheiro</div><div class="sc-tx" data-edit>Grama fresca, terra úmida, flores de espécie não identificável. O cheiro mais próximo do mundo real encontrado nos Backrooms. Isso faz chorar algumas pessoas.</div></div>
+        <div class="sc"><span class="sc-icon">👂</span><div class="sc-lbl">Som</div><div class="sc-tx" data-edit>Vento. Pássaros distantes — nunca visíveis. Às vezes crianças brincando muito longe. As vozes nunca ficam mais próximas, não importa o quanto você caminhe em direção a elas.</div></div>
+        <div class="sc"><span class="sc-icon">🌿</span><div class="sc-lbl">Tato</div><div class="sc-tx" data-edit>A grama é real. As árvores são reais — mas têm raízes que se aprofundam de formas impossíveis e não há terra abaixo de certa profundidade. Só concreto.</div></div>
+        <div class="sc"><span class="sc-icon">☀️</span><div class="sc-lbl">Luz</div><div class="sc-tx" data-edit>Difusa, agradável, sem fonte. O "céu" é uma superfície a uns 100m — parece tela de projeção se você olhar com atenção suficiente. Não olhe com atenção suficiente.</div></div>
+      </div>
+      <div class="cena">
+        <div class="cena-lbl">Quando alguém senta num banco e chora</div>
+        <p data-edit>Não é fraqueza. É o cheiro de grama e o vento que faz isso. O cérebro recebe informação de que está tudo bem — e imediatamente compara com o quanto não está, e o contraste é demais.</p>
+        <p data-edit>O grupo deixa. Ninguém fala. Às vezes as pessoas precisam de um momento.</p>
+        <div class="nota">⟶ Cena de normalidade orgânica. Recupera 1 Sanidade. E apaga 1 linha de memória — a felicidade aqui tem custo.</div>
+      </div>
+      <div class="cena">
+        <div class="cena-lbl">Quando tentam seguir as vozes das crianças</div>
+        <p data-edit>Você caminha em direção às vozes por vinte minutos. Elas não ficam mais próximas. Você vai mais rápido. Elas não ficam mais próximas. Você corre.</p>
+        <p data-edit>As vozes param.</p>
+        <p data-edit>Você está exatamente onde começou. O banco está lá. Ainda está quente do seu calor.</p>
+        <div class="nota">⟶ Perda de 1d3 Sanidade e 10 de Sede pela corrida. O Level 9 não tem saída pela força.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LEVEL 11 -->
+  <div class="lcard lc11">
+    <div class="lcard-hd">
+      <div>
+        <div class="lcard-num">LEVEL 11</div>
+        <div class="lcard-nome" style="color:var(--tx3)" data-edit>The City — A Cidade Infinita</div>
+      </div>
+      <div><span class="badge bg">● Relativamente seguro</span><span class="badge bb">◆ Facelings amigáveis</span></div>
+    </div>
+    <div class="lcard-body">
+      <p data-edit>Uma metrópole infinita em arquitetura mista — Chicago, São Paulo, Tóquio, cidades que não existem. Tem eletricidade, água corrente, lojas com produtos, Wi-Fi (inutilizável para contato externo). Os Facelings aqui são inusitadamente amigáveis — trabalham nos estabelecimentos, andam nas ruas, acenam. O "Level 11 Effect" torna entidades hostis menos propensas a atacar enquanto aqui.</p>
+      <div class="sg">
+        <div class="sc"><span class="sc-icon">👃</span><div class="sc-lbl">Cheiro</div><div class="sc-tx" data-edit>Cidade — asfalto, comida de rua, exaustão de ar condicionado. O mais familiar de todos. E por isso o mais estranho.</div></div>
+        <div class="sc"><span class="sc-icon">👂</span><div class="sc-lbl">Som</div><div class="sc-tx" data-edit>Rumor de cidade. Tráfego inexistente. Às vezes música de loja. Os Facelings não falam — mas emitem um som como respiração quando passam perto de você.</div></div>
+        <div class="sc"><span class="sc-icon">👁️</span><div class="sc-lbl">Os Facelings</div><div class="sc-tx" data-edit>Humanoides sem rosto — pele lisa onde deveria haver olhos, nariz, boca. Mas seus "rostos" apontam na direção de quem estão ouvindo. Eles ouvem tudo.</div></div>
+        <div class="sc"><span class="sc-icon">🏙️</span><div class="sc-lbl">Escala</div><div class="sc-tx" data-edit>Os prédios são altos demais. As ruas largas demais. A escala humana está levemente errada — como se a cidade foi construída para seres um pouco maiores do que vocês.</div></div>
+      </div>
+      <div class="cena">
+        <div class="cena-lbl">Primeiro contato com um Faceling</div>
+        <p data-edit>Está atrás de um balcão de café. Faz os movimentos de um barista — pega o copo, opera a máquina, coloca a bebida no balcão e a empurra na sua direção. O café está quente. Cheira bem.</p>
+        <p data-edit>Onde deveria estar o rosto, há apenas pele esticada sobre os ossos do crânio. Liso. Sem expressão. E ainda assim você tem a impressão nítida de que está sendo observado com atenção.</p>
+        <div class="nota">⟶ Roll Sanidade 0/1d4. O café é real e consumível — recupera 5 de Fome e 5 de Sede.</div>
+      </div>
+      <div class="cena">
+        <div class="cena-lbl">Quando tentam usar o Wi-Fi</div>
+        <p data-edit>O celular conecta. Sinal cheio. Você abre um aplicativo de mensagem e digita para alguém do mundo real.</p>
+        <p data-edit>A mensagem fica "enviando" por dez segundos. Depois aparece um erro que você nunca viu antes: <em>Destinatário fora da área de cobertura conhecida.</em></p>
+        <p data-edit>Você olha pro celular por um momento.</p>
+        <div class="nota">⟶ Sem mecânica. Só o peso de um momento humano.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LEVEL 37 -->
+  <div class="lcard lc37">
+    <div class="lcard-hd">
+      <div>
+        <div class="lcard-num">LEVEL 37</div>
+        <div class="lcard-nome" style="color:var(--bt)" data-edit>Sublimity — The Poolrooms</div>
+      </div>
+      <div><span class="badge bg">● Relativamente seguro</span><span class="badge bb">◆ Profundidades perigosas</span></div>
+    </div>
+    <div class="lcard-body">
+      <p data-edit>Um complexo infinito de piscinas interligadas, parcialmente submersas em água turno-azulada e morna. As superfícies são de azulejo branco cerâmico, idêntico, sem uma marca de dano. A água é segura na parte rasa. As profundidades são outra coisa. Há algo no fundo das piscinas mais fundas — algo que não nada, mas que se move.</p>
+      <div class="sg">
+        <div class="sc"><span class="sc-icon">👃</span><div class="sc-lbl">Cheiro</div><div class="sc-tx" data-edit>Cloro suave — mas não exatamente cloro. Algo como a memória de cloro. O cheiro de piscina pública num domingo de verão que você frequentou na infância.</div></div>
+        <div class="sc"><span class="sc-icon">👂</span><div class="sc-lbl">Som</div><div class="sc-tx" data-edit>Água. A reverberação de água em superfície de azulejo. Sons que ecoam de salas que você não encontrou. E às vezes: o som de alguém mergulhando. Mas quando você vai até a sala de onde veio o som, a superfície está perfeitamente calma.</div></div>
+        <div class="sc"><span class="sc-icon">✋</span><div class="sc-lbl">A água</div><div class="sc-tx" data-edit>Morna, limpa, límpida até certa profundidade. Abaixo de 3 metros, a visibilidade zera. A temperatura cai abruptamente. E o fundo não é onde deveria estar.</div></div>
+        <div class="sc"><span class="sc-icon">💡</span><div class="sc-lbl">Luz</div><div class="sc-tx" data-edit>Difusa, como sol filtrado por água de piscina, sem fonte. Projeta padrões de água no teto mesmo onde não há água. Absolutamente linda. Isso também é perturbador.</div></div>
+      </div>
+      <div class="cena">
+        <div class="cena-lbl">Chegando nas Poolrooms pela primeira vez</div>
+        <p data-edit>A sala que vocês encontram tem água até o tornozelo. O reflexo no teto mostra padrões de luz que deveriam precisar de superfície d'água para existir — mas o teto está seco.</p>
+        <p data-edit>A água está morna. O azulejo é perfeito. A luz é quase bonita. E você tem, pela primeira vez nos Backrooms, a nítida sensação de que este lugar foi feito para ser apreciado.</p>
+        <p data-edit>Isso é o que mais te perturba.</p>
+        <div class="nota">⟶ Recuperar 1d4 Sanidade ao entrar. Perder 1 ao perceber a profundidade impossível da primeira piscina mais funda.</div>
+      </div>
+      <div class="cena">
+        <div class="cena-lbl">Quando alguém mergulha para explorar</div>
+        <p data-edit>A visibilidade é boa até uns 2 metros. Depois piora. Depois zera. Você para de conseguir ver seus próprios braços. E então você sente — não toca, não vê — a presença de algo abaixo de você. Grande. Sem pressa.</p>
+        <p data-edit>Você nada de volta para cima mais rápido do que julgava ser capaz.</p>
+        <div class="nota">⟶ Roll Sanidade 1/1d6. Sem ataque — o que está lá embaixo não tem interesse imediato em vocês.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LEVEL 94 -->
+  <div class="lcard lc94">
+    <div class="lcard-hd">
+      <div>
+        <div class="lcard-num">LEVEL 94</div>
+        <div class="lcard-nome" style="color:var(--gt)" data-edit>MOTION — As Colinas e as Casas</div>
+      </div>
+      <div><span class="badge bg">● Seguro durante o dia</span><span class="badge br">■ Perigo extremo à noite</span></div>
+    </div>
+    <div class="lcard-body">
+      <p data-edit>Colinas verdes com casas idênticas no topo — cada casa 20x20m, todas exatamente iguais. Céu azul bebê durante o dia. Às sirenes que tocam música de cartoon dos anos 1900, alegre e inapropriada. À noite, o céu vira negro absoluto, as sirenes param abruptamente — e as Animações saem. Stop motion de tamanho real, elas atacam qualquer coisa que não pareça animada como elas.</p>
+      <div class="sg">
+        <div class="sc"><span class="sc-icon">👃</span><div class="sc-lbl">Cheiro</div><div class="sc-tx" data-edit>Grama, terra, ar fresco. Quase igual ao Level 9 — mas com algo levemente plástico embaixo, como o cheiro de brinquedo novo.</div></div>
+        <div class="sc"><span class="sc-icon">👂</span><div class="sc-lbl">Dia</div><div class="sc-tx" data-edit>Sirenes com música de cartoon — feliz, distante, constante. Vento nas colinas. Nenhum animal.</div></div>
+        <div class="sc"><span class="sc-icon">🌙</span><div class="sc-lbl">Noite</div><div class="sc-tx" data-edit>Silêncio total quando as sirenes param. Depois: o som de stop-motion — movement frame by frame, o clique irregular de algo que se move em saltos ao invés de fluir.</div></div>
+        <div class="sc"><span class="sc-icon">🏠</span><div class="sc-lbl">As casas</div><div class="sc-tx" data-edit>Idênticas por fora. Por dentro: layout diferente em cada uma. Algumas têm réplicas de outros níveis dos Backrooms dentro. Uma tem Level 0 completo dentro de um cômodo do tamanho normal de um quarto.</div></div>
+      </div>
+      <div class="cena">
+        <div class="cena-lbl">Quando as sirenes param — o sinal da noite</div>
+        <p data-edit>O silêncio depois da música é tão abrupto que parece barulho.</p>
+        <p data-edit>No fim da colina mais próxima, uma das casas tem luz na janela. Antes não tinha.</p>
+        <p data-edit>E então você ouve — longe mas se aproximando — o som de algo se movendo que não deveria se mover assim. Clique. Pausa. Clique. Pausa. Como foto por foto. Frame by frame.</p>
+        <div class="nota">⟶ Os personagens têm 10 minutos para encontrar abrigo. As casas são seguras — desde que fiquem quietos e apaguem as luzes.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PLASTIC TOWN -->
+  <div class="lcard lcpt">
+    <div class="lcard-hd">
+      <div>
+        <div class="lcard-num">NÍVEL ORIGINAL</div>
+        <div class="lcard-nome" style="color:var(--put)" data-edit>Plastic Town — A Cidade de Plástico</div>
+      </div>
+      <div><span class="badge bpu">◆ Nível original da campanha</span><span class="badge br">■ Perigo: paranoia</span></div>
+    </div>
+    <div class="lcard-body">
+      <p data-edit>Uma cidade de escala real construída inteiramente de plástico colorido — como um brinquedo gigante. Casas, carros, postes, árvores, pessoas. As "pessoas" são manequins de plástico rígido, posicionados em cenas do cotidiano: alguém esperando o ônibus, um casal num restaurante, uma criança num balanço. Quando ninguém está olhando, eles mudam de posição. Nunca são vistos se movendo.</p>
+      <div class="sg">
+        <div class="sc"><span class="sc-icon">👃</span><div class="sc-lbl">Cheiro</div><div class="sc-tx" data-edit>Plástico aquecido — o cheiro de brinquedo deixado ao sol. Levemente tóxico em grandes quantidades. Recomenda-se não ficar mais que 6 horas.</div></div>
+        <div class="sc"><span class="sc-icon">👂</span><div class="sc-lbl">Som</div><div class="sc-tx" data-edit>Silêncio perturbador — o plástico não conduz som como material orgânico. Passos soam abafados. Vozes não ecoam. E às vezes: o estalo de plástico se expandindo no calor. Exatamente como alguém abrindo uma porta.</div></div>
+        <div class="sc"><span class="sc-icon">👁️</span><div class="sc-lbl">Os manequins</div><div class="sc-tx" data-edit>Faces sem expressão, boca levemente aberta, olhos pintados que parecem seguir movimento. Quando você vira de costas e olha de novo, um deles está num ângulo diferente. Nenhum grupo já conseguiu filmar a mudança acontecendo.</div></div>
+        <div class="sc"><span class="sc-icon">🎨</span><div class="sc-lbl">Visual</div><div class="sc-tx" data-edit>Cores primárias — vermelho, azul, amarelo, verde. Tudo saturado demais. O efeito visual depois de horas é dissociativo: o cérebro começa a tratar tudo como não-real.</div></div>
+      </div>
+      <div class="cena">
+        <div class="cena-lbl">Primeira hora — o efeito da Plastic Town</div>
+        <p data-edit>A cidade parece um diorama. Você é grande demais para ela — e depois percebe que não é, que a escala é perfeita, e isso é o que não bate.</p>
+        <p data-edit>O manequim no banco da praça estava olhando para a esquerda quando vocês chegaram. Você tem certeza. Você olha de novo. Está olhando para você. Você olha para os outros. Alguém mais viu?</p>
+        <div class="nota">⟶ Perda de 1 Sanidade por hora no local. Após 4 horas: rol de Sanidade ou o personagem começa a tratar os manequins como pessoas reais.</div>
+      </div>
+      <div class="cena">
+        <div class="cena-lbl">Quando alguém conta os manequins</div>
+        <p data-edit>Você conta 23 na praça central. Você marca no papel. Uma hora depois conta de novo: 24. Você volta ao papel. Conta de novo: 23.</p>
+        <p data-edit>Você não sabe se errou a conta. Você não sabe se um dos seus companheiros é um manequim que estava ali o tempo todo. Você não sabe se um dos seus companheiros é um manequim agora.</p>
+        <div class="nota">⟶ Gatilho para paranoia de doppelganger. Use na sessão 2 ou 3.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════ -->
+<!-- TABELAS DE SALAS (ORIGINAIS) -->
+<!-- ══════════════════════════════════════════════ -->
+<div class="sec" id="salas">
+  <h1>Tabelas de Geração de Salas</h1>
+  <div class="sec-meta">3 níveis de perigo · Tabelas A (tipo) + B (conteúdo) + C (anomalia)</div>
+
+  <div class="box box-b">
+    <div class="bxt">Como usar</div>
+    <ul>
+      <li>Role as três sub-tabelas do nível escolhido e combine. Prepare 3–5 salas antes de cada sessão.</li>
+      <li>Nível 1 nas primeiras sessões, Nível 2 a partir da sessão 2, Nível 3 para clímax.</li>
+      <li>Quando B11 sair: acione envelope de memória. Quando B12 sair no N2: role 1d20 em Itens de Referência.</li>
+    </ul>
+  </div>
+
+  <h2>Nível 1 — Liminar</h2>
+  <span class="badge bg">● Sem ameaça direta · Horror atmosférico</span>
+  <h3>Tabela 1-A · Tipo de Sala (1d20)</h3>
+  <div class="tw"><table class="tg"><thead><tr><th>d20</th><th>Sala</th><th>Detalhe sensorial</th></tr></thead><tbody>
+    <tr><td class="tn">1</td><td class="tb">Corredor de shopping fechado</td><td>Vitrines com manequins sem cabeça. Lojas sem nome. Muzak sem fonte.</td></tr>
+    <tr><td class="tn">2</td><td class="tb">Sala de espera de hospital</td><td>Cadeiras laranja. Revistas sem data. Néon em ritmo de pulso.</td></tr>
+    <tr><td class="tn">3</td><td class="tb">Escritório de plano aberto</td><td>Trabalho a meio. Cafés frios. Relógio parado em 14h47.</td></tr>
+    <tr><td class="tn">4</td><td class="tb">Corredor escolar à noite</td><td>Armários sem sequência. Cartazes desbotados. Giz e desinfetante.</td></tr>
+    <tr><td class="tn">5</td><td class="tb">Sala de estar genérica</td><td>Móveis de catálogo. Quadros sem foto. TV em estática.</td></tr>
+    <tr><td class="tn">6</td><td class="tb">Estacionamento coberto vazio</td><td>Eco de cada passo. Um carro sem placa no canto mais distante.</td></tr>
+    <tr><td class="tn">7</td><td class="tb">Piscina coberta sem água</td><td>Azulejo desbotado. Escada enferrujada. Marcas de arrastar no fundo.</td></tr>
+    <tr><td class="tn">8</td><td class="tb">Sala de jantar de restaurante</td><td>Mesas postas para número impossível. Velas apagadas com cera recente.</td></tr>
+    <tr><td class="tn">9</td><td class="tb">Biblioteca pública vazia</td><td>Livros sem título. Fichário travado. Gato de pelúcia no balcão.</td></tr>
+    <tr><td class="tn">10</td><td class="tb">Corredor de hotel</td><td>Carpete com padrão desorientador. Carrinho de limpeza abandonado.</td></tr>
+    <tr><td class="tn">11</td><td class="tb">Ginásio esportivo</td><td>Quadra de esporte que não existe. Pipoca no chão da arquibancada.</td></tr>
+    <tr><td class="tn">12</td><td class="tb">Sala de cinema sem tela</td><td>Poltronas vermelhas. Projetor sem filme. Milho velho.</td></tr>
+    <tr><td class="tn">13</td><td class="tb">Cozinha industrial</td><td>Panelas no fogo apagado — ainda quentes.</td></tr>
+    <tr><td class="tn">14</td><td class="tb">Vestiário sem janelas</td><td>Roupas de alguém que pretendia voltar. Suor antigo.</td></tr>
+    <tr><td class="tn">15</td><td class="tb">Sala de espera de aeroporto</td><td>Painel com destinos em branco. Bagagem abandonada. Anúncio em loop.</td></tr>
+    <tr><td class="tn">16</td><td class="tb">Lavanderia de apartamento</td><td>Máquinas no meio do ciclo. Roupa úmida. Amaciante e mofo.</td></tr>
+    <tr><td class="tn">17</td><td class="tb">Corredor de museu</td><td>Pedestais com placas mas sem objetos. Luz apontando para o vazio.</td></tr>
+    <tr><td class="tn">18</td><td class="tb">Sala de reunião corporativa</td><td>Quadro com apresentação pela metade. Cadeiras afastadas em urgência.</td></tr>
+    <tr><td class="tn">19</td><td class="tb">Jardim interno de shopping</td><td>Plantas artificiais com poeira. Fonte seca. Banco sob fluorescente.</td></tr>
+    <tr><td class="tn">20</td><td class="tb">Corredor infinito com curva</td><td>Idêntico em ambas as direções. A curva nunca chega.</td></tr>
+  </tbody></table></div>
+
+  <h3>Tabela 1-B · Conteúdo (1d12)</h3>
+  <div class="tw"><table class="tg"><thead><tr><th>d12</th><th>Conteúdo</th><th>Detalhe</th></tr></thead><tbody>
+    <tr><td class="tn">1</td><td class="tb">Nada</td><td>Absolutamente nada além do mobiliário. A ausência é o evento.</td></tr>
+    <tr><td class="tn">2</td><td class="tb">Alimento enlatado</td><td>Data impossível — futuro ou passado longínquo. Em bom estado.</td></tr>
+    <tr><td class="tn">3</td><td class="tb">Diário manuscrito</td><td>Entradas metódicas que se tornam ilegíveis. Caligrafia muda de direção.</td></tr>
+    <tr><td class="tn">4</td><td class="tb">Mapa desenhado à mão</td><td>Parcialmente correto, parcialmente impossível. Uma sala marcada "NÃO ENTRAR".</td></tr>
+    <tr><td class="tn">5</td><td class="tb">Rádio parcialmente funcional</td><td>Capta vozes — algumas reconhecíveis, algumas impossíveis.</td></tr>
+    <tr><td class="tn">6</td><td class="tb">Foto ou documento pessoal</td><td>Pertenceu a alguém. Talvez a um dos personagens — que não o perdeu.</td></tr>
+    <tr><td class="tn">7</td><td class="tb">Suprimento incompleto</td><td>Lanterna sem pilha. Faca sem cabo. Mochila sem comida.</td></tr>
+    <tr><td class="tn">8</td><td class="tb">Rastros no pó</td><td>Pegadas que começam no meio da sala. Terminam na parede.</td></tr>
+    <tr><td class="tn">9</td><td class="tb">Mensagem arranhada na parede</td><td>Contagem de dias — ou outra coisa.</td></tr>
+    <tr><td class="tn">10</td><td class="tb">Porta para sala conhecida</td><td>Leva a lugar já explorado — levemente diferente. Um objeto mudou.</td></tr>
+    <tr><td class="tn">11</td><td class="tb">Objeto de personagem</td><td>Pertence a alguém do grupo que não o perdeu. Acione envelope de memória.</td></tr>
+    <tr><td class="tn">12</td><td class="tb">Roupas dobradas com cuidado</td><td>Excessivamente dobradas. Ainda com cheiro de pessoa.</td></tr>
+  </tbody></table></div>
+
+  <h3>Tabela 1-C · Anomalia (1d10)</h3>
+  <div class="tw"><table class="tg"><thead><tr><th>d10</th><th>Anomalia</th><th>Efeito</th></tr></thead><tbody>
+    <tr><td class="tn">1</td><td class="tb">Tempo subjetivo alterado</td><td>Saem mais cansados. Perdem 1d4 horas sem perceber.</td></tr>
+    <tr><td class="tn">2</td><td class="tb">Um sentido ausente</td><td>Sem cheiro, sem eco ou sem sombras. Cada personagem sente ausência diferente.</td></tr>
+    <tr><td class="tn">3</td><td class="tb">Sala menor por dentro</td><td>Parecia maior de fora. A geometria não fecha.</td></tr>
+    <tr><td class="tn">4</td><td class="tb">Algo muda sem ser visto</td><td>Muda de posição quando ninguém olha diretamente.</td></tr>
+    <tr><td class="tn">5</td><td class="tb">Déjà vu preditivo</td><td>Um personagem descreve o próximo objeto antes de encontrá-lo.</td></tr>
+    <tr><td class="tn">6</td><td class="tb">Porta de saída diferente</td><td>Saem por onde entraram e chegam a lugar diferente.</td></tr>
+    <tr><td class="tn">7</td><td class="tb">Ponto frio específico</td><td>Um ponto da sala significativamente mais frio. Algo ficou aqui.</td></tr>
+    <tr><td class="tn">8</td><td class="tb">Eco atrasado</td><td>Sons acontecem antes dos eventos que os causam.</td></tr>
+    <tr><td class="tn">9</td><td class="tb">Voz conhecida distante</td><td>Alguém ouve pessoa do mundo real chamando seu nome.</td></tr>
+    <tr><td class="tn">10</td><td class="tb">Sem anomalia</td><td>Perfeito demais. Isso é o mais perturbador. −1 Sanidade.</td></tr>
+  </tbody></table></div>
+
+  <hr class="sep">
+  <h2>Nível 2 — Comprometido</h2>
+  <span class="badge by">▲ Presença ativa detectada</span>
+  <h3>Tabela 2-A · Tipo de Sala (1d20)</h3>
+  <div class="tw"><table class="ty"><thead><tr><th>d20</th><th>Sala</th><th>Detalhe sensorial</th></tr></thead><tbody>
+    <tr><td class="tn">1</td><td class="tb">Depósito com prateleiras ao teto</td><td>Caixas com conteúdo consumido por dentro. Marcas de garras na madeira.</td></tr>
+    <tr><td class="tn">2</td><td class="tb">Banheiro sem espelhos</td><td>Ganchos onde espelhos ficavam. Manchas escuras no cimento.</td></tr>
+    <tr><td class="tn">3</td><td class="tb">Sala de servidores abandonada</td><td>Equipamentos inexistentes. LEDs em padrão. Calor sem ventilação.</td></tr>
+    <tr><td class="tn">4</td><td class="tb">Corredor com portas — todas trancadas menos uma</td><td>Atrás da aberta: outra porta. Trancada. Exceto uma.</td></tr>
+    <tr><td class="tn">5</td><td class="tb">Quarto de hotel perturbado</td><td>Cama desfeita de um lado. Cortinas de janela inexistente. TV em canal morto.</td></tr>
+    <tr><td class="tn">6</td><td class="tb">Sala de segurança</td><td>Monitores com salas não encontradas. Um monitor mostra esta sala agora.</td></tr>
+    <tr><td class="tn">7</td><td class="tb">Corredor com marcações de obra</td><td>Fita zebrada. Buracos no teto. A obra nunca aconteceu.</td></tr>
+    <tr><td class="tn">8</td><td class="tb">Arquivo morto</td><td>Gavetas abertas. Arquivos com nomes reais — talvez dos personagens.</td></tr>
+    <tr><td class="tn">9</td><td class="tb">Academia com equipamentos enferrujados</td><td>Enferrujados mas limpos. Marcas de uso muito recente no chão.</td></tr>
+    <tr><td class="tn">10</td><td class="tb">Corredor de hospital fechado</td><td>Macas com cintas soltas. Prontuários em branco. Luz vermelha de emergência.</td></tr>
+    <tr><td class="tn">11</td><td class="tb">Sala de aula com quadro cheio</td><td>Equações sem sentido. Carteiras em círculo.</td></tr>
+    <tr><td class="tn">12</td><td class="tb">Túnel de manutenção</td><td>Sons orgânicos nas tubulações. Marcas de rastejo antigo.</td></tr>
+    <tr><td class="tn">13</td><td class="tb">Sala de espetáculos vazia</td><td>Palco iluminado. Roteiro na coxia — é sobre este grupo, agora.</td></tr>
+    <tr><td class="tn">14</td><td class="tb">Loja de conveniência</td><td>Marcas inexistentes. Dinheiro de país nenhum. Caixa aberta.</td></tr>
+    <tr><td class="tn">15</td><td class="tb">Sala de descanso de funcionários</td><td>Fotos reconhecíveis como NPCs já encontrados — ou os personagens.</td></tr>
+    <tr><td class="tn">16</td><td class="tb">Escada entre andares idênticos</td><td>Cada andar igual ao anterior. O número sobe, o ambiente não muda.</td></tr>
+    <tr><td class="tn">17</td><td class="tb">Sala de recreação infantil</td><td>Brinquedos com precisão cirúrgica. Sem uma impressão digital.</td></tr>
+    <tr><td class="tn">18</td><td class="tb">Corredor inundado (5cm de água)</td><td>Água limpa e parada. Algo se moveu — perturbação ainda se dissipa.</td></tr>
+    <tr><td class="tn">19</td><td class="tb">Sala de meditação / capelo</td><td>Velas acesas. Uma cadeira ainda está quente.</td></tr>
+    <tr><td class="tn">20</td><td class="tb">Duas salas sobrepostas</td><td>O espaço contém dois ambientes ao mesmo tempo. A percepção alterna.</td></tr>
+  </tbody></table></div>
+
+  <h3>Tabela 2-B · Conteúdo (1d12)</h3>
+  <div class="tw"><table class="ty"><thead><tr><th>d12</th><th>Conteúdo</th><th>Detalhe</th></tr></thead><tbody>
+    <tr><td class="tn">1</td><td class="tb">Evidência de presença recente</td><td>Comida consumida, fogo apagado há horas. Alguém pode estar ouvindo.</td></tr>
+    <tr><td class="tn">2</td><td class="tb">NPC sobrevivente — instável</td><td>Ainda fala mas com lacunas. Memórias contradizem as dos personagens.</td></tr>
+    <tr><td class="tn">3</td><td class="tb">Gravação de áudio ou vídeo</td><td>Mostra este lugar com pessoas não vistas. Uma parece um dos personagens.</td></tr>
+    <tr><td class="tn">4</td><td class="tb">Acampamento abandonado às pressas</td><td>Comida na panela. Botas ao lado da cama. Sem sinal do ocupante.</td></tr>
+    <tr><td class="tn">5</td><td class="tb">Coleção de objetos organizados</td><td>Inclui objetos que os personagens perderam. Alguém os coletou.</td></tr>
+    <tr><td class="tn">6</td><td class="tb">Sistema de comunicação improvisado</td><td>Do outro lado, alguém responde com delay impossível.</td></tr>
+    <tr><td class="tn">7</td><td class="tb">Mapa extenso e detalhado</td><td>Advertências em código. Levou tempo para ser feito.</td></tr>
+    <tr><td class="tn">8</td><td class="tb">Armadilha improvisada</td><td>Para deter algo não-humano. O design revela o que o criador enfrentou.</td></tr>
+    <tr><td class="tn">9</td><td class="tb">Suprimentos abundantes</td><td>Demais para um sobrevivente. Alguém esperava um grupo grande.</td></tr>
+    <tr><td class="tn">10</td><td class="tb">Corpo — recente</td><td>Sem marca de violência. Bolsos virados. Algo removido com cuidado.</td></tr>
+    <tr><td class="tn">11</td><td class="tb">Sistema de notas na parede</td><td>Linha do tempo de uma sobrevivência. Apelidos para criaturas.</td></tr>
+    <tr><td class="tn">12</td><td class="tb">Item de referência cultural</td><td>Role 1d20 na Tabela de Itens de Referência.</td></tr>
+  </tbody></table></div>
+
+  <h3>Tabela 2-C · Anomalia (1d10)</h3>
+  <div class="tw"><table class="ty"><thead><tr><th>d10</th><th>Anomalia</th><th>Efeito</th></tr></thead><tbody>
+    <tr><td class="tn">1</td><td class="tb">Espaço responde à emoção</td><td>Grupo tenso = sala mais quente. Silêncio = mais fria. O lugar sente.</td></tr>
+    <tr><td class="tn">2</td><td class="tb">Memória involuntária</td><td>Um personagem revive uma linha como alucinação. −1 Sanidade.</td></tr>
+    <tr><td class="tn">3</td><td class="tb">Duplicação de objeto</td><td>Algo que alguém carrega aparece na sala — idêntico mas décadas mais velho.</td></tr>
+    <tr><td class="tn">4</td><td class="tb">Saída se fecha</td><td>O caminho de entrada desapareceu. Não bloqueado — inexistente.</td></tr>
+    <tr><td class="tn">5</td><td class="tb">Voz conhecida sem fonte</td><td>Alguém ouve pessoa do mundo real chamando seu nome. Cada vez mais perto.</td></tr>
+    <tr><td class="tn">6</td><td class="tb">Espelho comportamental</td><td>Reflexos mostram o grupo fazendo algo diferente. 3 segundos de atraso.</td><tr>
+    <tr><td class="tn">7</td><td class="tb">Tempo comprimido</td><td>Quando saem, horas passaram. Recursos consumidos proporcionalmente. Sideco
+    <tr><td class="tn">8</td><td class="tb">Escritura automática</td><td>Mão relaxada com caneta escreve algo. Nem sempre compreensível. Sideco
+    <tr><td class="tn">9</td><td class="tb">Gravidade preferencialSideco<td class="tb">Objetos caem levemente para um canto específico. Sideco
+    <tr><td class="tn">10Sideco<td class="tb">Presença sentida, não vistaSideco<td class="tb">Todos sentem que não estão sozinhos. Nada visto. −1d3 Sanidade. Sideco
+  </tbody></table></div>
+
+  <hr class="sep">
+  <h2>Nível 3 — Hostil</h2>
+  <span class="badge br">■ Encontro iminente · Fuga ou negociação · Nunca combate frontal</span>
+  <h3>Tabela 3-A · Tipo de Sala (1d20)</h3>
+  <div class="tw"><table class="tr"><thead><tr><th>d20</th><th>Sala</th><th>Detalhe sensorial</th></tr></thead><tbody>
+    <tr><td class="tn">1Sideco<td class="tb">Corredor com iluminação pulsanteSideco<td class="tb">Ritmo de pulso humano — lento demais. Cada apagão: 3 segundos. Sideco
+    <tr><td class="tn">2Sideco<td class="tb">Sala de cirurgia improvisadaSideco<td class="tb">Instrumentos com precisão. Mesa com contenções. Alguém praticou aqui. Sideco
+    <tr><td class="tn">3Sideco<td class="tb">Câmara de ecosideco<td class="tb">Som retorna multiplicado. Impossível localizar ameaça por som. Sideco
+    <tr><td class="tn">4Sideco<td class="tb">Sala de contenção improvisadaSideco<td class="tb">Grades, fios, marcas de longa ocupação. Algo ficou aqui. E saiu. Sideco
+    <tr><td class="tn">5Sideco<td class="tb">Corredor com arranhões sistemáticosSideco<td class="tb">Na altura da cintura. Regulares. Algo sempre no mesmo trajeto. Sideco
+    <tr><td class="tn">6Sideco<td class="tb">Sala com espelhos em todas as superfíciesSideco<td class="tb">Teto, chão, paredes. Movimento infinito. Impossível saber o que é reflexo. Sideco
+    <tr><td class="tn">7Sideco<td class="tb">Câmara de ventilação largasideco<td class="tb">Grande para alguém passar. Sons orgânicos. Grade forçada de dentro para fora. Sideco
+    <tr><td class="tn">8Sideco<td class="tb">Sala de banquete podreSideco<td class="tb">Mesa farta apodrecida. Calor de corpos recentes. Sideco
+    <tr><td class="tn">9Sideco<td class="tb">Corredor que encolheSideco<td class="tb">Cada vez mais estreito ao avançar. Algo à frente faz barulho. Sideco
+    <tr><td class="tn">10Sideco<td class="tb">Sala de isolamento acústicoSideco<td class="tb">Silêncio absoluto. Você ouve seu corpo. E o que não deveria ouvir. Sideco
+    <tr><td class="tn">11Sideco<td class="tb">Galeria com obras perturbadorasSideco<td class="tb">Pinturas retratam os personagens em situações ainda não acontecidas. Sideco
+    <tr><td class="tn">12Sideco<td class="tb">Sala de máquinas funcionandoSideco<td class="tb">Ninguém as ligou. Uma produz som que parece nome. Sideco
+    <tr><td class="tn">13Sideco<td class="tb">Corredor com luzes direcionaisSideco<td class="tb">Cada luz aponta direção diferente. Uma pisca em código Morse. Sideco
+    <tr><td class="tn">14Sideco<td class="tb">Sala de processamento industrialSideco<td class="tb">Esteiras com material orgânico. Algo foi processado em quantidade. Sideco
+    <tr><td class="tn">15Sideco<td class="tb">Quarto de criança abandonadoSideco<td class="tb">Brinquedos em círculo. Desenhos muito recentes. Sideco
+    <tr><td class="tn">16Sideco<td class="tb">Sala de observação com vidro espelhadoSideco<td class="tb">De fora não se vê o dentro. De dentro, fora visível. Algo sabe disso. Sideco
+    <tr><td class="tn">17Sideco<td class="tb">Espaço sem geometria fixasideco<td class="tb">Paredes mudam — apenas quando ninguém olha diretamente. Sideco
+    <tr><td class="tn">18Sideco<td class="tb">Corredor inundado (joelho)Sideco<td class="tb">Água preta, opaca. Algo se moveu — ondas ainda se dissipam. Sideco
+    <tr><td class="tn">19Sideco<td class="tb">Sala com única saída trancadaSideco<td class="tb">A chave está com algo que ainda está na sala. Que notou os personagens. Sideco
+    <tr><td class="tn">20Sideco<td class="tb">A sala que não deveria existirSideco<td class="tb">Não está em nenhum mapa. Ela os escolheu. Role nas 3 tabelas e combine. Sideco
+  </tbody></table></div>
+
+  <h3>Tabela 3-B · Conteúdo (1d12)</h3>
+  <div class="tw"><table class="tr"><thead><tr><th>d12</th><th>Conteúdo</th><th>Detalhe</th></tr></thead><tbody>
+    <tr><td class="tn">1Sideco<td class="tb">Criatura presente — não percebeuSideco<td class="tb">Role em Criaturas. Com cuidado, é possível passar. Sideco
+    <tr><td class="tn">2Sideco<td class="tb">Criatura presente — percebeuSideco<td class="tb">Role em Criaturas. Sabe que estão lá. Avalia. Sideco
+    <tr><td class="tn">3Sideco<td class="tb">Rastros frescos de criaturaSideco<td class="tb">Menos de 30 minutos. Pode estar esperando na saída. Sideco
+    <tr><td class="tn">4Sideco<td class="tb">Sobrevivente em estado críticoSideco<td class="tb">Consciente. Tem informação vital. Não pode andar. Escolham. Sideco
+    <tr><td class="tn">5Sideco<td class="tb">Evidência de parasitaSideco<td class="tb">NPC age sutilmente diferente. Não sabe que mudou. Ou sabe. Sideco
+    <tr><td class="tn">6Sideco<td class="tb">A chave para avançarSideco<td class="tb">Objeto que resolve puzzle anterior. Obtê-lo é o problema. Sideco
+    <tr><td class="tn">7Sideco<td class="tb">Saída real para próximo nívelSideco<td class="tb">Não parece segura. Algo a usa também. Em ambas as direções. Sideco
+    <tr><td class="tn">8Sideco<td class="tb">Ninho ou território marcadoSideco<td class="tb">Claramente habitado. A criatura vai voltar. Quanto tempo têm? Sideco
+    <tr><td class="tn">9Sideco<td class="tb">Doppelganger ativoSideco<td class="tb">Cópia de um personagem. Está aqui antes deles. Olha para si mesmo. Sideco
+    <tr><td class="tn">10Sideco<td class="tb">Suprimentos — mas armadilhadosSideco<td class="tb">O que precisam está aqui. Claramente disposto como isca. Sideco
+    <tr><td class="tn">11Sideco<td class="tb">Corpo com transformaçãoSideco<td class="tb">Alguém encontrado antes. O que aconteceu está acontecendo com eles. Sideco
+    <tr><td class="tn">12Sideco<td class="tb">Vazio totalSideco<td class="tb">Nada. A ameaça é a sala. Cada minuto: −1 Sanidade. Sideco
+  </tbody></table></div>
+
+  <h3>Tabela 3-C · Anomalia (1d10)</h3>
+  <div class="tw"><table class="tr"><thead><tr><th>d10</th><th>Anomalia</th><th>Efeito</th></tr></thead><tbody>
+    <tr><td class="tn">1Sideco<td class="tb">Atração gravitacional centralSideco<td class="tb">Objetos soltos movem para o centro. Incluindo os personagens se pararem. Sideco
+    <tr><td class="tn">2Sideco<td class="tb">Escuridão progressivaSideco<td class="tb">Luzes enfraquecem. Em 10 min, escuridão total. O que está na sala sabe disso. Sideco
+    <tr><td class="tn">3Sideco<td class="tb">Memória suprimidaSideco<td class="tb">Dentro da sala não lembram como entraram. Ao sair: −1 linha cada. Sideco
+    <tr><td class="tn">4Sideco<td class="tb">Duplicação de somSideco<td class="tb">Cada som repetido 8 segundos depois. Por algo que não é eles. Sideco
+    <tr><td class="tn">5Sideco<td class="tb">Saídas reconfiguradasSideco<td class="tb">A cada 5 min, as saídas mudam de posição. Sideco
+    <tr><td class="tn">6Sideco<td class="tb">Reconhecimento mútuoSideco<td class="tb">A criatura reconhece um personagem específico. Não ataca esse. Por quê? Sideco
+    <tr><td class="tn">7Sideco<td class="tb">Campo de estranhamentoSideco<td class="tb">Difícil confiar uns nos outros. −20% em todas as rolagens sociais. Sideco
+    <tr><td class="tn">8Sideco<td class="tb">Loop de 90 segundosSideco<td class="tb">Os últimos 90s se repetem — apenas para um personagem. Sideco
+    <tr><td class="tn">9Sideco<td class="tb">Instinto animalSideco<td class="tb">Todos sentem necessidade de se abaixar, calar, não piscar. Sideco
+    <tr><td class="tn">10Sideco<td class="tb">A sala os conheceSideco<td class="tb">Elementos refletem memórias dos personagens. −1d6 Sanidade. Sideco
+  </tbody></table></div>
+</div>
+
+<!-- ══════════════════════════════════════════════ -->
+<!-- CRIATURAS -->
+<!-- ══════════════════════════════════════════════ -->
+<div class="sec" id="criaturas">
+  <h1>Criaturas</h1>
+  <div class="sec-meta">12 criaturas · Nunca combate frontal · A perda de Sanidade vem do que implicam</div>
+  <div class="tw"><table><thead><tr><th>d12</th><th>Criatura</th><th>Comportamento</th><th>Como evitar</th><th>Sanidade</th></tr></thead><tbody>
+    <tr><td class="tn">1Sideco<td class="tb">DoppelgangerSideco<td class="tb">Observa. Aprende comportamentos. Nunca ataca o original — substitui. Pode conviver por sessões. Sideco<td class="tb">Teste social: resposta que só o original saberia. Hesita 1 segundo. Sideco<td class="tb">1d6 ao ver / 1d10 ao confirmar no grupoSideco</tr>
+    <tr><td class="tn">2Sideco<td class="tb">SkinwalkerSideco<td class="tb">Imita sons, vozes, passos. Opera no escuro. Nunca imita alguém presente. Sideco<td class="tb">Luz contínua. Ficarem juntos. Silêncio forçado. Sideco<td class="tb">1d4 ao ouvir / 2d6 ao verSideco</tr>
+    <tr><td class="tn">3Sideco<td class="tb">Hospedeiro ParasitadoSideco<td class="tb">Age quase normalmente. Preferências invertidas, microexpressões erradas. Sideco<td class="tb">Observação (Psicologia). Perguntas sobre memórias específicas. Sideco<td class="tb">0 sem suspeita / 1d8 ao confirmarSideco</tr>
+    <tr><td class="tn">4Sideco<td class="tb">SmilerSideco<td class="tb">Sorriso bioluminescente no escuro. Não ataca quem mantém contato visual. Sideco<td class="tb">Nunca virar as costas. Recuar devagar. Sideco<td class="tb">1d6 ao avistar / 1d8 se perder contato visualSideco</tr>
+    <tr><td class="tn">5Sideco<td class="tb">HoundSideco<td class="tb">Persegue por cantos e ângulos agudos. Som de unhas em concreto. Sideco<td class="tb">Ficar em espaços circulares ou sem cantos agudos. Sideco<td class="tb">1d4 ao ouvir / 2d8 ao verSideco</tr>
+    <tr><td class="tn">6Sideco<td class="tb">A Figura no Fim do CorredorSideco<td class="tb">Forma humana distante. Nunca se aproxima enquanto observada. Se alguém pisca, avançou. Sideco<td class="tb">Nunca piscar. Recuar sem perder contato visual. Sideco<td class="tb">1d3 ao ver / 1d10 ao perceber que avançouSideco</tr>
+    <tr><td class="tn">7Sideco<td class="tb">Pareidolia VivaSideco<td class="tb">Existe só na visão periférica. Some ao ser observado — mas mudou de posição. Sideco<td class="tb">Fechar olhos e mover por tato. Luz intensa reduz o fenômeno. Sideco<td class="tb">1d3 acumulativo / 1d8 ao ver rosto reconhecívelSideco</tr>
+    <tr><td class="tn">8Sideco<td class="tb">Criança PerdidaSideco<td class="tb">Pode ser real, isca, ou doppelganger. Os personagens não sabem. Pede ajuda. Sideco<td class="tb">Não há evasão — a ameaça é moral. Ajudar ou não é o dilema. Sideco<td class="tb">0 ao encontrar / variável por decisãoSideco</tr>
+    <tr><td class="tn">9Sideco<td class="tb">Entidade TerritorialSideco<td class="tb">Não ataca quem não invade seu espaço. Escala: aviso → demonstração → ação. Sideco<td class="tb">Respeitar as marcas. Oferecer objeto. Recuar completamente. Sideco<td class="tb">1d4 ao notar / 2d6 ao verSideco</tr>
+    <tr><td class="tn">10Sideco<td class="tb">ColecionadorSideco<td class="tb">Sobrevivente antigo. Inteligente. Pode negociar. Preço: objeto com valor emocional. Sideco<td class="tb">Negociação direta. Não ataca boa fé. Trai mentiras. Sideco<td class="tb">1d4 ao ver / 0 em negociação bem-sucedidaSideco</tr>
+    <tr><td class="tn">11Sideco<td class="tb">A Sombra CorretaSideco<td class="tb">Sombra de um personagem que age independentemente quando não observada. Sideco<td class="tb">Não há evasão — pertence ao personagem. Ritual específico para reintegrar. Sideco<td class="tb">1d3 ao notar / 1d8 ao ver agir ativamenteSideco</tr>
+    <tr><td class="tn">12Sideco<td class="tb">O Que Não Tem NomeSideco<td class="tb">Incompreensível. Percebido como ausência: silêncio, frio, vazio. Sideco<td class="tb">Sair da sala é a única opção. Cada minuto: −1d3 Sanidade. Sideco<td class="tb">1d6/min de presençaSideco</tr>
+  </tbody></table></div>
+</div>
+
+<!-- ══════════════════════════════════════════════ -->
+<!-- NPCs -->
+<!-- ══════════════════════════════════════════════ -->
+<div class="sec" id="npcs">
+  <h1>NPCs — Guia de Interpretação</h1>
+  <div class="sec-meta">10 NPCs · Como interpretar cada um · Falas de exemplo · Segredos</div>
+  <div class="npc-grid">
+    <div class="npc-card"><div class="npc-card-hd"><div class="npc-avatar">🧪</div><div><div class="npc-name">Agente Hazmat</div><div class="npc-role">I.E.L. — Divisão Alfa</div></div></div><div class="npc-body"><div class="npc-section"><div class="npc-section-t">Como interpretar</div><div class="npc-section-c">Fala em frases curtas e precisas. Nunca usa o nome dos personagens — usa "civis". Não demonstra emoção. Sempre está avaliando. Movimentos calculados. Nunca toca em nada sem verificar primeiro.</div></div><div class="npc-section"><div class="npc-section-t">Falas de exemplo</div><div class="npc-fala">"Não toquem em nada sem minha autorização. Isso se aplica a todos."</div><div class="npc-fala">"Vocês não deveriam estar aqui. Nós também não. A diferença é que eu sei o que fazer."</div><div class="npc-fala">"Protocolo diz que sigo em frente. Não diz nada sobre vocês."</div></div><div class="npc-section"><div class="npc-section-t">Segredo</div><div class="npc-section-c">Esta é a terceira entrada do agente. Os dois colegas das entradas anteriores não voltaram. Ele está aqui para encontrar o que restou deles, não para resgatar civis.</div></div><div class="npc-tags"><span class="npc-tag">I.E.L.</span><span class="npc-tag">Frio</span><span class="npc-tag">Treinado</span><span class="npc-tag">Missão própria</span></div></div></div>
+    <div class="npc-card"><div class="npc-card-hd"><div class="npc-avatar">🔬</div><div><div class="npc-name">Dr. Marta Fonseca</div><div class="npc-role">I.E.L. — Divisão Beta</div></div></div><div class="npc-body"><div class="npc-section"><div class="npc-section-t">Como interpretar</div><div class="npc-section-c">Empolgada com os Backrooms de uma forma que incomoda. Anota tudo. Faz perguntas acadêmicas em momentos de perigo. Trata entidades como fenômenos naturais a serem catalogados. O perigo é abstrato para ela — ainda.</div></div><div class="npc-section"><div class="npc-section-t">Falas de exemplo</div><div class="npc-fala">"Espera, espera — isso é exatamente o comportamento da Anomalia Tipo-4 que eu documentei! Preciso registrar isso."</div><div class="npc-fala">"Fascinante. A geometria deste corredor viola literalmente três axiomas euclidianos."</div><div class="npc-fala">"Não, não — não corram! Precisamos de dados comportamentais da entidade em estado de repouso!"</div></div><div class="npc-section"><div class="npc-section-t">Segredo</div><div class="npc-section-c">Entrou voluntariamente. É a primeira vez dentro dos Backrooms. A teoria dela sobre como sair está parcialmente correta — mas a parte errada vai matar alguém se aplicada.</div></div><div class="npc-tags"><span class="npc-tag">I.E.L.</span><span class="npc-tag">Empolgada</span><span class="npc-tag">Ingênua</span><span class="npc-tag">Tem informação</span></div></div></div>
+    <div class="npc-card"><div class="npc-card-hd"><div class="npc-avatar">🗺️</div><div><div class="npc-name">O Cartógrafo</div><div class="npc-role">Sobrevivente — Nível desconhecido</div></div></div><div class="npc-body"><div class="npc-section"><div class="npc-section-t">Como interpretar</div><div class="npc-section-c">Fala enquanto escreve, nunca para de mapear. Não olha nos olhos — olha atrás de você, mapeando o espaço. Responde perguntas sobre os Backrooms com precisão assustadora. Responde perguntas pessoais com silêncio.</div></div><div class="npc-section"><div class="npc-section-t">Falas de exemplo</div><div class="npc-fala">"Este corredor tem 47 metros. Anotei. Voltará a ter 47 metros quando você voltar por ele — se você voltar por ele."</div><div class="npc-fala">"Tem saída? Sim. Já mapeei três. Não vou usar nenhuma delas."</div></div><div class="npc-section"><div class="npc-section-t">Segredo</div><div class="npc-section-c">Sabe exatamente onde é a saída. Acredita que sair é uma armadilha — que o que está do outro lado não é o mundo que ele deixou.</div></div><div class="npc-tags"><span class="npc-tag">Obcecado</span><span class="npc-tag">Não dorme</span><span class="npc-tag">Tem o mapa</span></div></div></div>
+    <div class="npc-card"><div class="npc-card-hd"><div class="npc-avatar">📻</div><div><div class="npc-name">O Rádio-Operador</div><div class="npc-role">Voz no rádio — nunca aparece</div></div></div><div class="npc-body"><div class="npc-section"><div class="npc-section-t">Como interpretar</div><div class="npc-section-c">Nunca aparece fisicamente — só voz no rádio. Tom calmo, informativo, às vezes cortado por estática. Sabe coisas que não deveria saber. Às vezes responde antes de a pergunta ser feita.</div></div><div class="npc-section"><div class="npc-section-t">Falas de exemplo</div><div class="npc-fala">"Aqui Estação 7. Vocês estão no Level 1, corredor 14-C. Não tomem o corredor à esquerda."</div><div class="npc-fala">"Estou aqui há... não sei mais. O rádio funciona. Enquanto funcionar, continuo."</div><div class="npc-fala">"Sim, já sei que vocês perderam alguém. Lamento. Continuem em frente."</div></div><div class="npc-section"><div class="npc-section-t">Segredo</div><div class="npc-section-c">Morreu há anos. A voz é um eco temporal dos Backrooms. As informações que passa são de uma versão do espaço que existiu décadas atrás — 70% corretas, 30% perigosamente desatualizadas.</div></div><div class="npc-tags"><span class="npc-tag">Nunca aparece</span><span class="npc-tag">Eco temporal</span><span class="npc-tag">Informação parcial</span></div></div></div>
+    <div class="npc-card"><div class="npc-card-hd"><div class="npc-avatar">👧</div><div><div class="npc-name">A Criança</div><div class="npc-role">Ambíguo — real ou criatura?</div></div></div><div class="npc-body"><div class="npc-section"><div class="npc-section-t">Como interpretar</div><div class="npc-section-c">Calma demais. Faz perguntas que uma criança normal não faria. Conhece rotas de forma intuitiva. Nunca explica como sabe. Nunca demonstra medo de nada.</div></div><div class="npc-section"><div class="npc-section-t">Falas de exemplo</div><div class="npc-fala">"Não vão por lá. A coisa que fica lá não gosta de barulho."</div><div class="npc-fala">"Eu já vi outros como vocês. Alguns saíram. A maioria não."</div><div class="npc-fala">"Você parece com alguém que eu conhecia. Ela também sumiu."</div></div><div class="npc-section"><div class="npc-section-t">Segredo</div><div class="npc-section-c">O mestre decide: criança real que adaptou tão bem que parece não-humana, ou entidade que aprendeu a se comportar como criança. A ambiguidade nunca é resolvida.</div></div><div class="npc-tags"><span class="npc-tag">Ambíguo</span><span class="npc-tag">Calma demais</span><span class="npc-tag">Conhece rotas</span></div></div></div>
+    <div class="npc-card"><div class="npc-card-hd"><div class="npc-avatar">🤐</div><div><div class="npc-name">A Silenciosa</div><div class="npc-role">Sobrevivente — não fala</div></div></div><div class="npc-body"><div class="npc-section"><div class="npc-section-t">Como interpretar</div><div class="npc-section-c">Comunica por escrita num caderno ou por gestos. Observação excepcional — nota coisas que o grupo perde. Fica nervosa quando o doppelganger está perto, mas não consegue explicar por escrita de forma que o grupo entenda a tempo.</div></div><div class="npc-section"><div class="npc-section-t">Notas que escreve</div><div class="npc-fala">"Não confiem em todos. Um de vocês não é quem parece."</div><div class="npc-fala">"Parei de falar depois do que ouvi na Câmara de Eco. Não repito o que ouvi."</div></div><div class="npc-section"><div class="npc-section-t">Segredo</div><div class="npc-section-c">Sabe do doppelganger no grupo. Está tentando comunicar sem alertá-lo — porque se o doppelganger souber que ela sabe, ela desaparece.</div></div><div class="npc-tags"><span class="npc-tag">Não fala</span><span class="npc-tag">Observadora</span><span class="npc-tag">Sabe do dopple</span></div></div></div>
+    <div class="npc-card"><div class="npc-card-hd"><div class="npc-avatar">⏳</div><div><div class="npc-name">O Veterano</div><div class="npc-role">Caiu há anos — adaptado demais</div></div></div><div class="npc-body"><div class="npc-section"><div class="npc-section-t">Como interpretar</div><div class="npc-section-c">Não quer sair. Fala do mundo real como alguém fala de uma viagem que fez há muito tempo — com carinho distante, sem urgência de voltar. Tem código de sobrevivência próprio que funciona mas que horrorizaria qualquer pessoa normal.</div></div><div class="npc-section"><div class="npc-section-t">Falas de exemplo</div><div class="npc-fala">"Sair? Pra quê? Já não tenho nada lá. Aqui, pelo menos, sei as regras."</div><div class="npc-fala">"Aquele ali — o que ficou quieto quando a criatura passou — ele vai sobreviver. Os outros, não tenho certeza."</div></div><div class="npc-section"><div class="npc-section-t">Segredo</div><div class="npc-section-c">Fez coisas para sobreviver que o grupo não aprovaria. Não por maldade — por necessidade. Mas se o grupo descobrir, podem não confiar mais nele.</div></div><div class="npc-tags"><span class="npc-tag">Adaptado</span><span class="npc-tag">Não quer sair</span><span class="npc-tag">Moralmente cinza</span></div></div></div>
+    <div class="npc-card"><div class="npc-card-hd"><div class="npc-avatar">😶</div><div><div class="npc-name">O Que Aceitou</div><div class="npc-role">Sanidade zero — mas funcional</div></div></div><div class="npc-body"><div class="npc-section"><div class="npc-section-t">Como interpretar</div><div class="npc-section-c">Completamente funcional. Conversa normalmente. Ajuda se pedido. Mas sem urgência, sem medo, sem esperança. Faz tudo com a calma de alguém que aceitou completamente a situação. É o espelho do que os personagens podem se tornar.</div></div><div class="npc-section"><div class="npc-section-t">Falas de exemplo</div><div class="npc-fala">"Claro, posso mostrar o caminho. Não tem nada urgente hoje de qualquer forma."</div><div class="npc-fala">"Sair? Já pensei nisso. Foi há um tempo. Acho."</div></div><div class="npc-section"><div class="npc-section-t">Segredo</div><div class="npc-section-c">Chegou nos Backrooms ontem. O declínio foi rápido demais para ser natural. Algo acelerou o processo. Algo que está no grupo.</div></div><div class="npc-tags"><span class="npc-tag">Sanidade zero</span><span class="npc-tag">Funcional</span><span class="npc-tag">Espelho do futuro</span></div></div></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════ -->
+<!-- ITENS DE REFERÊNCIA -->
+<!-- ══════════════════════════════════════════════ -->
+<div class="sec" id="itens">
+  <h1>Itens de Referência Cultural</h1>
+  <div class="sec-meta">Easter eggs · Função mecânica real · Máximo 1 por sessão</div>
+  <div class="tw"><table><thead><tr><th>d20</th><th>Item</th><th>Referência</th><th>Função mecânica</th></tr></thead><tbody>
+    <tr><td class="tn">1Sideco<td class="tb">Fita VHS "NÃO ASSISTIR"Sideco<td class="tb">Analog horror / found footageSideco<td class="tb">Gravação de sala ainda não encontrada. Assistir: −1d3 Sanidade, +informação crucial. Sideco</tr>
+    <tr><td class="tn">2Sideco<td class="tb">Walkie-talkie frequência 14.0Sideco<td class="tb">Backrooms canônico — M.E.G.Sideco<td class="tb">Capta outros sobreviventes. Nem todas as vozes são de pessoas vivas. Sideco</tr>
+    <tr><td class="tn">3Sideco<td class="tb">Garrafa de Almond WaterSideco<td class="tb">Backrooms canônico — Level 0Sideco<td class="tb">Restaura 1d6 Sanidade. Sabor impossível de descrever. Sideco</tr>
+    <tr><td class="tn">4Sideco<td class="tb">Câmera descartável reveladaSideco<td class="tb">Found footage / Local 58Sideco<td class="tb">As fotos mostram coisas que não foram fotografadas. Sideco</tr>
+    <tr><td class="tn">5Sideco<td class="tb">Manual de jogo sem nomeSideco<td class="tb">Yume Nikki, Ao OniSideco<td class="tb">As regras do "jogo" são as regras reais do espaço. +20% em exploração. Sideco</tr>
+    <tr><td class="tn">6Sideco<td class="tb">Fita cassete ambientSideco<td class="tb">Liminal music / muzakSideco<td class="tb">Reproduzida, afasta criaturas auditivas por 1 hora. Sideco</tr>
+    <tr><td class="tn">7Sideco<td class="tb">Caderno com logo M.E.G.Sideco<td class="tb">Backrooms canônicoSideco<td class="tb">Protocolos de sobrevivência. Alguns desatualizados. Um nome é reconhecível. Sideco</tr>
+    <tr><td class="tn">8Sideco<td class="tb">Porta com placa "The Exit"Sideco<td class="tb">Backrooms canônico / humor darkSideco<td class="tb">A chave existe em outro lugar. Quando aberta, leva ao Level 0 de outro ciclo. Sideco</tr>
+    <tr><td class="tn">9Sideco<td class="tb">Console portátil — único jogoSideco<td class="tb">Dreamcore / Yume NikkiSideco<td class="tb">O jogo mapeia os Backrooms em tempo real. Quem controlou o personagem antes? Sideco</tr>
+    <tr><td class="tn">10Sideco<td class="tb">Polaroid de sala normal demaisSideco<td class="tb">A primeira foto — 4chan 2019Sideco<td class="tb">A sala existe. É a única completamente segura. Sideco</tr>
+    <tr><td class="tn">11Sideco<td class="tb">Mapa do Level Fun — coloridoSideco<td class="tb">Backrooms Level !Sideco<td class="tb">Guia para corredor com música de circo. Não é o Level Fun. Mas algo o imita. Sideco</tr>
+    <tr><td class="tn">12Sideco<td class="tb">Frasco "Liquid Pain"Sideco<td class="tb">Backrooms canônicoSideco<td class="tb">Moeda de troca com o Colecionador. Valor: qualquer informação que ele tenha. Sideco</tr>
+    <tr><td class="tn">13Sideco<td class="tb">TV CRT em The ShiningSideco<td class="tb">Hotel Overlook como arquétipo liminarSideco<td class="tb">Quando alguém fica sozinho 5+ min, o filme muda. Mostra este grupo. Sideco</tr>
+    <tr><td class="tn">14Sideco<td class="tb">Boneco de pano com etiquetaSideco<td class="tb">Horror analógico / creepypastaSideco<td class="tb">Quem carregar não perde Sanidade nesta sessão. Na próxima, está em outro lugar. Sideco</tr>
+    <tr><td class="tn">15Sideco<td class="tb">Notepad com anotações SCP-3008Sideco<td class="tb">SCP-3008 — IKEA infinitaSideco<td class="tb">Parte se aplica aqui. Parte é perigosamente errada. Sideco</tr>
+    <tr><td class="tn">16Sideco<td class="tb">Cartão de acesso "Nível Seguro"Sideco<td class="tb">Estética corporate liminal / SCPSideco<td class="tb">Funciona em porta encontrada depois. O "Nível Seguro" tem um problema diferente. Sideco</tr>
+    <tr><td class="tn">17Sideco<td class="tb">Livro "Como Sair" — em brancoSideco<td class="tb">Metacomentário dos BackroomsSideco<td class="tb">Com luz UV revela instruções. Funcionam — para uma pessoa apenas. Sideco</tr>
+    <tr><td class="tn">18Sideco<td class="tb">Planta "Projeto Liminar"Sideco<td class="tb">Marc Augé — espaços liminaresSideco<td class="tb">Planta de versão anterior dos Backrooms. Algumas rotas ainda existem. Sideco</tr>
+    <tr><td class="tn">19Sideco<td class="tb">Crachá com foto de personagemSideco<td class="tb">Dark, SeveranceSideco<td class="tb">Nome diferente. Admissão de 3 anos atrás. Cargo: "Orientador". Sideco</tr>
+    <tr><td class="tn">20Sideco<td class="tb">Espelho com reflexo atrasadoSideco<td class="tb">Oculus, Black MirrorSideco<td class="tb">Mostra o estado real do personagem. Pode revelar parasita ou doppelganger. Sideco</tr>
+  </tbody></table></div>
+</div>
+
+<!-- ══════════════════════════════════════════════ -->
+<!-- MEMÓRIAS -->
+<!-- ══════════════════════════════════════════════ -->
+<div class="sec" id="memorias">
+  <h1>Sistema de Memórias</h1>
+  <div class="sec-meta">As cinco linhas · Gatilhos · Envelopes de memória falsa</div>
+  <p>Cada personagem escreve 5 linhas em primeira pessoa descrevendo <em>momentos</em> concretos e sensoriais da vida real — não fatos, momentos.</p>
+  <div class="g3">
+    <div class="card"><div class="card-t">Esquecimento</div><p style="font-size:13px">A linha some. Sem substituição. Quando a perda silenciosa é mais impactante.</p></div>
+    <div class="card"><div class="card-t">Memória Falsa</div><p style="font-size:13px">Envelope com versão levemente errada. O jogador sabe — o personagem não.</p></div>
+    <div class="card"><div class="card-t">Transferência</div><p style="font-size:13px">A linha de um personagem aparece na ficha de outro como memória própria.</p></div>
+  </div>
+  <h3>Gatilhos de perda de linha</h3>
+  <div class="tw"><table><thead><tr><th>Gatilho</th><th>Quem escolhe</th><th>Envelope?</th><th>Timing</th></tr></thead><tbody>
+    <tr><td class="tb">Falha crítica de Sanidade (5+ pontos)</td><td class="tb">Jogador</td><td class="tb">Sim, imediatamente</td><td class="tb">Na cena</td></tr>
+    <tr><td class="tb">Roll de fim de sessão (1d6 = 1)</td><td class="tb">Mestre</td><td class="tb">Início da próxima sessão</td><td class="tb">Entre sessões</td></tr>
+    <tr><td class="tb">Objeto encontrado (Tabela B resultado 11)</td><td class="tb">Mestre</td><td class="tb">Sim, imediatamente</td><td class="tb">Na cena</td></tr>
+    <tr><td class="tb">Sala N3, anomalia C3 (Memória suprimida)</td><td class="tb">Mestre</td><td class="tb">Sim, ao sair da sala</td><td class="tb">Na cena</td></tr>
+    <tr><td class="tb">Decisão narrativa de alto impacto</td><td class="tb">Mestre</td><td class="tb">Opcional</td><td class="tb">Na cena</td></tr>
+  </tbody></table></div>
+  <div class="box box-r"><div class="bxt">Regra de ouro</div><ul><li>Máximo de <strong style="color:var(--wh)">um envelope por cena</strong>. O impacto precisa respirar.</li><li>Quando a última linha cai: role Sanidade 1d6 imediatamente.</li><li>Personagem sem linhas não é inútil — é o espelho do que todos podem se tornar.</li></ul></div>
+  <h2>Envelopes — Personagem 1 (Contador/a)</h2>
+  <div class="env"><div class="env-l">Envelope 1-A — substitui linha 1</div><p data-edit>Meu pai me ensinou xadrez numa mesa de madeira escura, dentro de casa, numa noite de chuva. A garagem não existia. O cheiro era de comida, não de óleo.</p><div class="n">⟶ Use quando linha 1 for apagada.</div></div>
+  <div class="env"><div class="env-l">Envelope 1-B — substitui linha 2</div><p data-edit>Minha irmã se chama Laura, não Beatriz. Ela nunca aprendeu a andar de bicicleta — tinha medo.</p><div class="n">⟶ Use após encontro com o doppelganger.</div></div>
+  <div class="env"><div class="env-l">Envelope 1-C — substitui linha 3</div><p data-edit>O bilhete na minha carteira eu achei no chão. Não sei de quem é. Não tenho memória de nenhuma viagem especial.</p><div class="n">⟶ Considere transferir para outro personagem antes de apagar.</div></div>
+  <div class="env"><div class="env-l">Envelope 1-D — substitui linha 4</div><p data-edit>Eu nunca gostei muito de café. Sempre preferi chá. Quando penso em manhã, só vejo uma cozinha branca e vazia.</p><div class="n">⟶ Acione após uma noite mal dormida nos Backrooms.</div></div>
+  <div class="env"><div class="env-l">Envelope 1-E — ÚLTIMA LINHA</div><p data-edit>Meu apartamento. Eu sei que tenho um apartamento. Mas a janela... eu não consigo lembrar se ela existia.</p><div class="n">⟶ Role Sanidade 1d6 ao entregar. Reserve para sessão 4.</div></div>
+</div>
+
+<!-- ══════════════════════════════════════════════ -->
+<!-- SESSÕES -->
+<!-- ══════════════════════════════════════════════ -->
+<div class="sec" id="sessoes">
+  <h1>Estrutura das Sessões</h1>
+  <div class="sec-meta">4 sessões base · Expansível</div>
+  <div class="tl">
+    <div class="tli"><div class="tln">SESSÃO 1</div><div class="tlt">O Carpete Amarelo</div><div class="tld">Exploração. Vínculos. Nível 1 exclusivo. Nenhuma criatura visível.</div></div>
+    <div class="tli"><div class="tln">SESSÃO 2</div><div class="tlt">Você estava aqui ontem?</div><div class="tld">Paranoia. Doppelganger como suspeita. Níveis 1 e 2.</div></div>
+    <div class="tli"><div class="tln">SESSÃO 3</div><div class="tlt">A Lógica do Lugar</div><div class="tld">Revelações. Puzzle central. Primeira entidade visível. Níveis 2 e 3.</div></div>
+    <div class="tli"><div class="tln">SESSÃO 4</div><div class="tlt">Nenhum de Nós Saiu</div><div class="tld">Convergência. Os três finais. Nível 3 dominante.</div></div>
+  </div>
+  <h2>Os três finais possíveis</h2>
+  <div class="g3">
+    <div class="box box-g" style="margin:0;"><div class="bxt">Sair sozinhos</div><ul><li>Existe saída — comporta apenas uma pessoa.</li><li>Quem vai? O grupo decide.</li><li>Quem sai lê em voz alta as linhas restantes.</li></ul></div>
+    <div class="box box-y" style="margin:0;"><div class="bxt">Entender o espaço</div><ul><li>O lugar é responsivo — pode ser convencido.</li><li>Exige que alguém fique permanentemente.</li><li>Quem fica escolhe. Ninguém pode escolher por outro.</li></ul></div>
+    <div class="box box-r" style="margin:0;"><div class="bxt">Não sair</div><ul><li>Orientação zero. Alguns não querem ir embora.</li><li>Não é tragédia — é escolha.</li><li>A câmera fica nos que ficaram. O carpete amarelo.</li></ul></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════ -->
+<!-- GERADOR DE NOMES (original) -->
+<!-- ══════════════════════════════════════════════ -->
+<div class="sec" id="gerador">
+  <h1>Gerador de Nomes & Elementos</h1>
+  <div class="sec-meta">Nomes de personagens · NPCs · Salas · Objetos · Eventos</div>
+  <div class="namegen">
+    <div class="namegen-hd"><div class="namegen-t">✦ Gerador</div><button class="ng-all-btn" onclick="gerarTudo()">🎲 Gerar Tudo</button></div>
+    <div class="namegen-body">
+      <div class="ng-grid">
+        <div class="ng-box"><div class="ng-box-t">Nome de Personagem Civil</div><div class="ng-result" id="ng-nome">—</div><div class="ng-sub" id="ng-nome-sub"></div><button class="ng-btn" onclick="gerarNome()">↺ Gerar</button></div>
+        <div class="ng-box"><div class="ng-box-t">Profissão</div><div class="ng-result" id="ng-prof">—</div><div class="ng-sub" id="ng-prof-sub"></div><button class="ng-btn" onclick="gerarProf()">↺ Gerar</button></div>
+        <div class="ng-box"><div class="ng-box-t">Traço de Personalidade</div><div class="ng-result" id="ng-traco">—</div><div class="ng-sub" id="ng-traco-sub"></div><button class="ng-btn" onclick="gerarTraco()">↺ Gerar</button></div>
+        <div class="ng-box"><div class="ng-box-t">Nome de NPC</div><div class="ng-result" id="ng-npc">—</div><div class="ng-sub" id="ng-npc-sub"></div><button class="ng-btn" onclick="gerarNPC()">↺ Gerar</button></div>
+        <div class="ng-box"><div class="ng-box-t">Nome de Sala</div><div class="ng-result" id="ng-sala">—</div><div class="ng-sub" id="ng-sala-sub"></div><button class="ng-btn" onclick="gerarSala()">↺ Gerar</button></div>
+        <div class="ng-box"><div class="ng-box-t">Objeto Estranho</div><div class="ng-result" id="ng-obj">—</div><div class="ng-sub" id="ng-obj-sub"></div><button class="ng-btn" onclick="gerarObj()">↺ Gerar</button></div>
+        <div class="ng-box"><div class="ng-box-t">Evento de Sessão</div><div class="ng-result" id="ng-evento">—</div><div class="ng-sub" id="ng-evento-sub"></div><button class="ng-btn" onclick="gerarEvento()">↺ Gerar</button></div>
+        <div class="ng-box"><div class="ng-box-t">Segredo de NPC</div><div class="ng-result" id="ng-seg">—</div><div class="ng-sub" id="ng-seg-sub"></div><button class="ng-btn" onclick="gerarSegredo()">↺ Gerar</button></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════ -->
+<!-- PERGUNTAS DOS JOGADORES -->
+<!-- ══════════════════════════════════════════════ -->
+<div class="sec" id="perguntas">
+  <h1>Respostas para Perguntas dos Jogadores</h1>
+  <div class="sec-meta">Perguntas frequentes · Respostas prontas · Por categoria</div>
+  <div class="qpanel">
+    <div class="qpanel-hd"><div class="qpanel-t">📋 Banco de Perguntas</div></div>
+    <div class="qpanel-body">
+      <div class="qcat-tabs">
+        <button class="qcat-tab active" onclick="setQCat('sensorial', event)">Sensorial</button>
+        <button class="qcat-tab" onclick="setQCat('acao', event)">Ações</button>
+        <button class="qcat-tab" onclick="setQCat('ambiente', event)">Ambiente</button>
+        <button class="qcat-tab" onclick="setQCat('sobrev', event)">Sobrevivência</button>
+        <button class="qcat-tab" onclick="setQCat('meta', event)">Meta</button>
+      </div>
+      <div class="q-list active" id="ql-sensorial">
+        <div class="q-item"><div class="q-q" onclick="toggleQ(this)">"Qual é o cheiro?" <span class="q-arrow">›</span></div><div class="q-a">Mofo adocicado e umidade que não é água. Papel velho que absorveu décadas de ar parado. Uma nota metálica constante embaixo de tudo. Não cheira a perigo — cheira a abandono.</div></div>
+        <div class="q-item"><div class="q-q" onclick="toggleQ(this)">"O que eu ouço?" <span class="q-arrow">›</span></div><div class="q-a">O zumbido das luzes fluorescentes — mais alto e regular do que qualquer lâmpada real. Vibra numa frequência ligeiramente errada. E seus próprios passos. E a respiração dos outros. Mais nada.</div></div>
+        <div class="q-item"><div class="q-q" onclick="toggleQ(this)">"Qual a temperatura?" <span class="q-arrow">›</span></div><div class="q-a">O equilíbrio térmico de uma sala que foi habitada e foi abandonada — não fria, não quente. Um conforto que não pertence a nenhum clima natural. Perturbador exatamente porque é neutro.</div></div>
+        <div class="q-item"><div class="q-q" onclick="toggleQ(this)">"O que eu sinto ao tocar na parede?" <span class="q-arrow">›</span></div><div class="q-a">O papel de parede tem textura levemente oleosa sob os dedos. A parede atrás é sólida. Mas quando você para de prestar atenção, tem a impressão — física, não imaginária — de que ela respirou.</div></div>
+        <div class="q-item"><div class="q-q" onclick="toggleQ(this)">"Como é a luz?" <span class="q-arrow">›</span></div><div class="q-a">Fluorescente sem origem visível — a luz vem de todo lugar ao mesmo tempo. Sem sombras fortes. Tudo levemente irreal, como uma foto superexposta. Você procura onde a luz começa e não encontra.</div></div>
+        <div class="q-item"><div class="q-q" onclick="toggleQ(this)">"Sinto fome ou sede?" <span class="q-arrow">›</span></div><div class="q-a">Agora que você perguntou — sim. Seu estômago está num estado estranho, como se não soubesse ao certo se é hora de sentir fome. O corpo está em compasso de espera. Como quando você esquece de comer trabalhando e só percebe depois.</div></div>
+      </div>
+      <div class="q-list" id="ql-acao">
+        <div class="q-item"><div class="q-q" onclick="toggleQ(this)">"Eu grito" <span class="q-arrow">›</span></div><div class="q-a">Seu grito ecoa — mas o eco demora um beat a mais do que deveria, como se o corredor fosse mais longo do que parece. Nenhuma resposta. O zumbido continua igual, indiferente ao seu pânico.</div></div>
+        <div class="q-item"><div class="q-q" onclick="toggleQ(this)">"Eu volto pelo caminho que vim" <span class="q-arrow">›</span></div><div class="q-a">O corredor que você atravessou está lá. Mas o que está no fim dele não é onde você estava. É outro corredor. Igual a este. O caminho de volta não leva de volta.</div></div>
+        <div class="q-item"><div class="q-q" onclick="toggleQ(this)">"Eu corro" <span class="q-arrow">›</span></div><div class="q-a">Você corre. O corredor não acaba. Depois de um minuto você para, ofegante. O carpete úmido sob seus pés. O zumbido idêntico. Você não sabe se avançou ou voltou. O espaço não registra urgência.</div></div>
+        <div class="q-item"><div class="q-q" onclick="toggleQ(this)">"Eu olho o celular" <span class="q-arrow">›</span></div><div class="q-a">Sem sinal. A hora parou de atualizar — ou continua mas de forma inconsistente. A bateria está exatamente como estava. A tela ilumina normalmente, mas não há nada para receber. A foto da tela de bloqueio é a última coisa normal que você vê.</div></div>
+        <div class="q-item"><div class="q-q" onclick="toggleQ(this)">"Eu tento abrir uma porta" <span class="q-arrow">›</span></div><div class="q-a">Depende da porta. Algumas abrem normalmente. Algumas estão trancadas com uma firmeza que não parece mecânica — parece que a porta simplesmente não tem interesse em abrir. E uma ou duas parecem quentes ao toque, como se algo do outro lado estivesse encostado nelas.</div></div>
+        <div class="q-item"><div class="q-q" onclick="toggleQ(this)">"Eu tento escalar a parede / ir pelo teto" <span class="q-arrow">›</span></div><div class="q-a">O teto falso de gesso cede sob pressão suficiente. Atrás dele: mais um metro de espaço com fiação elétrica antiga, dutos de ventilação e poeira. Os dutos levam a algum lugar — mas são estreitos, escuros, e o som dentro deles é diferente do som fora.</div></div>
+      </div>
+      <div class="q-list" id="ql-ambiente">
+        <div class="q-item"><div class="q-q" onclick="toggleQ(this)">"Tem janelas?" <span class="q-arrow">›</span></div><div class="q-a">Não. Paredes, carpete, teto com luz. Sem janelas, sem portas externas, sem nenhuma indicação de que existe um "lá fora". Em alguns níveis há o que parece ser janelas — mas elas mostram outros corredores, ou são paredes pintadas de branco, ou mostram o próprio cômodo refletido.</div></div>
+        <div class="q-item"><div class="q-q" onclick="toggleQ(this)">"Qual é o tamanho deste lugar?" <span class="q-arrow">›</span></div><div class="q-a">Você não consegue medir. Não porque é muito grande — mas porque a perspectiva não funciona corretamente aqui. Quando você foca no fim do corredor, parece próximo. Quando começa a andar em direção a ele, percebe que estava mais longe do que parecia.</div></div>
+        <div class="q-item"><div class="q-q" onclick="toggleQ(this)">"Tem sinais de outras pessoas?" <span class="q-arrow">›</span></div><div class="q-a">As marcas no carpete. Indentações que sugerem que móveis estiveram aqui. Uma tomada com a tampa levemente solta, como se alguém mexeu nela. E — se olhar de perto — uma arranhão na parede que poderia ser acidental ou poderia ser uma seta apontando para um corredor específico.</div></div>
+        <div class="q-item"><div class="q-q" onclick="toggleQ(this)">"Quanto tempo estamos aqui?" <span class="q-arrow">›</span></div><div class="q-a">Impossível saber com precisão. O celular não é confiável aqui. O que você sabe é quanto você cansou, quanto você comeu, quanto você bebeu — e nada disso bate com uma linha do tempo coerente. Podem ser horas. Podem ser dias. O espaço não ajuda a calcular.</div></div>
+        <div class="q-item"><div class="q-q" onclick="toggleQ(this)">"O que tem no fim do corredor?" <span class="q-arrow">›</span></div><div class="q-a">De onde vocês estão, parece ser uma curva para a direita. Mas conforme vocês se aproximam, percebem que é mais uma sala aberta. Ou era uma curva mas se tornou uma sala. Ou a sala sempre esteve lá e a perspectiva os enganou. Não dá para ter certeza.</div></div>
+      </div>
+      <div class="q-list" id="ql-sobrev">
+        <div class="q-item"><div class="q-q" onclick="toggleQ(this)">"A água das poças é segura?" <span class="q-arrow">›</span></div><div class="q-a">No Level 1: sim, aparentemente. Sem cheiro, sem cor, temperatura ambiente. Seu corpo a aceita. No Level 0 a umidade do carpete não é água potável. No Level 5 há líquido negro nos canos — esse definitivamente não é seguro. Nunca beba nada que não seja claramente água.</div></div>
+        <div class="q-item"><div class="q-q" onclick="toggleQ(this)">"Tem comida aqui?" <span class="q-arrow">›</span></div><div class="q-a">Ocasionalmente — enlatados com datas impossíveis, barras de cereal em embalagens de marcas que não existem, pacotes lacrados de algo que parece ração. Nada fresco. Nada que faça sentido cronologicamente. Mas parece ser comestível — as pessoas que ficam aqui sobrevivem de alguma forma.</div></div>
+        <div class="q-item"><div class="q-q" onclick="toggleQ(this)">"Como dormimos aqui?" <span class="q-arrow">›</span></div><div class="q-a">Você pode dormir — o corpo eventualmente força isso independente da situação. O problema é que quando você acorda, não tem certeza de quanto tempo passou, e algumas vezes o lugar onde você estava não é exatamente o lugar onde você acorda. Grupos dormem em turnos. Sempre.</div></div>
+        <div class="q-item"><div class="q-q" onclick="toggleQ(this)">"Meu ferimento vai infeccionar?" <span class="q-arrow">›</span></div><div class="q-a">Possivelmente. Sem acesso a antisséptico adequado, qualquer ferimento aberto é risco. A boa notícia é que o ambiente dos Backrooms parece ter propriedades de preservação — ferimentos aqui se comportam de forma ligeiramente diferente do esperado. A má notícia é que "diferente" nem sempre significa melhor.</div></div>
+      </div>
+      <div class="q-list" id="ql-meta">
+        <div class="q-item"><div class="q-q" onclick="toggleQ(this)">"Tem saída daqui?" <span class="q-arrow">›</span></div><div class="q-a">Sim — mas não no sentido que você imagina. Não é uma porta de emergência com luz verde. A saída envolve entender o espaço o suficiente para encontrar os pontos de transição. Algumas pessoas encontraram. Mais pessoas ficaram tentando. O espaço não facilita.</div></div>
+        <div class="q-item"><div class="q-q" onclick="toggleQ(this)">"Alguém mais sabe que estamos aqui?" <span class="q-arrow">›</span></div><div class="q-a">Provavelmente sim — seus desaparecimentos foram registrados no mundo real. Mas se existe alguém que sabe onde vocês estão especificamente, e se esse alguém está em posição de fazer algo a respeito, são perguntas sem resposta. Por ora.</div></div>
+        <div class="q-item"><div class="q-q" onclick="toggleQ(this)">"O que são os Backrooms?" <span class="q-arrow">›</span></div><div class="q-a">Seu personagem não sabe. Nenhum personagem sabe. Teorias existem: espaço entre dimensões, camadas da realidade que existiam antes da realidade humana, construção psíquica coletiva de todos os que passaram por aqui. Nenhuma teoria foi confirmada. Algumas foram descartadas — com custo.</div></div>
+        <div class="q-item"><div class="q-q" onclick="toggleQ(this)">"Posso morrer aqui?" <span class="q-arrow">›</span></div><div class="q-a">Sim. Desidratação, ferimentos não tratados, hipotermia nos níveis mais frios, os níveis mais quentes. E as entidades, em circunstâncias extremas. Mas a morte não é o único resultado ruim disponível. Há estados piores que a morte aqui.</div></div>
+        <div class="q-item"><div class="q-q" onclick="toggleQ(this)">"Por que aqui existe tudo isso?" <span class="q-arrow">›</span></div><div class="q-a">Excelente pergunta. O espaço parece construído — mas por quem, para quê, quando, são questões que ninguém respondeu de forma satisfatória. O mais perturbador é que algumas evidências sugerem que o espaço não foi construído para ninguém. Que vocês são os intrusos, não os habitantes esperados.</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════ -->
+<!-- CAMPANHA ATIVA -->
+<!-- ══════════════════════════════════════════════ -->
+<div class="sec" id="campanha">
+  <h1>Campanha Ativa — Anotações</h1>
+  <div class="sec-meta">Salas · Criaturas · Itens · NPCs em jogo agora</div>
+  <div class="camp-panel"><div class="camp-hd"><div class="camp-hd-t">🗺 Salas Ativas</div><button class="tbtn" onclick="addCampTag('salas','room')">+ Adicionar</button></div><div class="camp-body"><div class="camp-tags" id="ctags-salas"></div><textarea class="camp-note" id="cnote-salas" rows="2" placeholder="Notas sobre salas em jogo..."></textarea></div></div>
+  <div class="camp-panel"><div class="camp-hd"><div class="camp-hd-t">👁 Criaturas em Jogo</div><button class="tbtn" onclick="addCampTag('criaturas','creature')">+ Adicionar</button></div><div class="camp-body"><div class="camp-tags" id="ctags-criaturas"></div><textarea class="camp-note" id="cnote-criaturas" rows="2" placeholder="Comportamento, localização, estado atual..."></textarea></div></div>
+  <div class="camp-panel"><div class="camp-hd"><div class="camp-hd-t">🧍 NPCs Ativos</div><button class="tbtn" onclick="addCampTag('npcs','npc')">+ Adicionar</button></div><div class="camp-body"><div class="camp-tags" id="ctags-npcs"></div><textarea class="camp-note" id="cnote-npcs" rows="2" placeholder="Status, localização, confia no grupo?..."></textarea></div></div>
+  <div class="camp-panel"><div class="camp-hd"><div class="camp-hd-t">📦 Itens Encontrados</div><button class="tbtn" onclick="addCampTag('itens','item')">+ Adicionar</button></div><div class="camp-body"><div class="camp-tags" id="ctags-itens"></div><textarea class="camp-note" id="cnote-itens" rows="2" placeholder="Quem carrega, efeito ativo..."></textarea></div></div>
+</div>
+
+<!-- ══════════════════════════════════════════════ -->
+<!-- TRACKER -->
+<!-- ══════════════════════════════════════════════ -->
+<div class="sec" id="tracker">
+  <h1>Gerenciador de Personagens</h1>
+  <div class="sec-meta">Interativo · Dados salvos no navegador · Use durante a sessão</div>
+  <div class="tracker"><div class="tracker-hd"><div class="tracker-t">✦ Estado da Campanha</div><div class="tc"><button class="tbtn am" onclick="salvarDados()">💾 Salvar</button><button class="tbtn" onclick="adicionarPJ()">+ Personagem</button><button class="tbtn red" onclick="resetarDados()">↺ Resetar</button></div></div><div class="tracker-body"><div class="pj-grid" id="pj-grid"></div><h3 style="margin-top:4px;">Registro de Sessões</h3><div style="background:var(--bg3);border:1px solid var(--bd);border-radius:2px;padding:10px;" id="sess-tracker"></div></div></div>
+</div>
+
+<!-- ══════════════════════════════════════════════ -->
+<!-- GERADOR DE SALAS (NOVO) -->
+<!-- ══════════════════════════════════════════════ -->
+<div class="sec" id="gerador-salas">
+  <h1>⚙ Gerador Rápido de Salas</h1>
+  <div class="sec-meta">Combine tipo, conteúdo, anomalia + item especial e situação – clique e use na sessão</div>
+  <div class="namegen" style="margin-bottom:20px;">
+    <div class="namegen-hd">
+      <div class="namegen-t">🎲 Gerador de Sala Liminar</div>
+      <button class="ng-all-btn" onclick="gerarSalaCompleta()">✨ Gerar Sala Agora</button>
+    </div>
+    <div class="namegen-body">
+      <div style="background:var(--bg3); border:1px solid var(--bd); border-radius:3px; padding:16px;">
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:12px;">
+          <div><span class="badge by">Tipo de Sala</span><div id="gs-tipo" style="font-size:15px; margin-top:4px;">—</div></div>
+          <div><span class="badge by">Conteúdo</span><div id="gs-conteudo" style="font-size:15px; margin-top:4px;">—</div></div>
+          <div><span class="badge br">Anomalia</span><div id="gs-anomalia" style="font-size:15px; margin-top:4px;">—</div></div>
+          <div><span class="badge bg">Item Especial</span><div id="gs-item" style="font-size:15px; margin-top:4px;">—</div></div>
+        </div>
+        <div><span class="badge bb">Situação / Efeito</span><div id="gs-situacao" style="font-size:14px; font-style:italic; margin-top:6px;">—</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div style="text-align:center;padding:48px 20px 64px;border-top:1px solid var(--bd2);margin-top:40px;"><div style="font-family:'Special Elite',serif;font-size:18px;color:var(--am2);letter-spacing:0.05em;">O carpete amarelo. O zumbido das luzes.</div><div style="font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--bd3);letter-spacing:0.2em;margin-top:5px;text-transform:uppercase;">Alguém ficou.</div></div>
+
+</div><!-- /wrap -->
+
+<!-- QUICK NOTE -->
+<div class="qnote" id="qnote"><div class="qnote-hd"><span class="qnote-t">✎ Nota Rápida</span><button class="qnote-x" onclick="toggleQNote()">✕</button></div><textarea id="qnote-input" class="camp-note" rows="5" placeholder="Anote algo urgente aqui..." style="border:none;border-radius:0;margin:0;resize:none;"></textarea></div>
+
+<!-- DICE PANEL -->
+<div class="dice-panel" id="dice-panel"><div class="dp-t">🎲 Rolagem de Dados</div><div class="die3d-wrap" onclick="animateDie()"><div class="die3d" id="die3d"><div class="die3d-face front" id="die-face-front">6</div><div class="die3d-face back">1</div><div class="die3d-face right">3</div><div class="die3d-face left">4</div><div class="die3d-face top">5</div><div class="die3d-face bottom">2</div></div></div><div class="dice-grid"><button class="die-btn" onclick="rolarDado(4)">d4</button><button class="die-btn" onclick="rolarDado(6)">d6</button><button class="die-btn" onclick="rolarDado(8)">d8</button><button class="die-btn" onclick="rolarDado(10)">d10</button><button class="die-btn" onclick="rolarDado(12)">d12</button><button class="die-btn" onclick="rolarDado(20)">d20</button><button class="die-btn" onclick="rolarDado(100)" style="grid-column:span 2;">d100</button></div><div class="die-result" id="die-result">—</div><div class="die-sub" id="die-sub"></div><div class="die-history" id="die-history"></div></div>
+
+<!-- FABs -->
+<div class="fab-group"><div class="fab-wrap"><span class="fab-lbl">Nota</span><button class="fab" onclick="toggleQNote()">✎</button></div><div class="fab-wrap"><span class="fab-lbl">Dados</span><button class="fab" onclick="toggleDice()">⚄</button></div></div>
+
+<script>
+// ═══════════════════════════════════════════════════════════════════
+// STATE
+let editMode=false, timerOn=false, timerSec=0, timerInt=null, curSess=1;
+let diceHist=[], lastDie=6;
+let pjs=[];
+let sessData=[
+  {titulo:'O Carpete Amarelo',salas:'',criaturas:'',roll:''},
+  {titulo:'Você estava aqui ontem?',salas:'',criaturas:'',roll:''},
+  {titulo:'A Lógica do Lugar',salas:'',criaturas:'',roll:''},
+  {titulo:'Nenhum de Nós Saiu',salas:'',criaturas:'',roll:''}
+];
+let campData={tags:{salas:[],criaturas:[],npcs:[],itens:[]},notes:{salas:'',criaturas:'',npcs:'',itens:''}};
+
+const profMap={'Contador/a':'Detecta padrões numéricos impossíveis. +20% em puzzles matemáticos.','Professor/a':'Calma NPCs instáveis. +20% em Psicologia e Ensino.','Técnico/a de Enfermagem':'Primeiros Socorros sem equipamento. Estabiliza ferimentos críticos.','Entregador/a':'Mapeamento instintivo. +20% em Navegação nos primeiros níveis.','Jornalista':'Observação e memória. +20% em Percepção, guarda detalhes.','Engenheiro/a':'Analisa estruturas e armadilhas. +20% em Mecânica e Elétrica.','Psicólogo/a':'Identifica comportamentos anormais. +20% em Psicologia e Psicanálise.','Outro':''};
+const statuses=['Estável','Ferido','Parasita','Dopple?','Perdido','Morto'];
+const statusCls={'Estável':'estavel','Ferido':'ferido','Parasita':'parasita','Dopple?':'dopple','Perdido':'perdido','Morto':'morto'};
+function newPJ(){return {nome:'',prof:'Contador/a',san:80,hp:10,hun:70,thi:70,linhas:[1,1,1,1,1],status:[],inventario:[],notas:'',tab:'stats'};}
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg; t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2200);}
+function toggleEdit(){editMode=!editMode;document.body.classList.toggle('edit-mode',editMode);document.getElementById('edit-bar').classList.toggle('show',editMode);document.getElementById('edit-btn').classList.toggle('on',editMode);document.querySelectorAll('[data-edit]').forEach(el=>{el.contentEditable=editMode?'true':'false';});toast(editMode?'✏ Modo edição ativado':'👁 Modo leitura');}
+function timerToggle(){if(timerOn){clearInterval(timerInt); timerOn=false;document.getElementById('tbtn-start').textContent='▶ Iniciar';}else{timerOn=true;document.getElementById('tbtn-start').textContent='⏸ Pausar';timerInt=setInterval(()=>{timerSec++;const h=Math.floor(timerSec/3600),m=Math.floor((timerSec%3600)/60),s=timerSec%60;document.getElementById('timer-disp').textContent=String(h).padStart(2,'0')+':'+String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');},1000);}}
+function timerReset(){clearInterval(timerInt); timerOn=false; timerSec=0;document.getElementById('timer-disp').textContent='00:00:00';document.getElementById('tbtn-start').textContent='▶ Iniciar';}
+function cycleSession(){curSess=(curSess%4)+1;document.getElementById('sess-ind').textContent='SESSÃO '+curSess;toast('Sessão '+curSess+' ativa');}
+function toggleDice(){document.getElementById('dice-panel').classList.toggle('show');document.getElementById('qnote').classList.remove('show');}
+function toggleQNote(){document.getElementById('qnote').classList.toggle('show');document.getElementById('dice-panel').classList.remove('show');}
+function animateDie(){const d=document.getElementById('die3d');d.classList.remove('rolling');void d.offsetWidth;d.classList.add('rolling');setTimeout(()=>{const r=Math.floor(Math.random()*lastDie)+1;document.getElementById('die-face-front').textContent=r;document.getElementById('die-result').textContent=r;d.classList.remove('rolling');},600);}
+function rolarDado(faces){lastDie=faces;const r=Math.floor(Math.random()*faces)+1;const d=document.getElementById('die3d');d.classList.remove('rolling'); void d.offsetWidth; d.classList.add('rolling');setTimeout(()=>{document.getElementById('die-face-front').textContent=r;document.getElementById('die-result').textContent=r;document.getElementById('die-sub').textContent='d'+faces;d.classList.remove('rolling');diceHist.unshift('d'+faces+'='+r);if(diceHist.length>6)diceHist.pop();document.getElementById('die-history').textContent=diceHist.join('  ');if(faces===6&&r===1)toast('d6=1 — verificar perda de linha!');},600);}
+function toggleQ(el){const item=el.closest('.q-item');if(item)item.classList.toggle('open');}
+function setQCat(cat,ev){if(!ev)ev=window.event;document.querySelectorAll('.q-list').forEach(l=>l.classList.remove('active'));document.querySelectorAll('.qcat-tab').forEach(t=>t.classList.remove('active'));const target=document.getElementById('ql-'+cat);if(target)target.classList.add('active');if(ev&&ev.target)ev.target.classList.add('active');}
+function addCampTag(sec,cls){const n=prompt('Nome:'); if(!n||!n.trim())return;campData.tags[sec].push({name:n.trim(),active:true});renderCamp();saveCamp();}
+function toggleCampTag(sec,i){campData.tags[sec][i].active=!campData.tags[sec][i].active;renderCamp();saveCamp();}
+function removeCampTag(sec,i){campData.tags[sec].splice(i,1);renderCamp();saveCamp();}
+function renderCamp(){['salas','criaturas','npcs','itens'].forEach(s=>{const cls=s==='salas'?'room':s==='criaturas'?'creature':s==='npcs'?'npc':'item';const div=document.getElementById('ctags-'+s);if(!div)return;div.innerHTML=campData.tags[s].map((t,i)=>`<span class="ctag ${cls}${t.active?' active':''}" onclick="toggleCampTag('${s}',${i})">${t.name}</span><span style="font-size:9px;color:var(--bd3);cursor:pointer;margin-left:-4px;margin-right:3px;" onclick="removeCampTag('${s}',${i})">✕</span>`).join('');const ta=document.getElementById('cnote-'+s);if(ta&&!ta.dataset.bound){ta.value=campData.notes[s]||'';ta.addEventListener('input',()=>{campData.notes[s]=ta.value;saveCamp();});ta.dataset.bound='1';}});}
+function saveCamp(){try{localStorage.setItem('br_camp',JSON.stringify(campData));}catch(e){}}
+function loadCamp(){try{const d=localStorage.getItem('br_camp');if(d)campData=JSON.parse(d);}catch(e){}}
+const dados={nomes_m:['Caio','Lucas','Felipe','André','Thiago','Bruno','Diego','Rafael','Rodrigo','Marcelo','Eduardo','Gabriel','Henrique','Paulo','Jorge','Carlos','Roberto','Leandro','Fábio','Sérgio'],nomes_f:['Ana','Carla','Juliana','Fernanda','Camila','Mariana','Patrícia','Cristina','Sandra','Letícia','Vanessa','Daniela','Amanda','Priscila','Larissa','Natália','Beatriz','Carolina','Lúcia','Mônica'],sobrenomes:['Silva','Santos','Oliveira','Souza','Lima','Pereira','Costa','Ferreira','Alves','Rodrigues','Martins','Cardoso','Nascimento','Araújo','Barbosa','Ribeiro','Gomes','Carvalho','Mendes','Freitas'],profissoes:[['Contador/a','Detecta inconsistências em números e padrões'],['Professor/a','Calma sob pressão, paciência para observação'],['Técnico/a de Enfermagem','Primeiros socorros sem equipamento'],['Entregador/a','Mapeamento instintivo de rotas'],['Jornalista','Observação aguçada, memória de detalhes'],['Engenheiro/a','Análise de estruturas e sistemas'],['Psicólogo/a','Detecção de comportamento anormal'],['Motorista de app','Conhecimento de rotas, calma em trânsito'],['Biomédico/a','Identificação de parasitas e infecções'],['Designer','Percepção visual aguçada, nota inconsistências'],['Técnico de TI','Conserta equipamentos com peças improvisadas'],['Chef de cozinha','Gestão de recursos escassos, criativo com pouco']],tracos:[['Guarda tudo','Sempre tem algo útil nos bolsos — bilhetes, fósforos, fios.'],['Ritualístico/a','Precisa de uma rotina antes de dormir ou fica ansioso/a.'],['Pensa em voz alta','Processa situações falando — ajuda e irrita ao mesmo tempo.'],['Fotografa mentalmente','Descreve o que vê com precisão fotográfica.'],['Suspeita de tudo','Primeira reação é desconfiar — às vezes salva vidas.'],['Canta baixinho','Quando está nervoso, canta músicas aleatórias.'],['Conta coisas','Conta passos, latas, portas. Compulsivo mas útil.'],['Não abandona ninguém','Literalmente incapaz de deixar alguém para trás.'],['Lê rótulos','Lê qualquer texto que encontra, mesmo sem querer.'],['Luz nos momentos ruins','Quando tudo desmorona, mantém a calma dos outros.']],npcs:[['Seu Antônio','Velho calado que sabe mais do que fala'],['Dra. Helena','Médica pragmática que nega o inexplicável'],['O Menino','Criança que chegou primeiro e não sente medo'],['Agente 7','Nome desconhecido, traje hazmat, missão própria'],['Isabela','Sobrevivente de longa data, adaptada demais'],['Voz do Rádio','Nunca aparece, sabe demais, pode estar morto'],['O Cartógrafo','Obcecado com mapas, não quer sair'],['Ana Maria','Professora que tenta manter normalidade'],['Coronel Dias','I.E.L., entrada forçada, missão de resgate'],['A Silenciosa','Não fala mais. Escreve tudo num caderno amassado.']],salas:[['A Sala do Café Frio','Escritório com 12 canecas. Cada café num estágio diferente de esfriamento.'],['O Corredor das Setas','Marcações na parede que apontam em direções contraditórias.'],['A Biblioteca Sem Títulos','Milhares de livros. Nenhum com nome na lombada.'],['O Quarto Quente','Um único quarto. Temperatura inexplicavelmente alta. A cama ainda está aquente.'],['A Sala dos Espelhos Errados','Reflexos que mostram a sala levemente diferente do que é.'],['O Corredor da Contagem','Marcas na parede. Alguém contou dias aqui por muito tempo.'],['A Sala do Rádio','Um rádio antigo. Três frequências funcionam. Cada uma com uma voz diferente.'],['O Jardim de Plástico','Plantas artificiais num jardim interno. Uma delas foi recentemente molhada.'],['A Cozinha da 3h','Cozinha industrial. Café coando. Ninguém em volta.'],['O Vestíbulo de Portas','Doze portas. Onze trancadas. Uma aberta. Dá para outra sala de portas.']],objetos:[['Relógio parado em 14h47','Funciona. Nunca avança. Nunca atrasa.'],['Foto sem rosto','Família numa praia. Os rostos foram cuidadosamente recortados.'],['Chave sem fechadura','Pesada, antiga. A etiqueta diz apenas "não usar".'],['Diário com páginas em branco','Exceto a última: "Se você encontrou isso, é tarde demais."'],['Fita VHS sem rótulo','Funciona. Mostra uma sala idêntica a esta. Com você nela.'],['Crachá do I.E.L.','Nome ilegível. Foto: alguém que parece um dos personagens.'],['Garrafa de Almond Water','Sabor impossível de descrever. Faz muito bem.'],['Mapa com uma sala marcada','A sala está marcada com um X. Não tem nome. Não dá para encontrá-la... ainda.'],['Boneco de pano','Velho, surrado. Com o nome de um dos personagens escrito no pé.'],['Óculos sem graduação','Quando usados, certas marcas nas paredes se tornam legíveis.']],eventos:[['As luzes piscam três vezes e ficam apagadas por 8 segundos','Durante o apagão: algo se move. Quando a luz volta, um suprimento sumiu.'],['Alguém jura ter ouvido o nome de uma pessoa do mundo real','A voz veio do corredor. Quando investigam: ninguém.'],['O mapa está diferente do que era ontem','Uma sala foi removida. Outra adicionada. O mapa foi desenhado pelos próprios personagens.'],['Um NPC faz algo que o personagem original nunca faria','Pequeno, sutil. Quem percebe primeiro?'],['Uma porta que estava trancada está aberta','E uma que estava aberta está trancada. As coisas se reorganizaram.'],['Alguém acorda num lugar diferente de onde dormiu','Poucos metros. Mas diferente. E sem ter se lembrado de se mover.'],['O rádio capta algo claro por 10 segundos','Uma voz familiar do mundo real. Depois: estática.'],['Encontram rastros que são dos próprios personagens','Mas eles nunca estiveram nesta sala. O mapa confirma.'],['A sala muda quando ninguém está olhando','Um personagem que vigia não vê nada. Mas no retorno: um objeto mudou de lugar.'],['Alguém encontra um objeto pessoal que não perdeu','Um segundo bilhete de metrô. Idêntico. Com a data de amanhã.']],segredos:[['Entrou de propósito','Estava pesquisando espaços liminares. Queria estar aqui.'],['Está com sintomas de parasita há dois dias','Ainda não percebeu. Ou percebeu e está escondendo.'],['Conhece a saída','Mas acredita que sair é uma armadilha. Não vai contar.'],['Traiu outro grupo','Para sobreviver. Não foi fácil. Vai fazer de novo se precisar.'],['Está fazendo relatório mental','Cada observação é arquivada. Para alguém do mundo real.'],['Não é quem diz que é','O nome é falso. A profissão é falsa. O medo é real.'],['Já morreu aqui uma vez','E acordou no Level 0 de novo. Não entende o porquê.'],['Sabe do doppelganger','Está tentando comunicar sem alertá-lo.'],['Não quer sair','Mas não vai admitir isso para os outros.'],['Trouxe algo do mundo real','Que não deveria ter trazido. E está com medo do que isso significa.']]};
+function rnd(arr){return arr[Math.floor(Math.random()*arr.length)];}
+function gerarNome(){const genero=Math.random()>0.5?'m':'f';const nome=rnd(dados['nomes_'+genero]);const sob=rnd(dados.sobrenomes);document.getElementById('ng-nome').textContent=nome+' '+sob;document.getElementById('ng-nome-sub').textContent=genero==='m'?'Masculino':'Feminino';}
+function gerarProf(){const p=rnd(dados.profissoes);document.getElementById('ng-prof').textContent=p[0];document.getElementById('ng-prof-sub').textContent=p[1];}
+function gerarTraco(){const t=rnd(dados.tracos);document.getElementById('ng-traco').textContent=t[0];document.getElementById('ng-traco-sub').textContent=t[1];}
+function gerarNPC(){const n=rnd(dados.npcs);document.getElementById('ng-npc').textContent=n[0];document.getElementById('ng-npc-sub').textContent=n[1];}
+function gerarSala(){const s=rnd(dados.salas);document.getElementById('ng-sala').textContent=s[0];document.getElementById('ng-sala-sub').textContent=s[1];}
+function gerarObj(){const o=rnd(dados.objetos);document.getElementById('ng-obj').textContent=o[0];document.getElementById('ng-obj-sub').textContent=o[1];}
+function gerarEvento(){const e=rnd(dados.eventos);document.getElementById('ng-evento').textContent=e[0];document.getElementById('ng-evento-sub').textContent=e[1];}
+function gerarSegredo(){const s=rnd(dados.segredos);document.getElementById('ng-seg').textContent=s[0];document.getElementById('ng-seg-sub').textContent=s[1];}
+function gerarTudo(){gerarNome();gerarProf();gerarTraco();gerarNPC();gerarSala();gerarObj();gerarEvento();gerarSegredo();toast('Tudo gerado!');}
+function adicionarPJ(){pjs.push(newPJ());renderPJs();}
+function removerPJ(i){if(!confirm('Remover personagem?'))return;pjs.splice(i,1);renderPJs();salvarLocal();}
+function setTab(i,tab){pjs[i].tab=tab;renderPJs();}
+function adj(i,key,d){const maxes={san:100,hp:20,hun:100,thi:100};pjs[i][key]=Math.max(0,Math.min(maxes[key]||100,pjs[i][key]+d));renderPJs();salvarLocal();if(pjs[i][key]<=0)toast('⚠ '+(pjs[i].nome||'PJ '+(i+1))+' — '+key+' chegou a zero!');}
+function toggleStatus(i,s){const idx=pjs[i].status.indexOf(s);if(idx>-1)pjs[i].status.splice(idx,1);else pjs[i].status.push(s);renderPJs();salvarLocal();}
+function cicleLinha(pi,li){const est=[1,0,2];const cur=pjs[pi].linhas[li];pjs[pi].linhas[li]=est[(est.indexOf(cur)+1)%3];const nomes=['ativa','apagada','memória falsa'];const novo=pjs[pi].linhas[li];toast('Linha '+(li+1)+' → '+nomes[novo===1?0:novo===0?1:2]);if(pjs[pi].linhas.every(l=>l!==1))toast('⚠ '+(pjs[pi].nome||'PJ')+' perdeu TODAS as linhas!');renderPJs();salvarLocal();}
+function adicionarItem(i){const inp=document.getElementById('inv-in-'+i);if(!inp||!inp.value.trim())return;pjs[i].inventario=pjs[i].inventario||[];pjs[i].inventario.push(inp.value.trim());renderPJs();salvarLocal();}
+function removerItem(i,j){pjs[i].inventario.splice(j,1);renderPJs();salvarLocal();}
+function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;');}
+function statBar(i,key,label,val,cls,max){max=max||100;return `<div class="stat-row"><div class="stat-lbl"><span>${label}</span><span class="stat-val">${val}/${max}</span></div><div class="stat-bar"><div class="stat-fill ${cls}" style="width:${(val/max)*100}%"></div></div><div class="stat-btns">${max===20?`<button class="sbt" onclick="adj(${i},'${key}',-3)">−3</button><button class="sbt" onclick="adj(${i},'${key}',-1)">−1</button><button class="sbt" onclick="adj(${i},'${key}',1)">+1</button><button class="sbt" onclick="adj(${i},'${key}',3)">+3</button>`:`<button class="sbt" onclick="adj(${i},'${key}',-10)">−10</button><button class="sbt" onclick="adj(${i},'${key}',-5)">−5</button><button class="sbt" onclick="adj(${i},'${key}',-1)">−1</button><button class="sbt" onclick="adj(${i},'${key}',1)">+1</button><button class="sbt" onclick="adj(${i},'${key}',5)">+5</button>`}</div></div>`;}
+function renderTab(i,pj){if(pj.tab==='stats'){const sts=statuses.map(s=>`<span class="stag${pj.status.includes(s)?' on '+statusCls[s]:''}" onclick="toggleStatus(${i},'${s}')">${s}</span>`).join('');return `<div class="pj-pane active">${statBar(i,'san','Sanidade',pj.san,'fill-san',100)}${statBar(i,'hp','Vida',pj.hp,'fill-hp',20)}<div style="margin-top:7px;"><div style="font-family:'Share Tech Mono',monospace;font-size:7px;color:var(--tx2);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:4px;">Status</div><div class="stags">${sts}</div></div><textarea class="pj-nota" rows="2" placeholder="Notas..." oninput="pjs[${i}].notas=this.value;salvarLocal()" style="margin-top:7px;">${esc(pj.notas)}</textarea></div>`;}
+if(pj.tab==='surv'){return `<div class="pj-pane active">${statBar(i,'hun','Fome',pj.hun,'fill-hun',100)}${statBar(i,'thi','Sede',pj.thi,'fill-thi',100)}<div style="font-family:'Share Tech Mono',monospace;font-size:7px;color:var(--tx2);margin-top:7px;line-height:1.8;"><span style="color:var(--rt)">■</span> 0–20: crítico — penalidades em todas as rolagens<br><span style="color:var(--yt)">■</span> 21–50: comprometido — −10% físico<br><span style="color:var(--gt)">■</span> 51–100: sustentável</div></div>`;}
+if(pj.tab==='mem'){const lnhs=pj.linhas.map((l,j)=>{let cls=l===1?'ativa':l===0?'apagada':'falsa';let lbl=l===1?String(j+1):l===0?'✕':'?';return `<div class="lnh ${cls}" onclick="cicleLinha(${i},${j})">${lbl}</div>`;}).join('');const restantes=pj.linhas.filter(l=>l===1).length;return `<div class="pj-pane active"><div style="font-family:'Share Tech Mono',monospace;font-size:7px;color:var(--tx2);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:5px;">Linhas de Memória (${restantes}/5)</div><div class="lnhs">${lnhs}</div><div style="font-family:'Share Tech Mono',monospace;font-size:7px;color:var(--tx2);margin-top:5px;">● ativa &nbsp; ✕ apagada &nbsp; ? falsa</div>${restantes===0?'<div style="color:var(--rt);font-family:Share Tech Mono,monospace;font-size:7px;margin-top:6px;letter-spacing:0.08em;">▲ TODAS AS LINHAS PERDIDAS — ROLE SANIDADE 1d6</div>':''}</div>`;}
+if(pj.tab==='inv'){const items=(pj.inventario||[]).map((item,j)=>`<div class="inv-item"><span style="color:var(--yt);font-size:10px;">📦</span><span style="flex:1;font-size:12px;">${esc(item)}</span><button class="inv-del" onclick="removerItem(${i},${j})">✕</button></div>`).join('');return `<div class="pj-pane active">${items||'<div style="font-size:11px;color:var(--tx2);font-style:italic;padding:3px 0;">Nenhum item</div>'}<div class="inv-add"><input class="inv-input" id="inv-in-${i}" placeholder="Adicionar item..." onkeydown="if(event.key==='Enter')adicionarItem(${i})"/><button class="inv-btn" onclick="adicionarItem(${i})">+</button></div></div>`;}
+if(pj.tab==='prof'){const opts=Object.keys(profMap).map(p=>`<option value="${p}"${pj.prof===p?' selected':''}>${p}</option>`).join('');return `<div class="pj-pane active"><select class="prof-sel" onchange="pjs[${i}].prof=this.value;renderPJs();salvarLocal()">${opts}</select><div class="prof-hab">${profMap[pj.prof]||''}</div></div>`;}
+return '';}
+function renderPJs(){const grid=document.getElementById('pj-grid');if(!grid)return;grid.innerHTML='';pjs.forEach((pj,i)=>{const sanColor=pj.san>50?'var(--gt)':pj.san>25?'var(--yt)':'var(--rt)';const critical=pj.san<=15||pj.hp<=3||pj.hun<=10||pj.thi<=10;const card=document.createElement('div');card.className='pjcard'+(critical?' critical':'');const tabs=[{id:'stats',label:'Status'},{id:'surv',label:'Surv.'},{id:'mem',label:'Memória'},{id:'inv',label:'Itens'},{id:'prof',label:'Profissão'}];const tabsHtml=tabs.map(t=>`<div class="pj-tab${pj.tab===t.id?' active':''}" onclick="setTab(${i},'${t.id}')">${t.label}</div>`).join('');card.innerHTML=`<div class="pjcard-hd"><div class="pjnum">0${i+1}</div><input class="pjname" placeholder="Nome do personagem" value="${esc(pj.nome)}" oninput="pjs[${i}].nome=this.value;salvarLocal()"/><div class="pjdot" style="background:${sanColor}"></div><button class="pjdel" onclick="removerPJ(${i})">✕</button></div><div class="pj-tabs">${tabsHtml}</div>${renderTab(i,pj)}`;grid.appendChild(card);});}
+function renderSessoes(){const div=document.getElementById('sess-tracker');if(!div)return;div.innerHTML=sessData.map((s,i)=>`<div class="st-row"><div class="st-num">SESSÃO ${i+1}</div><input class="st-in" placeholder="${esc(s.titulo)}" value="${esc(s.salas)}" oninput="sessData[${i}].salas=this.value;salvarLocal()" /><input class="st-in" placeholder="Criaturas / NPCs" value="${esc(s.criaturas)}" oninput="sessData[${i}].criaturas=this.value;salvarLocal()" /><div class="st-roll" onclick="rolarFimSessao(${i})">${s.roll?'🎲 '+s.roll:'🎲 Rolar'}</div></div>`).join('');}
+function rolarFimSessao(i){const r=Math.ceil(Math.random()*6);sessData[i].roll=r;renderSessoes();salvarLocal();if(r===1)toast('Sessão '+(i+1)+': d6=1 — apagar 1 linha!');else toast('Sessão '+(i+1)+': d6='+r);}
+function salvarLocal(){try{localStorage.setItem('br_pjs',JSON.stringify(pjs));localStorage.setItem('br_sess',JSON.stringify(sessData));}catch(e){}}
+function salvarDados(){salvarLocal();const qn=document.getElementById('qnote-input');try{if(qn)localStorage.setItem('br_qnote',qn.value);}catch(e){}saveCamp();toast('Dados salvos ✓');}
+function carregarDados(){try{const p=localStorage.getItem('br_pjs');const s=localStorage.getItem('br_sess');const qn=localStorage.getItem('br_qnote');if(p)pjs=JSON.parse(p);if(s)sessData=JSON.parse(s);const qnel=document.getElementById('qnote-input');if(qn&&qnel)qnel.value=qn;}catch(e){}if(pjs.length===0)for(let i=0;i<4;i++)pjs.push(newPJ());}
+function resetarDados(){if(!confirm('Resetar todos os dados?'))return;pjs=[];for(let i=0;i<4;i++)pjs.push(newPJ());sessData.forEach(s=>{s.salas='';s.criaturas='';s.roll='';});campData={tags:{salas:[],criaturas:[],npcs:[],itens:[]},notes:{salas:'',criaturas:'',npcs:'',itens:''}};try{['br_pjs','br_sess','br_camp'].forEach(k=>localStorage.removeItem(k));}catch(e){}renderPJs();renderSessoes();renderCamp();toast('Dados resetados');}
+function updateNav(){const links=document.querySelectorAll('.nav-links a');const secs=document.querySelectorAll('.sec');const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){links.forEach(l=>l.classList.toggle('active',l.getAttribute('href')==='#'+e.target.id));}});},{threshold:0.3});secs.forEach(s=>obs.observe(s));}
+function gerarSalaCompleta(){const tipos=["Corredor de shopping fechado – Vitrines com manequins sem cabeça, Muzak sem fonte","Sala de espera de hospital – Cadeiras laranja, revistas sem data, néon em ritmo de pulso","Escritório de plano aberto – Trabalho a meio, cafés frios, relógio parado em 14h47","Corredor escolar à noite – Armários sem sequência, cartazes desbotados, giz e desinfetante","Sala de estar genérica – Móveis de catálogo, quadros sem foto, TV em estática","Estacionamento coberto vazio – Eco de cada passo, um carro sem placa distante","Piscina coberta sem água – Azulejo desbotado, escada enferrujada, marcas de arrastar","Sala de jantar de restaurante – Mesas postas para número impossível, velas com cera recente","Biblioteca pública vazia – Livros sem título, fichário travado, gato de pelúcia no balcão","Corredor de hotel – Carpete com padrão desorientador, carrinho de limpeza abandonado"];const conteudos=["Nada além do mobiliário – a ausência é o evento","Alimento enlatado com data impossível – em bom estado","Diário manuscrito – entradas metódicas que se tornam ilegíveis","Mapa desenhado à mão – parcialmente correto, sala marcada 'NÃO ENTRAR'","Rádio parcialmente funcional – capta vozes reconhecíveis e impossíveis","Foto ou documento pessoal – pertenceu a alguém, talvez um dos personagens","Suprimento incompleto – lanterna sem pilha, faca sem cabo","Rastros no pó – pegadas que começam no meio da sala e terminam na parede","Mensagem arranhada na parede – contagem de dias","Porta para sala conhecida – leva a lugar já explorado, mas um objeto mudou"];const anomalias=["Tempo subjetivo alterado – perdem 1d4 horas","Um sentido ausente – sem cheiro, sem eco ou sem sombras","Sala menor por dentro – geometria não fecha","Algo muda sem ser visto – muda de posição quando ninguém olha","Déjà vu preditivo – personagem descreve objeto antes de encontrá-lo","Porta de saída diferente – saem por onde entraram e chegam a lugar diferente","Ponto frio específico – algo ficou ali","Eco atrasado – sons acontecem antes dos eventos","Voz conhecida distante – alguém ouve pessoa do mundo real","Sem anomalia – perfeito demais, −1 Sanidade"];const itens=["Relógio parado em 14h47 – nunca avança","Foto sem rosto – rostos recortados","Chave sem fechadura – etiqueta 'não usar'","Diário com páginas em branco – última página alerta","Fita VHS sem rótulo – mostra sala idêntica com você dentro","Crachá do I.E.L. – nome ilegível, foto parece personagem","Garrafa de Almond Water – restaura 1d6 Sanidade","Mapa com X – sala marcada não pode ser encontrada ainda","Boneco de pano – com nome de personagem no pé","Óculos sem graduação – marcas se tornam legíveis"];const situacoes=["O grupo sente que está sendo observado. Role Percepção (40).","Uma luz pisca três vezes e apaga por 8s. Algo se move na escuridão.","Um personagem ouve o próprio nome vindo do corredor.","O mapa parece diferente – uma sala foi removida, outra adicionada.","Um NPC age de forma estranha, como se não fosse o mesmo.","Uma porta que estava trancada agora está aberta, e vice-versa.","Alguém acorda em lugar diferente de onde dormiu.","O rádio capta uma voz clara – é alguém conhecido do mundo real.","Encontram rastros que são dos próprios personagens, mas nunca estiveram ali.","A sala se reconfigura quando ninguém olha – um objeto mudou de lugar."];document.getElementById('gs-tipo').innerHTML=tipos[Math.floor(Math.random()*tipos.length)];document.getElementById('gs-conteudo').innerHTML=conteudos[Math.floor(Math.random()*conteudos.length)];document.getElementById('gs-anomalia').innerHTML=anomalias[Math.floor(Math.random()*anomalias.length)];document.getElementById('gs-item').innerHTML=itens[Math.floor(Math.random()*itens.length)];document.getElementById('gs-situacao').innerHTML=situacoes[Math.floor(Math.random()*situacoes.length)];toast('Sala gerada! Use na sessão.');}
+function patchQCatButtons(){document.querySelectorAll('.qcat-tab').forEach(btn=>{const old=btn.getAttribute('onclick');if(old&&old.startsWith('setQCat(')){const cat=old.match(/setQCat\(['"](.+)['"]\)/)[1];btn.setAttribute('onclick',`setQCat('${cat}', event)`);}});}
+document.addEventListener('DOMContentLoaded',()=>{carregarDados();loadCamp();renderPJs();renderSessoes();renderCamp();updateNav();patchQCatButtons();});
+</script>
+</body>
+</html>
