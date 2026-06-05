@@ -8,52 +8,200 @@
 <link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Share+Tech+Mono&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
 <style>
 :root{
-  --am:#C8A84B;--am2:#8a7030;--am3:#2a2008;--am4:#1a1505;
-  --bg:#0a0905;--bg2:#111009;--bg3:#181610;--bg4:#201e14;--bg5:#282518;
-  --bd:#28250f;--bd2:#38340f;--bd3:#484520;
-  --tx:#b0a070;--tx2:#6a6030;--tx3:#d8c890;
-  --wh:#f0e0b8;
-  --g:#101e10;--gb:#286028;--gt:#48a848;
-  --y:#201808;--yb:#a07010;--yt:#c89820;
-  --r:#1e0808;--rb:#802020;--rt:#c02828;
-  --b:#080e18;--bb:#104060;--bt:#2878b8;
-  --pu:#100818;--pub:#402060;--put:#8050b8;
+  --am:#FFD966;
+  --am2:#E6C87A;
+  --am3:#2a2008;
+  --am4:#1a1505;
+  --bg:#0a0905;
+  --bg2:#111009;
+  --bg3:#181610;
+  --bg4:#201e14;
+  --bd:#28250f;
+  --bd2:#38340f;
+  --bd3:#484520;
+  --tx:#E8DCC6;      /* ← novo */
+  --tx2:#C8B888;     /* ← novo */
+  --tx3:#F4EFE6;     /* ← novo */
+  --wh:#FFFFFF;      /* ← novo */
+  /* resto das variáveis permanecem iguais */
 }
 *{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;}
 
-/* ═══ WALLPAPER BACKGROUND + NOISE ═══════════════ */
-body{
-  font-family:'Crimson Pro',Georgia,serif;
-  background-color:var(--bg);
-  color:var(--tx);
-  line-height:1.7;
-  overflow-x:hidden;
-  min-height:100vh;
-  position:relative;
+/* Imagem de fundo principal */
+body {
+  background: url(i-made-a-4k-backrooms-wallpaper-banner-v0-3dz00ogxfn891.jpg) no-repeat center center fixed;
+  background-size: cover;
 }
-body::before{
-  content:'';
-  position:fixed;inset:0;
-  background-image:
-    repeating-linear-gradient(0deg,transparent,transparent 59px,rgba(200,168,75,0.04) 60px),
-    repeating-linear-gradient(90deg,transparent,transparent 59px,rgba(200,168,75,0.04) 60px);
-  background-size:60px 60px;
-  pointer-events:none;z-index:0;
+
+/* Overlay escuro para contraste e legibilidade */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6); /* Ajuste a opacidade conforme necessidade */
+  z-index: -1;
 }
-body::after{
-  content:'';position:fixed;inset:0;
-  background:radial-gradient(ellipse 100% 100% at 50% 50%,transparent 40%,rgba(0,0,0,0.7) 100%);
-  pointer-events:none;z-index:0;
+
+
+/* Linhas de varredura (scanlines mais intensas) */
+.scanlines {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9990;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.08) 0px,
+    rgba(0, 0, 0, 0.08) 2px,
+    transparent 2px,
+    transparent 4px
+  );
 }
-.scanlines{
-  position:fixed;inset:0;pointer-events:none;z-index:9990;
-  background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.015) 3px);
+
+/* Chroma shift (deslocamento de cores) - animação sutil */
+@keyframes vhsShift {
+  0% { text-shadow: 2px 0 red, -2px 0 cyan; opacity: 0.8; }
+  25% { text-shadow: -1px 0 red, 1px 0 cyan; }
+  50% { text-shadow: 1px 0 red, -1px 0 cyan; }
+  75% { text-shadow: -2px 0 red, 2px 0 cyan; }
+  100% { text-shadow: 2px 0 red, -2px 0 cyan; }
 }
-.noise{
-  position:fixed; top:0; left:0; width:100%; height:100%;
-  background:url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJmIj48ZmVUdXJidWxlbmNlIHR5cGU9ImZyYWN0YWxOb2lzZSIgYmFzZUZyZXF1ZW5jeT0iLjciIG51bU9jdGF2ZXM9IjMiLz48L2ZpbHRlcj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWx0ZXI9InVybCgjZikiIG9wYWNpdHk9IjAuMDYiLz48L3N2Zz4=');
-  opacity:0.08; pointer-events:none; z-index:9991;
+
+/* Aplica o chroma shift ao texto (opcional, pode ser exagerado) */
+h1, .hero-title, .lcard-nome {
+  animation: vhsShift 6s infinite ease-in-out;
+}
+
+/* Estática VHS (overlay de ruído) */
+.noise {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('https://gist.githubusercontent.com/andrewimm/…/raw/vhs-noise.gif') repeat;
+  opacity: 0.15;
+  pointer-events: none;
+  z-index: 9991;
+}
+
+@keyframes vhsGlitch {
+  0% { transform: translate(0); opacity: 1; }
+  2% { transform: translate(-2px, 1px) skewX(0.5deg); opacity: 0.9; }
+  4% { transform: translate(2px, -1px) skewX(-0.5deg); }
+  6% { transform: translate(0); }
+  98% { transform: translate(0); }
+  100% { transform: translate(0); }
+}
+
+.vhs-glitch {
+  animation: vhsGlitch 8s infinite;
+}
+
+/* ===== CORREÇÃO DE CONTRASTE E LEGIBILIDADE ===== */
+
+/* Garante que todo texto principal seja claro */
+body, p, li, .sec-meta, .cena p, .qa_, .npc-section-c, .inv-item, .prof-hab {
+  color: #F0E6D2 !important;
+}
+
+/* Títulos e subtítulos */
+h1, h2, h3, .lcard-nome, .npc-name, .iel-nome, .namegen-t, .tracker-t, .qpanel-t {
+  color: #FFE0A3 !important;
+  text-shadow: 0 0 4px rgba(0,0,0,0.5);
+}
+
+/* Links do menu */
+.nav-links a {
+  color: #D4C5A0 !important;
+}
+.nav-links a:hover, .nav-links a.active {
+  color: #FFD966 !important;
+}
+
+/* Tabelas: mantém fundos escuros, textos claros */
+table, .tw, table td, table th {
+  background-color: #1a1a0f !important;
+}
+thead th {
+  color: #FFD966 !important;
+  background: #2a2a15 !important;
+}
+tbody td {
+  color: #E8DCC6 !important;
+  border-bottom-color: #3a3a20 !important;
+}
+tbody tr:hover td {
+  background: rgba(255, 220, 100, 0.08) !important;
+}
+
+/* Números das tabelas (classe .tn) – corrige cor e visibilidade */
+.tn, .st-num, .pjnum {
+  color: #FFB347 !important;
+  font-weight: bold;
+  text-shadow: none;
+}
+
+/* Links e badges */
+a, .badge, .ctag, .stag {
+  color: #FFD966 !important;
+}
+.badge.bg, .badge.by, .badge.br, .badge.bb, .badge.bpu {
+  background: #1e1e0a !important;
+  border-color: #FFD966 !important;
+}
+
+/* Caixas de texto editável */
+[data-edit] {
+  color: #F0E6D2 !important;
+}
+
+/* Inputs e placeholders */
+input, textarea, select, .camp-note, .st-in, .inv-input, .pjname, .prof-sel {
+  color: #F0E6D2 !important;
+  background: #0d0d05 !important;
+  border-color: #5a4a20 !important;
+}
+::placeholder {
+  color: #AA9966 !important;
+}
+
+/* ===== CORREÇÃO DOS NÚMEROS NAS TABELAS DE NÍVEL 3 E CRIATURAS ===== */
+
+/* Força a cor e a exibição dos números na primeira coluna */
+.tr td.tn,
+.ty td.tn,
+.tg td.tn,
+table td.tn {
+  color: #FFB347 !important;   /* laranja forte */
+  font-weight: bold;
+  background-color: transparent !important;
+  text-shadow: none;
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: table-cell !important;
+}
+
+/* Tabela de Criaturas (está dentro de .tw, mas sem classe específica) */
+#criaturas table td:first-child,
+#criaturas table .tn {
+  color: #FFB347 !important;
+  font-weight: bold;
+  background: rgba(0,0,0,0.3) !important;
+  border-right: 1px solid #5a4a20;
+}
+
+/* Garante que o fundo da célula não apague o número */
+.tr td, .ty td, .tg td, #criaturas table td {
+  background-color: #1a1a0f !important;
+  color: #E8DCC6 !important;
+}
+
+/* Restaura a visibilidade da coluna inteira */
+table td:first-child {
+  opacity: 1 !important;
+  display: table-cell !important;
 }
 
 /* ═══ EDIT MODE ══════════════════════════════════ */
@@ -1429,66 +1577,71 @@ tbody tr:hover td{background:rgba(200,168,75,0.02);}
     <tr><td class="tn">7</td><td class="tb">Tempo comprimido</td><td>Quando saem, horas passaram. Recursos consumidos proporcionalmente. Sideco
     <tr><td class="tn">8</td><td class="tb">Escritura automática</td><td>Mão relaxada com caneta escreve algo. Nem sempre compreensível. Sideco
     <tr><td class="tn">9</td><td class="tb">Gravidade preferencialSideco<td class="tb">Objetos caem levemente para um canto específico. Sideco
-    <tr><td class="tn">10Sideco<td class="tb">Presença sentida, não vistaSideco<td class="tb">Todos sentem que não estão sozinhos. Nada visto. −1d3 Sanidade. Sideco
+    <tr><td class="tn">10<td class="tb">Presença sentida, não vistaSideco<td class="tb">Todos sentem que não estão sozinhos. Nada visto. −1d3 Sanidade. Sideco
   </tbody></table></div>
 
   <hr class="sep">
   <h2>Nível 3 — Hostil</h2>
   <span class="badge br">■ Encontro iminente · Fuga ou negociação · Nunca combate frontal</span>
-  <h3>Tabela 3-A · Tipo de Sala (1d20)</h3>
-  <div class="tw"><table class="tr"><thead><tr><th>d20</th><th>Sala</th><th>Detalhe sensorial</th></tr></thead><tbody>
-    <tr><td class="tn">1Sideco<td class="tb">Corredor com iluminação pulsanteSideco<td class="tb">Ritmo de pulso humano — lento demais. Cada apagão: 3 segundos. Sideco
-    <tr><td class="tn">2Sideco<td class="tb">Sala de cirurgia improvisadaSideco<td class="tb">Instrumentos com precisão. Mesa com contenções. Alguém praticou aqui. Sideco
-    <tr><td class="tn">3Sideco<td class="tb">Câmara de ecosideco<td class="tb">Som retorna multiplicado. Impossível localizar ameaça por som. Sideco
-    <tr><td class="tn">4Sideco<td class="tb">Sala de contenção improvisadaSideco<td class="tb">Grades, fios, marcas de longa ocupação. Algo ficou aqui. E saiu. Sideco
-    <tr><td class="tn">5Sideco<td class="tb">Corredor com arranhões sistemáticosSideco<td class="tb">Na altura da cintura. Regulares. Algo sempre no mesmo trajeto. Sideco
-    <tr><td class="tn">6Sideco<td class="tb">Sala com espelhos em todas as superfíciesSideco<td class="tb">Teto, chão, paredes. Movimento infinito. Impossível saber o que é reflexo. Sideco
-    <tr><td class="tn">7Sideco<td class="tb">Câmara de ventilação largasideco<td class="tb">Grande para alguém passar. Sons orgânicos. Grade forçada de dentro para fora. Sideco
-    <tr><td class="tn">8Sideco<td class="tb">Sala de banquete podreSideco<td class="tb">Mesa farta apodrecida. Calor de corpos recentes. Sideco
-    <tr><td class="tn">9Sideco<td class="tb">Corredor que encolheSideco<td class="tb">Cada vez mais estreito ao avançar. Algo à frente faz barulho. Sideco
-    <tr><td class="tn">10Sideco<td class="tb">Sala de isolamento acústicoSideco<td class="tb">Silêncio absoluto. Você ouve seu corpo. E o que não deveria ouvir. Sideco
-    <tr><td class="tn">11Sideco<td class="tb">Galeria com obras perturbadorasSideco<td class="tb">Pinturas retratam os personagens em situações ainda não acontecidas. Sideco
-    <tr><td class="tn">12Sideco<td class="tb">Sala de máquinas funcionandoSideco<td class="tb">Ninguém as ligou. Uma produz som que parece nome. Sideco
-    <tr><td class="tn">13Sideco<td class="tb">Corredor com luzes direcionaisSideco<td class="tb">Cada luz aponta direção diferente. Uma pisca em código Morse. Sideco
-    <tr><td class="tn">14Sideco<td class="tb">Sala de processamento industrialSideco<td class="tb">Esteiras com material orgânico. Algo foi processado em quantidade. Sideco
-    <tr><td class="tn">15Sideco<td class="tb">Quarto de criança abandonadoSideco<td class="tb">Brinquedos em círculo. Desenhos muito recentes. Sideco
-    <tr><td class="tn">16Sideco<td class="tb">Sala de observação com vidro espelhadoSideco<td class="tb">De fora não se vê o dentro. De dentro, fora visível. Algo sabe disso. Sideco
-    <tr><td class="tn">17Sideco<td class="tb">Espaço sem geometria fixasideco<td class="tb">Paredes mudam — apenas quando ninguém olha diretamente. Sideco
-    <tr><td class="tn">18Sideco<td class="tb">Corredor inundado (joelho)Sideco<td class="tb">Água preta, opaca. Algo se moveu — ondas ainda se dissipam. Sideco
-    <tr><td class="tn">19Sideco<td class="tb">Sala com única saída trancadaSideco<td class="tb">A chave está com algo que ainda está na sala. Que notou os personagens. Sideco
-    <tr><td class="tn">20Sideco<td class="tb">A sala que não deveria existirSideco<td class="tb">Não está em nenhum mapa. Ela os escolheu. Role nas 3 tabelas e combine. Sideco
-  </tbody></table></div>
+  <div class="tw"><table class="tr">
+  <thead><tr><th>d20</th><th>Sala</th><th>Detalhe sensorial</th></tr></thead>
+  <tbody>
+    <tr><td class="tn">1</td><td class="tb">Corredor com iluminação pulsante</td><td>Ritmo de pulso humano — lento demais. Cada apagão: 3 segundos.</td></tr>
+    <tr><td class="tn">2</td><td class="tb">Sala de cirurgia improvisada</td><td>Instrumentos com precisão. Mesa com contenções. Alguém praticou aqui.</td></tr>
+    <tr><td class="tn">3</td><td class="tb">Câmara de eco</td><td>Som retorna multiplicado. Impossível localizar ameaça por som.</td></tr>
+    <tr><td class="tn">4</td><td class="tb">Sala de contenção improvisada</td><td>Grades, fios, marcas de longa ocupação. Algo ficou aqui. E saiu.</td></tr>
+    <tr><td class="tn">5</td><td class="tb">Corredor com arranhões sistemáticos</td><td>Na altura da cintura. Regulares. Algo sempre no mesmo trajeto.</td></tr>
+    <tr><td class="tn">6</td><td class="tb">Sala com espelhos em todas as superfícies</td><td>Teto, chão, paredes. Movimento infinito. Impossível saber o que é reflexo.</td></tr>
+    <tr><td class="tn">7</td><td class="tb">Câmara de ventilação larga</td><td>Grande para alguém passar. Sons orgânicos. Grade forçada de dentro para fora.</td></tr>
+    <tr><td class="tn">8</td><td class="tb">Sala de banquete podre</td><td>Mesa farta apodrecida. Calor de corpos recentes.</td></tr>
+    <tr><td class="tn">9</td><td class="tb">Corredor que encolhe</td><td>Cada vez mais estreito ao avançar. Algo à frente faz barulho.</td></tr>
+    <tr><td class="tn">10</td><td class="tb">Sala de isolamento acústico</td><td>Silêncio absoluto. Você ouve seu corpo. E o que não deveria ouvir.</td></tr>
+    <tr><td class="tn">11</td><td class="tb">Galeria com obras perturbadoras</td><td>Pinturas retratam os personagens em situações ainda não acontecidas.</td></tr>
+    <tr><td class="tn">12</td><td class="tb">Sala de máquinas funcionando</td><td>Ninguém as ligou. Uma produz som que parece nome.</td></tr>
+    <tr><td class="tn">13</td><td class="tb">Corredor com luzes direcionais</td><td>Cada luz aponta direção diferente. Uma pisca em código Morse.</td></tr>
+    <tr><td class="tn">14</td><td class="tb">Sala de processamento industrial</td><td>Esteiras com material orgânico. Algo foi processado em quantidade.</td></tr>
+    <tr><td class="tn">15</td><td class="tb">Quarto de criança abandonado</td><td>Brinquedos em círculo. Desenhos muito recentes.</td></tr>
+    <tr><td class="tn">16</td><td class="tb">Sala de observação com vidro espelhado</td><td>De fora não se vê o dentro. De dentro, fora visível. Algo sabe disso.</td></tr>
+    <tr><td class="tn">17</td><td class="tb">Espaço sem geometria fixa</td><td>Paredes mudam — apenas quando ninguém olha diretamente.</td></tr>
+    <tr><td class="tn">18</td><td class="tb">Corredor inundado (joelho)</td><td>Água preta, opaca. Algo se moveu — ondas ainda se dissipam.</td></tr>
+    <tr><td class="tn">19</td><td class="tb">Sala com única saída trancada</td><td>A chave está com algo que ainda está na sala. Que notou os personagens.</td></tr>
+    <tr><td class="tn">20</td><td class="tb">A sala que não deveria existir</td><td>Não está em nenhum mapa. Ela os escolheu. Role nas 3 tabelas e combine.</td></tr>
+  </tbody>
+</table></div>
 
-  <h3>Tabela 3-B · Conteúdo (1d12)</h3>
-  <div class="tw"><table class="tr"><thead><tr><th>d12</th><th>Conteúdo</th><th>Detalhe</th></tr></thead><tbody>
-    <tr><td class="tn">1Sideco<td class="tb">Criatura presente — não percebeuSideco<td class="tb">Role em Criaturas. Com cuidado, é possível passar. Sideco
-    <tr><td class="tn">2Sideco<td class="tb">Criatura presente — percebeuSideco<td class="tb">Role em Criaturas. Sabe que estão lá. Avalia. Sideco
-    <tr><td class="tn">3Sideco<td class="tb">Rastros frescos de criaturaSideco<td class="tb">Menos de 30 minutos. Pode estar esperando na saída. Sideco
-    <tr><td class="tn">4Sideco<td class="tb">Sobrevivente em estado críticoSideco<td class="tb">Consciente. Tem informação vital. Não pode andar. Escolham. Sideco
-    <tr><td class="tn">5Sideco<td class="tb">Evidência de parasitaSideco<td class="tb">NPC age sutilmente diferente. Não sabe que mudou. Ou sabe. Sideco
-    <tr><td class="tn">6Sideco<td class="tb">A chave para avançarSideco<td class="tb">Objeto que resolve puzzle anterior. Obtê-lo é o problema. Sideco
-    <tr><td class="tn">7Sideco<td class="tb">Saída real para próximo nívelSideco<td class="tb">Não parece segura. Algo a usa também. Em ambas as direções. Sideco
-    <tr><td class="tn">8Sideco<td class="tb">Ninho ou território marcadoSideco<td class="tb">Claramente habitado. A criatura vai voltar. Quanto tempo têm? Sideco
-    <tr><td class="tn">9Sideco<td class="tb">Doppelganger ativoSideco<td class="tb">Cópia de um personagem. Está aqui antes deles. Olha para si mesmo. Sideco
-    <tr><td class="tn">10Sideco<td class="tb">Suprimentos — mas armadilhadosSideco<td class="tb">O que precisam está aqui. Claramente disposto como isca. Sideco
-    <tr><td class="tn">11Sideco<td class="tb">Corpo com transformaçãoSideco<td class="tb">Alguém encontrado antes. O que aconteceu está acontecendo com eles. Sideco
-    <tr><td class="tn">12Sideco<td class="tb">Vazio totalSideco<td class="tb">Nada. A ameaça é a sala. Cada minuto: −1 Sanidade. Sideco
-  </tbody></table></div>
+  <div class="tw"><table class="tr">
+  <thead><tr><th>d12</th><th>Conteúdo</th><th>Detalhe</th></tr></thead>
+  <tbody>
+    <tr><td class="tn">1</td><td class="tb">Criatura presente — não percebeu</td><td>Role em Criaturas. Com cuidado, é possível passar.</td></tr>
+    <tr><td class="tn">2</td><td class="tb">Criatura presente — percebeu</td><td>Role em Criaturas. Sabe que estão lá. Avalia.</td></tr>
+    <tr><td class="tn">3</td><td class="tb">Rastros frescos de criatura</td><td>Menos de 30 minutos. Pode estar esperando na saída.</td></tr>
+    <tr><td class="tn">4</td><td class="tb">Sobrevivente em estado crítico</td><td>Consciente. Tem informação vital. Não pode andar. Escolham.</td></tr>
+    <tr><td class="tn">5</td><td class="tb">Evidência de parasita</td><td>NPC age sutilmente diferente. Não sabe que mudou. Ou sabe.</td></tr>
+    <tr><td class="tn">6</td><td class="tb">A chave para avançar</td><td>Objeto que resolve puzzle anterior. Obtê-lo é o problema.</td></tr>
+    <tr><td class="tn">7</td><td class="tb">Saída real para próximo nível</td><td>Não parece segura. Algo a usa também. Em ambas as direções.</td></tr>
+    <tr><td class="tn">8</td><td class="tb">Ninho ou território marcado</td><td>Claramente habitado. A criatura vai voltar. Quanto tempo têm?</td></tr>
+    <tr><td class="tn">9</td><td class="tb">Doppelganger ativo</td><td>Cópia de um personagem. Está aqui antes deles. Olha para si mesmo.</td></tr>
+    <tr><td class="tn">10</td><td class="tb">Suprimentos — mas armadilhados</td><td>O que precisam está aqui. Claramente disposto como isca.</td></tr>
+    <tr><td class="tn">11</td><td class="tb">Corpo com transformação</td><td>Alguém encontrado antes. O que aconteceu está acontecendo com eles.</td></tr>
+    <tr><td class="tn">12</td><td class="tb">Vazio total</td><td>Nada. A ameaça é a sala. Cada minuto: −1 Sanidade.</td></tr>
+  </tbody>
+</table></div>
 
-  <h3>Tabela 3-C · Anomalia (1d10)</h3>
-  <div class="tw"><table class="tr"><thead><tr><th>d10</th><th>Anomalia</th><th>Efeito</th></tr></thead><tbody>
-    <tr><td class="tn">1Sideco<td class="tb">Atração gravitacional centralSideco<td class="tb">Objetos soltos movem para o centro. Incluindo os personagens se pararem. Sideco
-    <tr><td class="tn">2Sideco<td class="tb">Escuridão progressivaSideco<td class="tb">Luzes enfraquecem. Em 10 min, escuridão total. O que está na sala sabe disso. Sideco
-    <tr><td class="tn">3Sideco<td class="tb">Memória suprimidaSideco<td class="tb">Dentro da sala não lembram como entraram. Ao sair: −1 linha cada. Sideco
-    <tr><td class="tn">4Sideco<td class="tb">Duplicação de somSideco<td class="tb">Cada som repetido 8 segundos depois. Por algo que não é eles. Sideco
-    <tr><td class="tn">5Sideco<td class="tb">Saídas reconfiguradasSideco<td class="tb">A cada 5 min, as saídas mudam de posição. Sideco
-    <tr><td class="tn">6Sideco<td class="tb">Reconhecimento mútuoSideco<td class="tb">A criatura reconhece um personagem específico. Não ataca esse. Por quê? Sideco
-    <tr><td class="tn">7Sideco<td class="tb">Campo de estranhamentoSideco<td class="tb">Difícil confiar uns nos outros. −20% em todas as rolagens sociais. Sideco
-    <tr><td class="tn">8Sideco<td class="tb">Loop de 90 segundosSideco<td class="tb">Os últimos 90s se repetem — apenas para um personagem. Sideco
-    <tr><td class="tn">9Sideco<td class="tb">Instinto animalSideco<td class="tb">Todos sentem necessidade de se abaixar, calar, não piscar. Sideco
-    <tr><td class="tn">10Sideco<td class="tb">A sala os conheceSideco<td class="tb">Elementos refletem memórias dos personagens. −1d6 Sanidade. Sideco
-  </tbody></table></div>
-</div>
+  <div class="tw"><table class="tr">
+  <thead><tr><th>d10</th><th>Anomalia</th><th>Efeito</th></tr></thead>
+  <tbody>
+    <tr><td class="tn">1</td><td class="tb">Atração gravitacional central</td><td>Objetos soltos movem para o centro. Incluindo os personagens se pararem.</td></tr>
+    <tr><td class="tn">2</td><td class="tb">Escuridão progressiva</td><td>Luzes enfraquecem. Em 10 min, escuridão total. O que está na sala sabe disso.</td></tr>
+    <tr><td class="tn">3</td><td class="tb">Memória suprimida</td><td>Dentro da sala não lembram como entraram. Ao sair: −1 linha cada.</td></tr>
+    <tr><td class="tn">4</td><td class="tb">Duplicação de som</td><td>Cada som repetido 8 segundos depois. Por algo que não é eles.</td></tr>
+    <tr><td class="tn">5</td><td class="tb">Saídas reconfiguradas</td><td>A cada 5 min, as saídas mudam de posição.</td></tr>
+    <tr><td class="tn">6</td><td class="tb">Reconhecimento mútuo</td><td>A criatura reconhece um personagem específico. Não ataca esse. Por quê?</td></tr>
+    <tr><td class="tn">7</td><td class="tb">Campo de estranhamento</td><td>Difícil confiar uns nos outros. −20% em todas as rolagens sociais.</td></tr>
+    <tr><td class="tn">8</td><td class="tb">Loop de 90 segundos</td><td>Os últimos 90s se repetem — apenas para um personagem.</td></tr>
+    <tr><td class="tn">9</td><td class="tb">Instinto animal</td><td>Todos sentem necessidade de se abaixar, calar, não piscar.</td></tr>
+    <tr><td class="tn">10</td><td class="tb">A sala os conhece</td><td>Elementos refletem memórias dos personagens. −1d6 Sanidade.</td></tr>
+  </tbody>
+</table></div>
 
 <!-- ══════════════════════════════════════════════ -->
 <!-- CRIATURAS -->
@@ -1496,20 +1649,27 @@ tbody tr:hover td{background:rgba(200,168,75,0.02);}
 <div class="sec" id="criaturas">
   <h1>Criaturas</h1>
   <div class="sec-meta">12 criaturas · Nunca combate frontal · A perda de Sanidade vem do que implicam</div>
-  <div class="tw"><table><thead><tr><th>d12</th><th>Criatura</th><th>Comportamento</th><th>Como evitar</th><th>Sanidade</th></tr></thead><tbody>
-    <tr><td class="tn">1Sideco<td class="tb">DoppelgangerSideco<td class="tb">Observa. Aprende comportamentos. Nunca ataca o original — substitui. Pode conviver por sessões. Sideco<td class="tb">Teste social: resposta que só o original saberia. Hesita 1 segundo. Sideco<td class="tb">1d6 ao ver / 1d10 ao confirmar no grupoSideco</tr>
-    <tr><td class="tn">2Sideco<td class="tb">SkinwalkerSideco<td class="tb">Imita sons, vozes, passos. Opera no escuro. Nunca imita alguém presente. Sideco<td class="tb">Luz contínua. Ficarem juntos. Silêncio forçado. Sideco<td class="tb">1d4 ao ouvir / 2d6 ao verSideco</tr>
-    <tr><td class="tn">3Sideco<td class="tb">Hospedeiro ParasitadoSideco<td class="tb">Age quase normalmente. Preferências invertidas, microexpressões erradas. Sideco<td class="tb">Observação (Psicologia). Perguntas sobre memórias específicas. Sideco<td class="tb">0 sem suspeita / 1d8 ao confirmarSideco</tr>
-    <tr><td class="tn">4Sideco<td class="tb">SmilerSideco<td class="tb">Sorriso bioluminescente no escuro. Não ataca quem mantém contato visual. Sideco<td class="tb">Nunca virar as costas. Recuar devagar. Sideco<td class="tb">1d6 ao avistar / 1d8 se perder contato visualSideco</tr>
-    <tr><td class="tn">5Sideco<td class="tb">HoundSideco<td class="tb">Persegue por cantos e ângulos agudos. Som de unhas em concreto. Sideco<td class="tb">Ficar em espaços circulares ou sem cantos agudos. Sideco<td class="tb">1d4 ao ouvir / 2d8 ao verSideco</tr>
-    <tr><td class="tn">6Sideco<td class="tb">A Figura no Fim do CorredorSideco<td class="tb">Forma humana distante. Nunca se aproxima enquanto observada. Se alguém pisca, avançou. Sideco<td class="tb">Nunca piscar. Recuar sem perder contato visual. Sideco<td class="tb">1d3 ao ver / 1d10 ao perceber que avançouSideco</tr>
-    <tr><td class="tn">7Sideco<td class="tb">Pareidolia VivaSideco<td class="tb">Existe só na visão periférica. Some ao ser observado — mas mudou de posição. Sideco<td class="tb">Fechar olhos e mover por tato. Luz intensa reduz o fenômeno. Sideco<td class="tb">1d3 acumulativo / 1d8 ao ver rosto reconhecívelSideco</tr>
-    <tr><td class="tn">8Sideco<td class="tb">Criança PerdidaSideco<td class="tb">Pode ser real, isca, ou doppelganger. Os personagens não sabem. Pede ajuda. Sideco<td class="tb">Não há evasão — a ameaça é moral. Ajudar ou não é o dilema. Sideco<td class="tb">0 ao encontrar / variável por decisãoSideco</tr>
-    <tr><td class="tn">9Sideco<td class="tb">Entidade TerritorialSideco<td class="tb">Não ataca quem não invade seu espaço. Escala: aviso → demonstração → ação. Sideco<td class="tb">Respeitar as marcas. Oferecer objeto. Recuar completamente. Sideco<td class="tb">1d4 ao notar / 2d6 ao verSideco</tr>
-    <tr><td class="tn">10Sideco<td class="tb">ColecionadorSideco<td class="tb">Sobrevivente antigo. Inteligente. Pode negociar. Preço: objeto com valor emocional. Sideco<td class="tb">Negociação direta. Não ataca boa fé. Trai mentiras. Sideco<td class="tb">1d4 ao ver / 0 em negociação bem-sucedidaSideco</tr>
-    <tr><td class="tn">11Sideco<td class="tb">A Sombra CorretaSideco<td class="tb">Sombra de um personagem que age independentemente quando não observada. Sideco<td class="tb">Não há evasão — pertence ao personagem. Ritual específico para reintegrar. Sideco<td class="tb">1d3 ao notar / 1d8 ao ver agir ativamenteSideco</tr>
-    <tr><td class="tn">12Sideco<td class="tb">O Que Não Tem NomeSideco<td class="tb">Incompreensível. Percebido como ausência: silêncio, frio, vazio. Sideco<td class="tb">Sair da sala é a única opção. Cada minuto: −1d3 Sanidade. Sideco<td class="tb">1d6/min de presençaSideco</tr>
-  </tbody></table></div>
+  <div class="tw">
+    <table>
+      <thead>
+        <tr><th>d12</th><th>Criatura</th><th>Comportamento</th><th>Como evitar</th><th>Sanidade</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="tn">1</td><td class="tb">Doppelganger</td><td>Observa. Aprende comportamentos. Nunca ataca o original — substitui. Pode conviver por sessões.</td><td>Teste social: resposta que só o original saberia. Hesita 1 segundo.</td><td>1d6 ao ver / 1d10 ao confirmar no grupo</td></tr>
+        <tr><td class="tn">2</td><td class="tb">Skinwalker</td><td>Imita sons, vozes, passos. Opera no escuro. Nunca imita alguém presente.</td><td>Luz contínua. Ficarem juntos. Silêncio forçado.</td><td>1d4 ao ouvir / 2d6 ao ver</td></tr>
+        <tr><td class="tn">3</td><td class="tb">Hospedeiro Parasitado</td><td>Age quase normalmente. Preferências invertidas, microexpressões erradas.</td><td>Observação (Psicologia). Perguntas sobre memórias específicas.</td><td>0 sem suspeita / 1d8 ao confirmar</td></tr>
+        <tr><td class="tn">4</td><td class="tb">Smiler</td><td>Sorriso bioluminescente no escuro. Não ataca quem mantém contato visual.</td><td>Nunca virar as costas. Recuar devagar.</td><td>1d6 ao avistar / 1d8 se perder contato visual</td></tr>
+        <tr><td class="tn">5</td><td class="tb">Hound</td><td>Persegue por cantos e ângulos agudos. Som de unhas em concreto.</td><td>Ficar em espaços circulares ou sem cantos agudos.</td><td>1d4 ao ouvir / 2d8 ao ver</td></tr>
+        <tr><td class="tn">6</td><td class="tb">A Figura no Fim do Corredor</td><td>Forma humana distante. Nunca se aproxima enquanto observada. Se alguém pisca, avançou.</td><td>Nunca piscar. Recuar sem perder contato visual.</td><td>1d3 ao ver / 1d10 ao perceber que avançou</td></tr>
+        <tr><td class="tn">7</td><td class="tb">Pareidolia Viva</td><td>Existe só na visão periférica. Some ao ser observado — mas mudou de posição.</td><td>Fechar olhos e mover por tato. Luz intensa reduz o fenômeno.</td><td>1d3 acumulativo / 1d8 ao ver rosto reconhecível</td></tr>
+        <tr><td class="tn">8</td><td class="tb">Criança Perdida</td><td>Pode ser real, isca, ou doppelganger. Os personagens não sabem. Pede ajuda.</td><td>Não há evasão — a ameaça é moral. Ajudar ou não é o dilema.</td><td>0 ao encontrar / variável por decisão</td></tr>
+        <tr><td class="tn">9</td><td class="tb">Entidade Territorial</td><td>Não ataca quem não invade seu espaço. Escala: aviso → demonstração → ação.</td><td>Respeitar as marcas. Oferecer objeto. Recuar completamente.</td><td>1d4 ao notar / 2d6 ao ver</td></tr>
+        <tr><td class="tn">10</td><td class="tb">Colecionador</td><td>Sobrevivente antigo. Inteligente. Pode negociar. Preço: objeto com valor emocional.</td><td>Negociação direta. Não ataca boa fé. Trai mentiras.</td><td>1d4 ao ver / 0 em negociação bem-sucedida</td></tr>
+        <tr><td class="tn">11</td><td class="tb">A Sombra Correta</td><td>Sombra de um personagem que age independentemente quando não observada.</td><td>Não há evasão — pertence ao personagem. Ritual específico para reintegrar.</td><td>1d3 ao notar / 1d8 ao ver agir ativamente</td></tr>
+        <tr><td class="tn">12</td><td class="tb">O Que Não Tem Nome</td><td>Incompreensível. Percebido como ausência: silêncio, frio, vazio.</td><td>Sair da sala é a única opção. Cada minuto: −1d3 Sanidade.</td><td>1d6/min de presença</td></tr>
+      </tbody>
+    </table>
+  </div>
 </div>
 
 <!-- ══════════════════════════════════════════════ -->
@@ -1536,28 +1696,35 @@ tbody tr:hover td{background:rgba(200,168,75,0.02);}
 <div class="sec" id="itens">
   <h1>Itens de Referência Cultural</h1>
   <div class="sec-meta">Easter eggs · Função mecânica real · Máximo 1 por sessão</div>
-  <div class="tw"><table><thead><tr><th>d20</th><th>Item</th><th>Referência</th><th>Função mecânica</th></tr></thead><tbody>
-    <tr><td class="tn">1Sideco<td class="tb">Fita VHS "NÃO ASSISTIR"Sideco<td class="tb">Analog horror / found footageSideco<td class="tb">Gravação de sala ainda não encontrada. Assistir: −1d3 Sanidade, +informação crucial. Sideco</tr>
-    <tr><td class="tn">2Sideco<td class="tb">Walkie-talkie frequência 14.0Sideco<td class="tb">Backrooms canônico — M.E.G.Sideco<td class="tb">Capta outros sobreviventes. Nem todas as vozes são de pessoas vivas. Sideco</tr>
-    <tr><td class="tn">3Sideco<td class="tb">Garrafa de Almond WaterSideco<td class="tb">Backrooms canônico — Level 0Sideco<td class="tb">Restaura 1d6 Sanidade. Sabor impossível de descrever. Sideco</tr>
-    <tr><td class="tn">4Sideco<td class="tb">Câmera descartável reveladaSideco<td class="tb">Found footage / Local 58Sideco<td class="tb">As fotos mostram coisas que não foram fotografadas. Sideco</tr>
-    <tr><td class="tn">5Sideco<td class="tb">Manual de jogo sem nomeSideco<td class="tb">Yume Nikki, Ao OniSideco<td class="tb">As regras do "jogo" são as regras reais do espaço. +20% em exploração. Sideco</tr>
-    <tr><td class="tn">6Sideco<td class="tb">Fita cassete ambientSideco<td class="tb">Liminal music / muzakSideco<td class="tb">Reproduzida, afasta criaturas auditivas por 1 hora. Sideco</tr>
-    <tr><td class="tn">7Sideco<td class="tb">Caderno com logo M.E.G.Sideco<td class="tb">Backrooms canônicoSideco<td class="tb">Protocolos de sobrevivência. Alguns desatualizados. Um nome é reconhecível. Sideco</tr>
-    <tr><td class="tn">8Sideco<td class="tb">Porta com placa "The Exit"Sideco<td class="tb">Backrooms canônico / humor darkSideco<td class="tb">A chave existe em outro lugar. Quando aberta, leva ao Level 0 de outro ciclo. Sideco</tr>
-    <tr><td class="tn">9Sideco<td class="tb">Console portátil — único jogoSideco<td class="tb">Dreamcore / Yume NikkiSideco<td class="tb">O jogo mapeia os Backrooms em tempo real. Quem controlou o personagem antes? Sideco</tr>
-    <tr><td class="tn">10Sideco<td class="tb">Polaroid de sala normal demaisSideco<td class="tb">A primeira foto — 4chan 2019Sideco<td class="tb">A sala existe. É a única completamente segura. Sideco</tr>
-    <tr><td class="tn">11Sideco<td class="tb">Mapa do Level Fun — coloridoSideco<td class="tb">Backrooms Level !Sideco<td class="tb">Guia para corredor com música de circo. Não é o Level Fun. Mas algo o imita. Sideco</tr>
-    <tr><td class="tn">12Sideco<td class="tb">Frasco "Liquid Pain"Sideco<td class="tb">Backrooms canônicoSideco<td class="tb">Moeda de troca com o Colecionador. Valor: qualquer informação que ele tenha. Sideco</tr>
-    <tr><td class="tn">13Sideco<td class="tb">TV CRT em The ShiningSideco<td class="tb">Hotel Overlook como arquétipo liminarSideco<td class="tb">Quando alguém fica sozinho 5+ min, o filme muda. Mostra este grupo. Sideco</tr>
-    <tr><td class="tn">14Sideco<td class="tb">Boneco de pano com etiquetaSideco<td class="tb">Horror analógico / creepypastaSideco<td class="tb">Quem carregar não perde Sanidade nesta sessão. Na próxima, está em outro lugar. Sideco</tr>
-    <tr><td class="tn">15Sideco<td class="tb">Notepad com anotações SCP-3008Sideco<td class="tb">SCP-3008 — IKEA infinitaSideco<td class="tb">Parte se aplica aqui. Parte é perigosamente errada. Sideco</tr>
-    <tr><td class="tn">16Sideco<td class="tb">Cartão de acesso "Nível Seguro"Sideco<td class="tb">Estética corporate liminal / SCPSideco<td class="tb">Funciona em porta encontrada depois. O "Nível Seguro" tem um problema diferente. Sideco</tr>
-    <tr><td class="tn">17Sideco<td class="tb">Livro "Como Sair" — em brancoSideco<td class="tb">Metacomentário dos BackroomsSideco<td class="tb">Com luz UV revela instruções. Funcionam — para uma pessoa apenas. Sideco</tr>
-    <tr><td class="tn">18Sideco<td class="tb">Planta "Projeto Liminar"Sideco<td class="tb">Marc Augé — espaços liminaresSideco<td class="tb">Planta de versão anterior dos Backrooms. Algumas rotas ainda existem. Sideco</tr>
-    <tr><td class="tn">19Sideco<td class="tb">Crachá com foto de personagemSideco<td class="tb">Dark, SeveranceSideco<td class="tb">Nome diferente. Admissão de 3 anos atrás. Cargo: "Orientador". Sideco</tr>
-    <tr><td class="tn">20Sideco<td class="tb">Espelho com reflexo atrasadoSideco<td class="tb">Oculus, Black MirrorSideco<td class="tb">Mostra o estado real do personagem. Pode revelar parasita ou doppelganger. Sideco</tr>
-  </tbody></table></div>
+  <div class="tw">
+    <table>
+      <thead>
+        <tr><th>d20</th><th>Item</th><th>Referência</th><th>Função mecânica</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="tn">1</td><td class="tb">Fita VHS "NÃO ASSISTIR"</td><td>Analog horror / found footage</td><td>Gravação de sala ainda não encontrada. Assistir: −1d3 Sanidade, +informação crucial.</td></tr>
+        <tr><td class="tn">2</td><td class="tb">Walkie-talkie frequência 14.0</td><td>Backrooms canônico — M.E.G.</td><td>Capta outros sobreviventes. Nem todas as vozes são de pessoas vivas.</td></tr>
+        <tr><td class="tn">3</td><td class="tb">Garrafa de Almond Water</td><td>Backrooms canônico — Level 0</td><td>Restaura 1d6 Sanidade. Sabor impossível de descrever.</td></tr>
+        <tr><td class="tn">4</td><td class="tb">Câmera descartável revelada</td><td>Found footage / Local 58</td><td>As fotos mostram coisas que não foram fotografadas.</td></tr>
+        <tr><td class="tn">5</td><td class="tb">Manual de jogo sem nome</td><td>Yume Nikki, Ao Oni</td><td>As regras do "jogo" são as regras reais do espaço. +20% em exploração.</td></tr>
+        <tr><td class="tn">6</td><td class="tb">Fita cassete ambient</td><td>Liminal music / muzak</td><td>Reproduzida, afasta criaturas auditivas por 1 hora.</td></tr>
+        <tr><td class="tn">7</td><td class="tb">Caderno com logo M.E.G.</td><td>Backrooms canônico</td><td>Protocolos de sobrevivência. Alguns desatualizados. Um nome é reconhecível.</td></tr>
+        <tr><td class="tn">8</td><td class="tb">Porta com placa "The Exit"</td><td>Backrooms canônico / humor dark</td><td>A chave existe em outro lugar. Quando aberta, leva ao Level 0 de outro ciclo.</td></tr>
+        <tr><td class="tn">9</td><td class="tb">Console portátil — único jogo</td><td>Dreamcore / Yume Nikki</td><td>O jogo mapeia os Backrooms em tempo real. Quem controlou o personagem antes?</td></tr>
+        <tr><td class="tn">10</td><td class="tb">Polaroid de sala normal demais</td><td>A primeira foto — 4chan 2019</td><td>A sala existe. É a única completamente segura.</td></tr>
+        <tr><td class="tn">11</td><td class="tb">Mapa do Level Fun — colorido</td><td>Backrooms Level !</td><td>Guia para corredor com música de circo. Não é o Level Fun. Mas algo o imita.</td></tr>
+        <tr><td class="tn">12</td><td class="tb">Frasco "Liquid Pain"</td><td>Backrooms canônico</td><td>Moeda de troca com o Colecionador. Valor: qualquer informação que ele tenha.</td></tr>
+        <tr><td class="tn">13</td><td class="tb">TV CRT em The Shining</td><td>Hotel Overlook como arquétipo liminar</td><td>Quando alguém fica sozinho 5+ min, o filme muda. Mostra este grupo.</td></tr>
+        <tr><td class="tn">14</td><td class="tb">Boneco de pano com etiqueta</td><td>Horror analógico / creepypasta</td><td>Quem carregar não perde Sanidade nesta sessão. Na próxima, está em outro lugar.</td></tr>
+        <tr><td class="tn">15</td><td class="tb">Notepad com anotações SCP-3008</td><td>SCP-3008 — IKEA infinita</td><td>Parte se aplica aqui. Parte é perigosamente errada.</td></tr>
+        <tr><td class="tn">16</td><td class="tb">Cartão de acesso "Nível Seguro"</td><td>Estética corporate liminal / SCP</td><td>Funciona em porta encontrada depois. O "Nível Seguro" tem um problema diferente.</td></tr>
+        <tr><td class="tn">17</td><td class="tb">Livro "Como Sair" — em branco</td><td>Metacomentário dos Backrooms</td><td>Com luz UV revela instruções. Funcionam — para uma pessoa apenas.</td></tr>
+        <tr><td class="tn">18</td><td class="tb">Planta "Projeto Liminar"</td><td>Marc Augé — espaços liminares</td><td>Planta de versão anterior dos Backrooms. Algumas rotas ainda existem.</td></tr>
+        <tr><td class="tn">19</td><td class="tb">Crachá com foto de personagem</td><td>Dark, Severance</td><td>Nome diferente. Admissão de 3 anos atrás. Cargo: "Orientador".</td></tr>
+        <tr><td class="tn">20</td><td class="tb">Espelho com reflexo atrasado</td><td>Oculus, Black Mirror</td><td>Mostra o estado real do personagem. Pode revelar parasita ou doppelganger.</td></tr>
+      </tbody>
+    </table>
+  </div>
 </div>
 
 <!-- ══════════════════════════════════════════════ -->
@@ -1709,30 +1876,7 @@ tbody tr:hover td{background:rgba(200,168,75,0.02);}
   <div class="tracker"><div class="tracker-hd"><div class="tracker-t">✦ Estado da Campanha</div><div class="tc"><button class="tbtn am" onclick="salvarDados()">💾 Salvar</button><button class="tbtn" onclick="adicionarPJ()">+ Personagem</button><button class="tbtn red" onclick="resetarDados()">↺ Resetar</button></div></div><div class="tracker-body"><div class="pj-grid" id="pj-grid"></div><h3 style="margin-top:4px;">Registro de Sessões</h3><div style="background:var(--bg3);border:1px solid var(--bd);border-radius:2px;padding:10px;" id="sess-tracker"></div></div></div>
 </div>
 
-<!-- ══════════════════════════════════════════════ -->
-<!-- GERADOR DE SALAS (NOVO) -->
-<!-- ══════════════════════════════════════════════ -->
-<div class="sec" id="gerador-salas">
-  <h1>⚙ Gerador Rápido de Salas</h1>
-  <div class="sec-meta">Combine tipo, conteúdo, anomalia + item especial e situação – clique e use na sessão</div>
-  <div class="namegen" style="margin-bottom:20px;">
-    <div class="namegen-hd">
-      <div class="namegen-t">🎲 Gerador de Sala Liminar</div>
-      <button class="ng-all-btn" onclick="gerarSalaCompleta()">✨ Gerar Sala Agora</button>
-    </div>
-    <div class="namegen-body">
-      <div style="background:var(--bg3); border:1px solid var(--bd); border-radius:3px; padding:16px;">
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:12px;">
-          <div><span class="badge by">Tipo de Sala</span><div id="gs-tipo" style="font-size:15px; margin-top:4px;">—</div></div>
-          <div><span class="badge by">Conteúdo</span><div id="gs-conteudo" style="font-size:15px; margin-top:4px;">—</div></div>
-          <div><span class="badge br">Anomalia</span><div id="gs-anomalia" style="font-size:15px; margin-top:4px;">—</div></div>
-          <div><span class="badge bg">Item Especial</span><div id="gs-item" style="font-size:15px; margin-top:4px;">—</div></div>
-        </div>
-        <div><span class="badge bb">Situação / Efeito</span><div id="gs-situacao" style="font-size:14px; font-style:italic; margin-top:6px;">—</div></div>
-      </div>
-    </div>
-  </div>
-</div>
+
 
 <div style="text-align:center;padding:48px 20px 64px;border-top:1px solid var(--bd2);margin-top:40px;"><div style="font-family:'Special Elite',serif;font-size:18px;color:var(--am2);letter-spacing:0.05em;">O carpete amarelo. O zumbido das luzes.</div><div style="font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--bd3);letter-spacing:0.2em;margin-top:5px;text-transform:uppercase;">Alguém ficou.</div></div>
 
